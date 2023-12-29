@@ -162,13 +162,7 @@ class TabWidget1 extends StatelessWidget {
                             ],
                           ),
                         ))),
-                TextButton(
-                    onPressed: () {
-                      authBloc.add(SignOutEvent());
-                      Navigator.of(context)
-                          .popAndPushNamed(AppRoutes.signIn);
-                    },
-                    child: const Text("Sign Out")),
+
               ],
             )
         ),

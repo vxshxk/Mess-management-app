@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../core/routes.dart';
+import '../../main.dart';
+import '../bloc/auth_bloc/auth_bloc.dart';
 import '../widgets/dashboard.dart';
 import '../widgets/mess_list.dart';
 import '../widgets/services_screen.dart';
@@ -25,6 +28,15 @@ class _UserScreenState extends State<UserScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          TextButton(
+              onPressed: () {
+                authBloc.add(SignOutEvent());
+                Navigator.of(context)
+                    .popAndPushNamed(AppRoutes.signIn);
+              },
+              child: const Text("Sign Out")),
+        ],
       ),
       body: _tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

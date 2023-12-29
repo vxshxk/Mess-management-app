@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         color: Colors.black,
-        initialRoute: AppRoutes.signUp,
+        initialRoute: AppRoutes.signIn,
         routes: AppRoutes.routes,
       ),
     );
