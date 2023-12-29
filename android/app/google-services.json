@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "841576473606",
+    "project_id": "mess-app-aabf2",
+    "storage_bucket": "mess-app-aabf2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841576473606:android:5d3cc0b842205bd2724f87",
+        "android_client_info": {
+          "package_name": "com.example.mess_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWlgAMAfppl_X9o0eNFY5sLjyvBvQXssU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
