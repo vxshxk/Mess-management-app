@@ -20,12 +20,19 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UserModel {
+  @HiveField(0)
   String? get uid => throw _privateConstructorUsedError;
+  @HiveField(1)
   String? get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   String? get rollNumber => throw _privateConstructorUsedError;
+  @HiveField(3)
   String? get email => throw _privateConstructorUsedError;
+  @HiveField(4)
   String? get role => throw _privateConstructorUsedError;
+  @HiveField(5)
   String? get mess => throw _privateConstructorUsedError;
+  @HiveField(6)
   Map<String, dynamic>? get messDetails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,13 +47,13 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {String? uid,
-      String? name,
-      String? rollNumber,
-      String? email,
-      String? role,
-      String? mess,
-      Map<String, dynamic>? messDetails});
+      {@HiveField(0) String? uid,
+      @HiveField(1) String? name,
+      @HiveField(2) String? rollNumber,
+      @HiveField(3) String? email,
+      @HiveField(4) String? role,
+      @HiveField(5) String? mess,
+      @HiveField(6) Map<String, dynamic>? messDetails});
 }
 
 /// @nodoc
@@ -112,13 +119,13 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? uid,
-      String? name,
-      String? rollNumber,
-      String? email,
-      String? role,
-      String? mess,
-      Map<String, dynamic>? messDetails});
+      {@HiveField(0) String? uid,
+      @HiveField(1) String? name,
+      @HiveField(2) String? rollNumber,
+      @HiveField(3) String? email,
+      @HiveField(4) String? role,
+      @HiveField(5) String? mess,
+      @HiveField(6) Map<String, dynamic>? messDetails});
 }
 
 /// @nodoc
@@ -175,34 +182,43 @@ class __$$UserModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserModelImpl implements _UserModel {
-  const _$UserModelImpl(
-      {required this.uid,
-      required this.name,
-      required this.rollNumber,
-      required this.email,
-      required this.role,
-      this.mess,
-      final Map<String, dynamic>? messDetails})
-      : _messDetails = messDetails;
+@HiveType(typeId: 1)
+class _$UserModelImpl extends _UserModel {
+  _$UserModelImpl(
+      {@HiveField(0) required this.uid,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.rollNumber,
+      @HiveField(3) required this.email,
+      @HiveField(4) required this.role,
+      @HiveField(5) this.mess,
+      @HiveField(6) final Map<String, dynamic>? messDetails})
+      : _messDetails = messDetails,
+        super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
 
   @override
+  @HiveField(0)
   final String? uid;
   @override
+  @HiveField(1)
   final String? name;
   @override
+  @HiveField(2)
   final String? rollNumber;
   @override
+  @HiveField(3)
   final String? email;
   @override
+  @HiveField(4)
   final String? role;
   @override
+  @HiveField(5)
   final String? mess;
   final Map<String, dynamic>? _messDetails;
   @override
+  @HiveField(6)
   Map<String, dynamic>? get messDetails {
     final value = _messDetails;
     if (value == null) return null;
@@ -251,32 +267,40 @@ class _$UserModelImpl implements _UserModel {
   }
 }
 
-abstract class _UserModel implements UserModel {
-  const factory _UserModel(
-      {required final String? uid,
-      required final String? name,
-      required final String? rollNumber,
-      required final String? email,
-      required final String? role,
-      final String? mess,
-      final Map<String, dynamic>? messDetails}) = _$UserModelImpl;
+abstract class _UserModel extends UserModel {
+  factory _UserModel(
+      {@HiveField(0) required final String? uid,
+      @HiveField(1) required final String? name,
+      @HiveField(2) required final String? rollNumber,
+      @HiveField(3) required final String? email,
+      @HiveField(4) required final String? role,
+      @HiveField(5) final String? mess,
+      @HiveField(6) final Map<String, dynamic>? messDetails}) = _$UserModelImpl;
+  _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
 
   @override
+  @HiveField(0)
   String? get uid;
   @override
+  @HiveField(1)
   String? get name;
   @override
+  @HiveField(2)
   String? get rollNumber;
   @override
+  @HiveField(3)
   String? get email;
   @override
+  @HiveField(4)
   String? get role;
   @override
+  @HiveField(5)
   String? get mess;
   @override
+  @HiveField(6)
   Map<String, dynamic>? get messDetails;
   @override
   @JsonKey(ignore: true)

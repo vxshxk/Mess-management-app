@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mess_app/core/email_validator.dart';
+import 'package:hive/hive.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 
 import '../../data/models/user_model.dart';
@@ -20,6 +20,8 @@ class RegForm extends StatelessWidget {
     String roll = "";
     String email = "";
     String role = "student";
+    String mess = " ";
+    Map<String, dynamic> det= {"" : " "};
       return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -155,7 +157,10 @@ class RegForm extends StatelessWidget {
                     height: 60,
                     onPressed: () async {
                       if (1==1) {
-                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role);
+                        var box = Hive.box('UserData');
+                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: mess, messDetails: det);
+                        box.put(user.uid, user);
+                        print("Loading: ${box.get(uid)}");
                         IUserRepository iUserRepository = IUserRepository(user: user);
                         await iUserRepository.changeUserData();
                         Navigator.pushReplacement(
