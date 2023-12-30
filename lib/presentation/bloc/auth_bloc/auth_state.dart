@@ -1,13 +1,8 @@
 part of 'auth_bloc.dart';
 
-@immutable
-abstract class AuthState {}
-
-class AuthLoading extends AuthState {}
-
-class Authenticated extends AuthState {
-  String? role;
-  Authenticated({required this.role});
+@freezed
+class AuthState with _$AuthState {
+  const factory AuthState.authenticated({required String? role}) = Authenticated;
+  const factory AuthState.unAuthenticated() = UnAuthenticated;
+  const factory AuthState.authLoading() = AuthLoading;
 }
-
-class UnAuthenticated extends AuthState {}

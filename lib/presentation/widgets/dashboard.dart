@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mess_app/main.dart';
-
-import '../../core/routes.dart';
-import '../bloc/auth_bloc/auth_bloc.dart';
+import '../../data/models/user_model.dart';
 
 class TabWidget1 extends StatelessWidget {
-  const TabWidget1({super.key});
+  final UserModel? user;
+  const TabWidget1({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +61,13 @@ class TabWidget1 extends StatelessWidget {
                                       flex: 5,
                                       child: Column(
                                         children: [
-                                          Text("Name: "),
+                                          Text("Name: ${user?.name}"),
                                           const SizedBox(),
-                                          Text("Roll No.: "),
+                                          Text("Roll No.: ${user?.rollNumber}"),
                                           const SizedBox(),
-                                          Text("Year: "),
+                                          Text("email: ${user?.email}"),
+                                          const SizedBox(),
+                                          Text("role: ${user?.role}"),
                                           const SizedBox(),
                                         ],
                                       ),

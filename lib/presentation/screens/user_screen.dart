@@ -9,7 +9,7 @@ import '../widgets/services_screen.dart';
 
 class UserScreen extends StatefulWidget {
   final UserModel? user;
-  const UserScreen({super.key,required this.user});
+  const UserScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   _UserScreenState createState() => _UserScreenState();
@@ -18,28 +18,27 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _tabs = [
-    const TabWidget1(),
-    const TabWidget2(),
-    const TabWidget3(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentIndex == 0 ? "Tab 1" : (_currentIndex == 1? "Tab 2" : "Tab 3")),
+        title: Text(
+            _currentIndex == 0 ? "Tab 1" : (_currentIndex == 1 ? "Tab 2" : "Tab 3")),
         actions: [
           TextButton(
-              onPressed: () {
-                authBloc.add(SignOutEvent());
-                Navigator.of(context)
-                    .popAndPushNamed(AppRoutes.signIn);
-              },
-              child: const Text("Sign Out")),
+            onPressed: () {
+              authBloc.add(SignOutEvent());
+              Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
+            },
+            child: const Text("Sign Out"),
+          ),
         ],
       ),
-      body: _tabs[_currentIndex],
+      body: [
+        TabWidget1(user: widget.user), // Pass user to TabWidget1
+        const TabWidget2(),
+        const TabWidget3(),
+      ][_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

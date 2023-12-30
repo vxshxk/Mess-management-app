@@ -7,6 +7,7 @@ import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
+import 'admin_screen.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -14,20 +15,29 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) async {
-        if(state is Authenticated){
-          if(state.role== 'n'){
+        if(state is Authenticated) {
+          if (state.role == 'n') {
             Navigator.popAndPushNamed(context, AppRoutes.user);
           }else{
             User? user = FirebaseAuth.instance.currentUser;
             String? uid = user?.uid;
             final result = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
             final UserModel exUser = UserModel.fromJson(result.data() as Map<String, dynamic>);
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UserScreen(user: exUser),
-              ),
-            );
+            if(exUser.role == 'student'){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserScreen(user: exUser),
+                ),
+              );
+            }else{
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AdminScreen(user: exUser),
+                ),
+              );
+            }
           }
         }else if(state is UnAuthenticated){
           Navigator.popAndPushNamed(context, AppRoutes.signIn);
