@@ -5,6 +5,9 @@ abstract class AuthState {}
 
 class AuthLoading extends AuthState {}
 
-class Authenticated extends AuthState {}
+class Authenticated extends AuthState {
+  String? role;
+  Authenticated({required this.role});
+}
 
 class UnAuthenticated extends AuthState {}

@@ -1,6 +1,9 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mess_app/core/failures/failures.dart';
 import 'package:mess_app/domain/features/auth/auth.dart';
+
+import '../../../data/models/user_model.dart';
 
 class AuthServiceImpl extends AuthService{
 
@@ -30,6 +33,15 @@ class AuthServiceImpl extends AuthService{
   @override
   Future<void> signOut() async {
     await auth.signOut();
+  }
+
+  @override
+  Future<Option<String>> getSignedInUser() async {
+    if (auth.currentUser == null) {
+      return none();
+    } else {
+      return some(auth.currentUser!.uid);
+    }
   }
 
 }

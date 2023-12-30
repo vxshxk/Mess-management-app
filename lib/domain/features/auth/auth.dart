@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../../core/failures/failures.dart';
+import '../../../data/models/user_model.dart';
 
 abstract class AuthService{
   final FirebaseAuth auth;
@@ -16,7 +17,7 @@ abstract class AuthService{
     required String email,
     required String password,
   });
-
+  Future<Option<String>> getSignedInUser();
   Future<void> signOut();
 
 }

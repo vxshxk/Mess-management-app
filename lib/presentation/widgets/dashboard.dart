@@ -6,6 +6,8 @@ import '../../core/routes.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 
 class TabWidget1 extends StatelessWidget {
+  const TabWidget1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(

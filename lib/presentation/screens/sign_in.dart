@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mess_app/presentation/screens/sign_up.dart';
-
+import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../core/email_validator.dart';
 import '../../core/routes.dart';
-import '../../main.dart';
+import '../../data/models/user_model.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 
 class SignIn extends StatelessWidget {
@@ -21,18 +23,26 @@ class SignIn extends StatelessWidget {
         title: const Text("Sign In"),
       ),
       body: BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if(state is Authenticated){
-          Navigator.popAndPushNamed(context, AppRoutes.user);
-          print(state.toString());
+          if(state.role== 'n'){
+            Navigator.popAndPushNamed(context, AppRoutes.user);
+          }else{
+            User? user = FirebaseAuth.instance.currentUser;
+            String? uid = user?.uid;
+            final result = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
+            final UserModel exUser = UserModel.fromJson(result.data() as Map<String, dynamic>);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserScreen(user: exUser),
+              ),
+            );
+          }
         }else if(state is UnAuthenticated){
-          print(state.toString());
           Navigator.popAndPushNamed(context, AppRoutes.signIn);
-        }else if(state is AuthLoading){
-          Navigator.popAndPushNamed(context, AppRoutes.loading);
-          print(state.toString());
         }else{
-          print(state.toString());
+          Navigator.popAndPushNamed(context, AppRoutes.loading);
         }
       },
       child: Container(
@@ -146,7 +156,6 @@ class SignIn extends StatelessWidget {
                     onPressed: () async {
                       if(isEmailValid(email!) || password!.length>=6){
                         BlocProvider.of<AuthBloc>(context).add(SignInEvent(email: email!, password: password!));
-                        print(BlocProvider.of<AuthBloc>(context).state.toString());
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -155,7 +164,7 @@ class SignIn extends StatelessWidget {
                         );
                       }
                     },
-                    color: const Color(0xff0095FF),
+                    color: Colors.deepPurple[400],
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),

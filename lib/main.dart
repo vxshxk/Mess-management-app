@@ -22,13 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => authBloc,
+      create: (context) => authBloc..add(AuthCheck()),
       child: MaterialApp(
         theme: ThemeData(
           useMaterial3: true,
         ),
-        color: Colors.black,
-        initialRoute: AppRoutes.signIn,
+        color: Colors.white,
+        initialRoute: AppRoutes.loading,
         routes: AppRoutes.routes,
       ),
     );

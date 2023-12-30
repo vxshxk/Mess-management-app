@@ -14,42 +14,45 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+UserModel _$UserModelFromJson(Map<String, dynamic> json) {
+  return _UserModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
+mixin _$UserModel {
   String? get uid => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get rollNumber => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
   String? get mess => throw _privateConstructorUsedError;
-  int? get messBalance => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get messDetails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $UserModelCopyWith<UserModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $UserModelCopyWith<$Res> {
+  factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
+      _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
       {String? uid,
       String? name,
       String? rollNumber,
       String? email,
+      String? role,
       String? mess,
-      int? messBalance});
+      Map<String, dynamic>? messDetails});
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
+    implements $UserModelCopyWith<$Res> {
+  _$UserModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -63,8 +66,9 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? name = freezed,
     Object? rollNumber = freezed,
     Object? email = freezed,
+    Object? role = freezed,
     Object? mess = freezed,
-    Object? messBalance = freezed,
+    Object? messDetails = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -83,23 +87,28 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       mess: freezed == mess
           ? _value.mess
           : mess // ignore: cast_nullable_to_non_nullable
               as String?,
-      messBalance: freezed == messBalance
-          ? _value.messBalance
-          : messBalance // ignore: cast_nullable_to_non_nullable
-              as int?,
+      messDetails: freezed == messDetails
+          ? _value.messDetails
+          : messDetails // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$UserModelImplCopyWith<$Res>
+    implements $UserModelCopyWith<$Res> {
+  factory _$$UserModelImplCopyWith(
+          _$UserModelImpl value, $Res Function(_$UserModelImpl) then) =
+      __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -107,15 +116,17 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? name,
       String? rollNumber,
       String? email,
+      String? role,
       String? mess,
-      int? messBalance});
+      Map<String, dynamic>? messDetails});
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$UserModelImplCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
+    implements _$$UserModelImplCopyWith<$Res> {
+  __$$UserModelImplCopyWithImpl(
+      _$UserModelImpl _value, $Res Function(_$UserModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -125,10 +136,11 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? rollNumber = freezed,
     Object? email = freezed,
+    Object? role = freezed,
     Object? mess = freezed,
-    Object? messBalance = freezed,
+    Object? messDetails = freezed,
   }) {
-    return _then(_$UserImpl(
+    return _then(_$UserModelImpl(
       uid: freezed == uid
           ? _value.uid
           : uid // ignore: cast_nullable_to_non_nullable
@@ -145,31 +157,37 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String?,
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
       mess: freezed == mess
           ? _value.mess
           : mess // ignore: cast_nullable_to_non_nullable
               as String?,
-      messBalance: freezed == messBalance
-          ? _value.messBalance
-          : messBalance // ignore: cast_nullable_to_non_nullable
-              as int?,
+      messDetails: freezed == messDetails
+          ? _value._messDetails
+          : messDetails // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  const _$UserImpl(
+class _$UserModelImpl implements _UserModel {
+  const _$UserModelImpl(
       {required this.uid,
       required this.name,
       required this.rollNumber,
       required this.email,
+      required this.role,
       this.mess,
-      this.messBalance});
+      final Map<String, dynamic>? messDetails})
+      : _messDetails = messDetails;
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserModelImplFromJson(json);
 
   @override
   final String? uid;
@@ -180,59 +198,71 @@ class _$UserImpl implements _User {
   @override
   final String? email;
   @override
-  final String? mess;
+  final String? role;
   @override
-  final int? messBalance;
+  final String? mess;
+  final Map<String, dynamic>? _messDetails;
+  @override
+  Map<String, dynamic>? get messDetails {
+    final value = _messDetails;
+    if (value == null) return null;
+    if (_messDetails is EqualUnmodifiableMapView) return _messDetails;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'User(uid: $uid, name: $name, rollNumber: $rollNumber, email: $email, mess: $mess, messBalance: $messBalance)';
+    return 'UserModel(uid: $uid, name: $name, rollNumber: $rollNumber, email: $email, role: $role, mess: $mess, messDetails: $messDetails)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
+            other is _$UserModelImpl &&
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.rollNumber, rollNumber) ||
                 other.rollNumber == rollNumber) &&
             (identical(other.email, email) || other.email == email) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.mess, mess) || other.mess == mess) &&
-            (identical(other.messBalance, messBalance) ||
-                other.messBalance == messBalance));
+            const DeepCollectionEquality()
+                .equals(other._messDetails, _messDetails));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, uid, name, rollNumber, email, mess, messBalance);
+  int get hashCode => Object.hash(runtimeType, uid, name, rollNumber, email,
+      role, mess, const DeepCollectionEquality().hash(_messDetails));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$UserModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
+abstract class _UserModel implements UserModel {
+  const factory _UserModel(
       {required final String? uid,
       required final String? name,
       required final String? rollNumber,
       required final String? email,
+      required final String? role,
       final String? mess,
-      final int? messBalance}) = _$UserImpl;
+      final Map<String, dynamic>? messDetails}) = _$UserModelImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$UserModelImpl.fromJson;
 
   @override
   String? get uid;
@@ -243,11 +273,13 @@ abstract class _User implements User {
   @override
   String? get email;
   @override
+  String? get role;
+  @override
   String? get mess;
   @override
-  int? get messBalance;
+  Map<String, dynamic>? get messDetails;
   @override
   @JsonKey(ignore: true)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
