@@ -16,7 +16,7 @@ class AddMessScreen extends StatelessWidget {
     String current = "0";
     String email = "";
     String total = "0";
-    Map<String, dynamic> menu= {"" : " "};
+    Map<String, dynamic> menu= {" " : " "};
     return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener

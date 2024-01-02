@@ -21,7 +21,7 @@ class RegForm extends StatelessWidget {
     String email = "";
     String role = "student";
     String mess = " ";
-    Map<String, dynamic> det= {"" : " "};
+    Map<String, dynamic> det= {" " : " "};
       return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener
