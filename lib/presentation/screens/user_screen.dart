@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mess_app/presentation/screens/add_mess.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../../main.dart';
@@ -25,9 +26,17 @@ class _UserScreenState extends State<UserScreen> {
         title: Text(
             _currentIndex == 0 ? "Tab 1" : (_currentIndex == 1 ? "Tab 2" : "Tab 3")),
         actions: [
+          widget.user?.role=="student"? IconButton(onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AddMessScreen(),
+              ),
+            );
+          }, icon: const  Icon(Icons.add), tooltip: "Add Mess",) : const SizedBox(),
           TextButton(
             onPressed: () {
-              authBloc.add(SignOutEvent());
+              authBloc.add(const SignOutEvent());
               Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
             },
             child: const Text("Sign Out"),
@@ -36,7 +45,7 @@ class _UserScreenState extends State<UserScreen> {
       ),
       body: [
         TabWidget1(user: widget.user), // Pass user to TabWidget1
-        const TabWidget2(),
+        TabWidget2(),
         const TabWidget3(),
       ][_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

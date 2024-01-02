@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAcQmIr69tYWrVmAHxnib5dpyFr7vgClK4',
-    appId: '1:841576473606:web:5614d3d923b3a061724f87',
-    messagingSenderId: '841576473606',
-    projectId: 'mess-app-aabf2',
-    authDomain: 'mess-app-aabf2.firebaseapp.com',
-    storageBucket: 'mess-app-aabf2.appspot.com',
+    apiKey: 'AIzaSyCC_sap7uhKWhKXDpTmq0yCfcRzC3v4c3w',
+    appId: '1:918909975447:web:611f3a73da9184b9b2e2d2',
+    messagingSenderId: '918909975447',
+    projectId: 'mess-app-2',
+    authDomain: 'mess-app-2.firebaseapp.com',
+    storageBucket: 'mess-app-2.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBWlgAMAfppl_X9o0eNFY5sLjyvBvQXssU',
-    appId: '1:841576473606:android:5d3cc0b842205bd2724f87',
-    messagingSenderId: '841576473606',
-    projectId: 'mess-app-aabf2',
-    storageBucket: 'mess-app-aabf2.appspot.com',
+    apiKey: 'AIzaSyBWdhCSmcz8PWXEftYX7wc4hvCI4dHHADs',
+    appId: '1:918909975447:android:9767b62c86ae79d5b2e2d2',
+    messagingSenderId: '918909975447',
+    projectId: 'mess-app-2',
+    storageBucket: 'mess-app-2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB1NMtbJFpAZUo15PlaAQL78rmUSKMhORA',
-    appId: '1:841576473606:ios:45c9a91dfb9c69c4724f87',
-    messagingSenderId: '841576473606',
-    projectId: 'mess-app-aabf2',
-    storageBucket: 'mess-app-aabf2.appspot.com',
+    apiKey: 'AIzaSyAO870KxN7Jwor9NlTGWbcEeHvWWJVgv6U',
+    appId: '1:918909975447:ios:cc481db58d081f40b2e2d2',
+    messagingSenderId: '918909975447',
+    projectId: 'mess-app-2',
+    storageBucket: 'mess-app-2.appspot.com',
     iosBundleId: 'com.example.messApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB1NMtbJFpAZUo15PlaAQL78rmUSKMhORA',
-    appId: '1:841576473606:ios:f393645f629a90c9724f87',
-    messagingSenderId: '841576473606',
-    projectId: 'mess-app-aabf2',
-    storageBucket: 'mess-app-aabf2.appspot.com',
+    apiKey: 'AIzaSyAO870KxN7Jwor9NlTGWbcEeHvWWJVgv6U',
+    appId: '1:918909975447:ios:3dc17c8741db141cb2e2d2',
+    messagingSenderId: '918909975447',
+    projectId: 'mess-app-2',
+    storageBucket: 'mess-app-2.appspot.com',
     iosBundleId: 'com.example.messApp.RunnerTests',
   );
 }

@@ -8,7 +8,7 @@ import '../../core/email_validator.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
-import 'admin_screen.dart';
+import 'add_mess.dart';
 
 class SignIn extends StatelessWidget {
   SignIn({super.key});
@@ -33,21 +33,12 @@ class SignIn extends StatelessWidget {
             String? uid = user?.uid;
             final result = await FirebaseFirestore.instance.collection('Users').doc(uid).get();
             final UserModel exUser = UserModel.fromJson(result.data() as Map<String, dynamic>);
-            if(exUser.role == 'student'){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserScreen(user: exUser),
-                ),
-              );
-            }else{
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AdminScreen(user: exUser),
-                ),
-              );
-            }
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserScreen(user: exUser),
+              ),
+            );
           }
         }else if(state is UnAuthenticated){
           Navigator.popAndPushNamed(context, AppRoutes.signIn);

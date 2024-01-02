@@ -9,7 +9,7 @@ import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
-import 'admin_screen.dart';
+import 'add_mess.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -30,40 +30,20 @@ class Loading extends StatelessWidget {
             if(isData) {
               final result =await FirebaseFirestore.instance.collection('Users').doc(uid).get();
               final UserModel exUser = UserModel.fromJson(result.data() as Map<String, dynamic>);
-              print("data: ${exUser}");
-              if(exUser.role == 'student'){
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => UserScreen(user: exUser),
-                  ),
-                );
-              }else{
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AdminScreen(user: exUser),
-                  ),
-                );
-              }
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserScreen(user: exUser),
+                ),
+              );
             }else{
                final UserModel exUser =box.get(uid);
-               print("Loading: ${exUser}");
-               if(exUser.role == 'student'){
-                 Navigator.pushReplacement(
-                   context,
-                   MaterialPageRoute(
-                     builder: (context) => UserScreen(user: exUser),
-                   ),
-                 );
-               }else{
-                 Navigator.pushReplacement(
-                   context,
-                   MaterialPageRoute(
-                     builder: (context) => AdminScreen(user: exUser),
-                   ),
-                 );
-               }
+               Navigator.pushReplacement(
+                 context,
+                 MaterialPageRoute(
+                   builder: (context) => UserScreen(user: exUser),
+                 ),
+               );
             }
 
           }

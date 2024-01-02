@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
-
 import 'core/routes.dart';
 import 'core/firebase_options.dart';
+import 'data/models/mess_model.dart';
 import 'data/models/user_model.dart';
 
 final authBloc = AuthBloc();
@@ -18,7 +18,9 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Hive.registerAdapter(UserModelAdapter());
+  Hive.registerAdapter(MessModelAdapter());
   await Hive.openBox('UserData');
+  await Hive.openBox('MessData');
   runApp(MyApp());
 }
 

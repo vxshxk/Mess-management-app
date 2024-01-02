@@ -13,6 +13,7 @@ class UserCollectionFacade {
   Future<Either<Failure,UserModel>> setUser() async {
     try{
       await userCollectionReference.doc(user?.uid).set(user?.toJson());
+      print("yah");
       return right(user!); //returns the updated User
     }catch(error) {
       return left(ServerFailure());

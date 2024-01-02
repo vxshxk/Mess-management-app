@@ -1,28 +1,23 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:mess_app/presentation/screens/user_screen.dart';
-
-import '../../data/models/user_model.dart';
-import '../../data/repositories/user_repository_impl.dart';
+import 'package:mess_app/domain/usecases/add_mess/add_mess_impl.dart';
+import '../../data/models/mess_model.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 
-class RegForm extends StatelessWidget {
-  const RegForm({super.key});
+
+class AddMessScreen extends StatelessWidget {
+  const AddMessScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
-    String? uid = user?.uid;
 
     String name = "";
-    String roll = "";
+    String current = "0";
     String email = "";
-    String role = "student";
-    String mess = " ";
-    Map<String, dynamic> det= {"" : " "};
-      return BlocListener<AuthBloc,AuthState>(
+    String total = "0";
+    Map<String, dynamic> menu= {"" : " "};
+    return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener
       },
@@ -76,7 +71,7 @@ class RegForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    "Roll Number",
+                    "Total seats",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -88,9 +83,10 @@ class RegForm extends StatelessWidget {
                     height: 5,
                   ),
                   TextField(
+                    keyboardType: TextInputType.number,
                     obscureText: false,
                     onChanged: (val) {
-                      roll = val;
+                      total = val;
                     },
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(vertical: 0,
@@ -114,7 +110,7 @@ class RegForm extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
-                    "Email",
+                    "Contact email",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -157,17 +153,12 @@ class RegForm extends StatelessWidget {
                     height: 60,
                     onPressed: () async {
                       if (1==1) {
-                        var box = Hive.box('UserData');
-                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: mess, messDetails: det);
-                        box.put(user.uid, user);
-                        IUserRepository iUserRepository = IUserRepository(user: user);
-                        await iUserRepository.changeUserData();
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UserScreen(user: user),
-                          ),
-                        );
+                        var box = Hive.box('MessData');
+                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu);
+                        box.put(mess.name, mess);
+                        final messData =  MessDataImpl(mess: mess);
+                        await messData.setMessData();
+                        Navigator.of(context).pop();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
