@@ -15,7 +15,6 @@ class MessCollectionFacade {
   Future<Either<Failure, MessModel>> setMess() async {
     try {
       await messCollectionReference.doc(mess?.name).set(mess?.toJson());
-      print("yah");
       return right(mess!); //returns the updated mess
     } catch (error) {
       return left(ServerFailure());
@@ -26,7 +25,6 @@ class MessCollectionFacade {
     try {
       final DocumentSnapshot documentSnapshot = await messCollectionReference
           .doc(mess!.name).get();
-
       if (documentSnapshot.exists) {
         final MessModel mess = MessModel.fromJson(
             documentSnapshot.data() as Map<String, dynamic>);

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:mess_app/core/email_validator.dart';
 import 'package:mess_app/domain/usecases/add_mess/add_mess_impl.dart';
 import '../../data/models/mess_model.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
+import '../widgets/mess_list.dart';
 
 
 class AddMessScreen extends StatelessWidget {
@@ -158,6 +160,7 @@ class AddMessScreen extends StatelessWidget {
                         box.put(mess.name, mess);
                         final messData =  MessDataImpl(mess: mess);
                         await messData.setMessData();
+                        await getAllDocuments(list: users);
                         Navigator.of(context).pop();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

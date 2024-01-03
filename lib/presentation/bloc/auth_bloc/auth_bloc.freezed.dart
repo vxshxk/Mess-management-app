@@ -19,6 +19,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
     required TResult Function(String? email, String? password) signInEvent,
     required TResult Function(String? email, String? password) signUpEvent,
     required TResult Function() signOutEvent,
@@ -27,6 +28,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
     TResult? Function(String? email, String? password)? signInEvent,
     TResult? Function(String? email, String? password)? signUpEvent,
     TResult? Function()? signOutEvent,
@@ -35,6 +37,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
     TResult Function(String? email, String? password)? signInEvent,
     TResult Function(String? email, String? password)? signUpEvent,
     TResult Function()? signOutEvent,
@@ -44,6 +47,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
     required TResult Function(SignInEvent value) signInEvent,
     required TResult Function(SignUpEvent value) signUpEvent,
     required TResult Function(SignOutEvent value) signOutEvent,
@@ -52,6 +56,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
     TResult? Function(SignInEvent value)? signInEvent,
     TResult? Function(SignUpEvent value)? signUpEvent,
     TResult? Function(SignOutEvent value)? signOutEvent,
@@ -60,6 +65,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
     TResult Function(SignInEvent value)? signInEvent,
     TResult Function(SignUpEvent value)? signUpEvent,
     TResult Function(SignOutEvent value)? signOutEvent,
@@ -124,6 +130,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
     required TResult Function(String? email, String? password) signInEvent,
     required TResult Function(String? email, String? password) signUpEvent,
     required TResult Function() signOutEvent,
@@ -135,6 +142,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
     TResult? Function(String? email, String? password)? signInEvent,
     TResult? Function(String? email, String? password)? signUpEvent,
     TResult? Function()? signOutEvent,
@@ -146,6 +154,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
     TResult Function(String? email, String? password)? signInEvent,
     TResult Function(String? email, String? password)? signUpEvent,
     TResult Function()? signOutEvent,
@@ -161,6 +170,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
     required TResult Function(SignInEvent value) signInEvent,
     required TResult Function(SignUpEvent value) signUpEvent,
     required TResult Function(SignOutEvent value) signOutEvent,
@@ -172,6 +182,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
     TResult? Function(SignInEvent value)? signInEvent,
     TResult? Function(SignUpEvent value)? signUpEvent,
     TResult? Function(SignOutEvent value)? signOutEvent,
@@ -183,6 +194,7 @@ class _$AuthCheckImpl implements AuthCheck {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
     TResult Function(SignInEvent value)? signInEvent,
     TResult Function(SignUpEvent value)? signUpEvent,
     TResult Function(SignOutEvent value)? signOutEvent,
@@ -197,6 +209,157 @@ class _$AuthCheckImpl implements AuthCheck {
 
 abstract class AuthCheck implements AuthEvent {
   const factory AuthCheck() = _$AuthCheckImpl;
+}
+
+/// @nodoc
+abstract class _$$ErrorEventImplCopyWith<$Res> {
+  factory _$$ErrorEventImplCopyWith(
+          _$ErrorEventImpl value, $Res Function(_$ErrorEventImpl) then) =
+      __$$ErrorEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? error});
+}
+
+/// @nodoc
+class __$$ErrorEventImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$ErrorEventImpl>
+    implements _$$ErrorEventImplCopyWith<$Res> {
+  __$$ErrorEventImplCopyWithImpl(
+      _$ErrorEventImpl _value, $Res Function(_$ErrorEventImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = freezed,
+  }) {
+    return _then(_$ErrorEventImpl(
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ErrorEventImpl implements ErrorEvent {
+  const _$ErrorEventImpl({this.error});
+
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'AuthEvent.errorEvent(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorEventImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorEventImplCopyWith<_$ErrorEventImpl> get copyWith =>
+      __$$ErrorEventImplCopyWithImpl<_$ErrorEventImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
+    required TResult Function(String? email, String? password) signInEvent,
+    required TResult Function(String? email, String? password) signUpEvent,
+    required TResult Function() signOutEvent,
+  }) {
+    return errorEvent(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
+    TResult? Function(String? email, String? password)? signInEvent,
+    TResult? Function(String? email, String? password)? signUpEvent,
+    TResult? Function()? signOutEvent,
+  }) {
+    return errorEvent?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
+    TResult Function(String? email, String? password)? signInEvent,
+    TResult Function(String? email, String? password)? signUpEvent,
+    TResult Function()? signOutEvent,
+    required TResult orElse(),
+  }) {
+    if (errorEvent != null) {
+      return errorEvent(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
+    required TResult Function(SignInEvent value) signInEvent,
+    required TResult Function(SignUpEvent value) signUpEvent,
+    required TResult Function(SignOutEvent value) signOutEvent,
+  }) {
+    return errorEvent(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
+    TResult? Function(SignInEvent value)? signInEvent,
+    TResult? Function(SignUpEvent value)? signUpEvent,
+    TResult? Function(SignOutEvent value)? signOutEvent,
+  }) {
+    return errorEvent?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
+    TResult Function(SignInEvent value)? signInEvent,
+    TResult Function(SignUpEvent value)? signUpEvent,
+    TResult Function(SignOutEvent value)? signOutEvent,
+    required TResult orElse(),
+  }) {
+    if (errorEvent != null) {
+      return errorEvent(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class ErrorEvent implements AuthEvent {
+  const factory ErrorEvent({final String? error}) = _$ErrorEventImpl;
+
+  String? get error;
+  @JsonKey(ignore: true)
+  _$$ErrorEventImplCopyWith<_$ErrorEventImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -273,6 +436,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
     required TResult Function(String? email, String? password) signInEvent,
     required TResult Function(String? email, String? password) signUpEvent,
     required TResult Function() signOutEvent,
@@ -284,6 +448,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
     TResult? Function(String? email, String? password)? signInEvent,
     TResult? Function(String? email, String? password)? signUpEvent,
     TResult? Function()? signOutEvent,
@@ -295,6 +460,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
     TResult Function(String? email, String? password)? signInEvent,
     TResult Function(String? email, String? password)? signUpEvent,
     TResult Function()? signOutEvent,
@@ -310,6 +476,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
     required TResult Function(SignInEvent value) signInEvent,
     required TResult Function(SignUpEvent value) signUpEvent,
     required TResult Function(SignOutEvent value) signOutEvent,
@@ -321,6 +488,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
     TResult? Function(SignInEvent value)? signInEvent,
     TResult? Function(SignUpEvent value)? signUpEvent,
     TResult? Function(SignOutEvent value)? signOutEvent,
@@ -332,6 +500,7 @@ class _$SignInEventImpl implements SignInEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
     TResult Function(SignInEvent value)? signInEvent,
     TResult Function(SignUpEvent value)? signUpEvent,
     TResult Function(SignOutEvent value)? signOutEvent,
@@ -430,6 +599,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
     required TResult Function(String? email, String? password) signInEvent,
     required TResult Function(String? email, String? password) signUpEvent,
     required TResult Function() signOutEvent,
@@ -441,6 +611,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
     TResult? Function(String? email, String? password)? signInEvent,
     TResult? Function(String? email, String? password)? signUpEvent,
     TResult? Function()? signOutEvent,
@@ -452,6 +623,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
     TResult Function(String? email, String? password)? signInEvent,
     TResult Function(String? email, String? password)? signUpEvent,
     TResult Function()? signOutEvent,
@@ -467,6 +639,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
     required TResult Function(SignInEvent value) signInEvent,
     required TResult Function(SignUpEvent value) signUpEvent,
     required TResult Function(SignOutEvent value) signOutEvent,
@@ -478,6 +651,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
     TResult? Function(SignInEvent value)? signInEvent,
     TResult? Function(SignUpEvent value)? signUpEvent,
     TResult? Function(SignOutEvent value)? signOutEvent,
@@ -489,6 +663,7 @@ class _$SignUpEventImpl implements SignUpEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
     TResult Function(SignInEvent value)? signInEvent,
     TResult Function(SignUpEvent value)? signUpEvent,
     TResult Function(SignOutEvent value)? signOutEvent,
@@ -552,6 +727,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() authCheck,
+    required TResult Function(String? error) errorEvent,
     required TResult Function(String? email, String? password) signInEvent,
     required TResult Function(String? email, String? password) signUpEvent,
     required TResult Function() signOutEvent,
@@ -563,6 +739,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? authCheck,
+    TResult? Function(String? error)? errorEvent,
     TResult? Function(String? email, String? password)? signInEvent,
     TResult? Function(String? email, String? password)? signUpEvent,
     TResult? Function()? signOutEvent,
@@ -574,6 +751,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? authCheck,
+    TResult Function(String? error)? errorEvent,
     TResult Function(String? email, String? password)? signInEvent,
     TResult Function(String? email, String? password)? signUpEvent,
     TResult Function()? signOutEvent,
@@ -589,6 +767,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(AuthCheck value) authCheck,
+    required TResult Function(ErrorEvent value) errorEvent,
     required TResult Function(SignInEvent value) signInEvent,
     required TResult Function(SignUpEvent value) signUpEvent,
     required TResult Function(SignOutEvent value) signOutEvent,
@@ -600,6 +779,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(AuthCheck value)? authCheck,
+    TResult? Function(ErrorEvent value)? errorEvent,
     TResult? Function(SignInEvent value)? signInEvent,
     TResult? Function(SignUpEvent value)? signUpEvent,
     TResult? Function(SignOutEvent value)? signOutEvent,
@@ -611,6 +791,7 @@ class _$SignOutEventImpl implements SignOutEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(AuthCheck value)? authCheck,
+    TResult Function(ErrorEvent value)? errorEvent,
     TResult Function(SignInEvent value)? signInEvent,
     TResult Function(SignUpEvent value)? signUpEvent,
     TResult Function(SignOutEvent value)? signOutEvent,

@@ -17,14 +17,14 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  int _currentIndex = 0;
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            _currentIndex == 0 ? "Tab 1" : (_currentIndex == 1 ? "Tab 2" : "Tab 3")),
+            currentIndex == 0 ? "Tab 1" : (currentIndex == 1 ? "Tab 2" : "Tab 3")),
         actions: [
           widget.user?.role=="student"? IconButton(onPressed: () {
             Navigator.push(
@@ -45,14 +45,14 @@ class _UserScreenState extends State<UserScreen> {
       ),
       body: [
         TabWidget1(user: widget.user), // Pass user to TabWidget1
-        TabWidget2(),
+        TabWidget2(user: widget.user),
         const TabWidget3(),
-      ][_currentIndex],
+      ][currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: (index) {
           setState(() {
-            _currentIndex = index;
+            currentIndex = index;
           });
         },
         items: const [

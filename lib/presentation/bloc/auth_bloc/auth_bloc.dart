@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../domain/usecases/auth/auth_impl.dart';
+import '../../../main.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -23,6 +25,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           const Authenticated(role: 'o'),
         ),
       );
+    });
+
+    on<ErrorEvent>((event, emit) async{
+      emit(const UnAuthenticated());
+      MyApp().scaffoldKey?.currentState?.showBottomSheet((context) => Text(event.error.toString()));
     });
 
     on<SignInEvent>((event, emit) async{

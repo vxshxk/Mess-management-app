@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:mess_app/domain/features/network/network.dart';
+import 'package:mess_app/main.dart';
 import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../core/routes.dart';
@@ -21,31 +22,44 @@ class Loading extends StatelessWidget {
           if (state.role == 'n') {
             Navigator.popAndPushNamed(context, AppRoutes.user);
           }else{
-            var box = Hive.box('UserData');
-            User? user = FirebaseAuth.instance.currentUser;
-            String? uid = user?.uid;
+              var box = Hive.box('UserData');
+              User? user = FirebaseAuth.instance.currentUser;
+              String? uid = user?.uid;
 
-            print("Loading: ${Hive.box('UserData').get(uid).name}");
-            bool isData = await NetworkInfoImpl().isConnected ;
-            if(isData) {
-              final result =await FirebaseFirestore.instance.collection('Users').doc(uid).get();
-              final UserModel exUser = UserModel.fromJson(result.data() as Map<String, dynamic>);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserScreen(user: exUser),
-                ),
-              );
-            }else{
-               final UserModel exUser =box.get(uid);
-               Navigator.pushReplacement(
-                 context,
-                 MaterialPageRoute(
-                   builder: (context) => UserScreen(user: exUser),
-                 ),
-               );
-            }
-
+              print("Loading: ${Hive.box('UserData').get(uid).name}");
+              bool isData = await NetworkInfoImpl().isConnected;
+               try {
+                 if (isData) {
+                   final result = await FirebaseFirestore.instance
+                       .collection('Users')
+                       .doc(uid)
+                       .get();
+                   final UserModel exUser =
+                   UserModel.fromJson(result.data() as Map<String, dynamic>);
+                   Navigator.pushReplacement(
+                     context,
+                     MaterialPageRoute(
+                       builder: (context) => UserScreen(user: exUser),
+                     ),
+                   );
+                 } else {
+                   final UserModel exUser = box.get(uid);
+                   Navigator.pushReplacement(
+                     context,
+                     MaterialPageRoute(
+                       builder: (context) => UserScreen(user: exUser),
+                     ),
+                   );
+                 }
+               }catch (e) {
+                final UserModel exUser = box.get(uid);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserScreen(user: exUser),
+                  ),
+                );
+        }
           }
         }else if(state is UnAuthenticated){
           Navigator.popAndPushNamed(context, AppRoutes.signIn);

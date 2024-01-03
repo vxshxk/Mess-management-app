@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mess_app/core/failures/failures.dart';
 import 'package:mess_app/domain/features/auth/auth.dart';
-
-import '../../../data/models/user_model.dart';
+import '../../../main.dart';
+import '../../../presentation/bloc/auth_bloc/auth_bloc.dart';
 
 class AuthServiceImpl extends AuthService{
 
@@ -16,6 +15,7 @@ class AuthServiceImpl extends AuthService{
       await auth.createUserWithEmailAndPassword(email: email, password: password);
       return right(unit);
     }catch(e){
+      authBloc.add(ErrorEvent(error: e.toString()));
       return left(ServerFailure(message: e.toString()));
     }
   }
@@ -26,6 +26,7 @@ class AuthServiceImpl extends AuthService{
       await auth.signInWithEmailAndPassword(email: email, password: password);
       return right(unit);
     }catch(e){
+      authBloc.add(ErrorEvent(error: e.toString()));
       return left(ServerFailure(message: e.toString()));
     }
   }

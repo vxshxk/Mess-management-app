@@ -37,5 +37,9 @@ class UserModel extends HiveObject with _$UserModel {
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
+
+  set mess(String? value) {
+    mess = value;
+  }
 }
 
