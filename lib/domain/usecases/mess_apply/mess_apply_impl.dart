@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:mess_app/core/failures/failures.dart';
-import 'package:mess_app/data/repositories/user_repository_impl.dart';
 import '../../features/mess_apply/mess_apply.dart';
 
 class MessApplyImpl extends MessApply{

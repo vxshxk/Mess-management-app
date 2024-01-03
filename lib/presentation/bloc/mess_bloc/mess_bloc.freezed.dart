@@ -19,32 +19,38 @@ mixin _$MessEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() dataChanged,
+    required TResult Function() updatedOrNot,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? dataChanged,
+    TResult? Function()? updatedOrNot,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? dataChanged,
+    TResult Function()? updatedOrNot,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DataChanged value) dataChanged,
+    required TResult Function(updatedOrNot value) updatedOrNot,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DataChanged value)? dataChanged,
+    TResult? Function(updatedOrNot value)? updatedOrNot,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataChanged value)? dataChanged,
+    TResult Function(updatedOrNot value)? updatedOrNot,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -106,6 +112,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() dataChanged,
+    required TResult Function() updatedOrNot,
   }) {
     return dataChanged();
   }
@@ -114,6 +121,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? dataChanged,
+    TResult? Function()? updatedOrNot,
   }) {
     return dataChanged?.call();
   }
@@ -122,6 +130,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? dataChanged,
+    TResult Function()? updatedOrNot,
     required TResult orElse(),
   }) {
     if (dataChanged != null) {
@@ -134,6 +143,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DataChanged value) dataChanged,
+    required TResult Function(updatedOrNot value) updatedOrNot,
   }) {
     return dataChanged(this);
   }
@@ -142,6 +152,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DataChanged value)? dataChanged,
+    TResult? Function(updatedOrNot value)? updatedOrNot,
   }) {
     return dataChanged?.call(this);
   }
@@ -150,6 +161,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataChanged value)? dataChanged,
+    TResult Function(updatedOrNot value)? updatedOrNot,
     required TResult orElse(),
   }) {
     if (dataChanged != null) {
@@ -164,42 +176,144 @@ abstract class DataChanged implements MessEvent {
 }
 
 /// @nodoc
+abstract class _$$updatedOrNotImplCopyWith<$Res> {
+  factory _$$updatedOrNotImplCopyWith(
+          _$updatedOrNotImpl value, $Res Function(_$updatedOrNotImpl) then) =
+      __$$updatedOrNotImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$updatedOrNotImplCopyWithImpl<$Res>
+    extends _$MessEventCopyWithImpl<$Res, _$updatedOrNotImpl>
+    implements _$$updatedOrNotImplCopyWith<$Res> {
+  __$$updatedOrNotImplCopyWithImpl(
+      _$updatedOrNotImpl _value, $Res Function(_$updatedOrNotImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$updatedOrNotImpl implements updatedOrNot {
+  const _$updatedOrNotImpl();
+
+  @override
+  String toString() {
+    return 'MessEvent.updatedOrNot()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$updatedOrNotImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() dataChanged,
+    required TResult Function() updatedOrNot,
+  }) {
+    return updatedOrNot();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? dataChanged,
+    TResult? Function()? updatedOrNot,
+  }) {
+    return updatedOrNot?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? dataChanged,
+    TResult Function()? updatedOrNot,
+    required TResult orElse(),
+  }) {
+    if (updatedOrNot != null) {
+      return updatedOrNot();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DataChanged value) dataChanged,
+    required TResult Function(updatedOrNot value) updatedOrNot,
+  }) {
+    return updatedOrNot(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DataChanged value)? dataChanged,
+    TResult? Function(updatedOrNot value)? updatedOrNot,
+  }) {
+    return updatedOrNot?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DataChanged value)? dataChanged,
+    TResult Function(updatedOrNot value)? updatedOrNot,
+    required TResult orElse(),
+  }) {
+    if (updatedOrNot != null) {
+      return updatedOrNot(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class updatedOrNot implements MessEvent {
+  const factory updatedOrNot() = _$updatedOrNotImpl;
+}
+
+/// @nodoc
 mixin _$MessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() rebuild,
+    required TResult Function() updated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? rebuild,
+    TResult? Function()? updated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? rebuild,
+    TResult Function()? updated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(Rebuild value) rebuild,
+    required TResult Function(Updated value) updated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(Rebuild value)? rebuild,
+    TResult? Function(Updated value)? updated,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(Rebuild value)? rebuild,
+    TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -261,7 +375,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() rebuild,
+    required TResult Function() updated,
   }) {
     return initial();
   }
@@ -270,7 +384,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? rebuild,
+    TResult? Function()? updated,
   }) {
     return initial?.call();
   }
@@ -279,7 +393,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? rebuild,
+    TResult Function()? updated,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -292,7 +406,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(Rebuild value) rebuild,
+    required TResult Function(Updated value) updated,
   }) {
     return initial(this);
   }
@@ -301,7 +415,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(Rebuild value)? rebuild,
+    TResult? Function(Updated value)? updated,
   }) {
     return initial?.call(this);
   }
@@ -310,7 +424,7 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(Rebuild value)? rebuild,
+    TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -325,35 +439,35 @@ abstract class _Initial implements MessState {
 }
 
 /// @nodoc
-abstract class _$$RebuildImplCopyWith<$Res> {
-  factory _$$RebuildImplCopyWith(
-          _$RebuildImpl value, $Res Function(_$RebuildImpl) then) =
-      __$$RebuildImplCopyWithImpl<$Res>;
+abstract class _$$UpdatedImplCopyWith<$Res> {
+  factory _$$UpdatedImplCopyWith(
+          _$UpdatedImpl value, $Res Function(_$UpdatedImpl) then) =
+      __$$UpdatedImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$RebuildImplCopyWithImpl<$Res>
-    extends _$MessStateCopyWithImpl<$Res, _$RebuildImpl>
-    implements _$$RebuildImplCopyWith<$Res> {
-  __$$RebuildImplCopyWithImpl(
-      _$RebuildImpl _value, $Res Function(_$RebuildImpl) _then)
+class __$$UpdatedImplCopyWithImpl<$Res>
+    extends _$MessStateCopyWithImpl<$Res, _$UpdatedImpl>
+    implements _$$UpdatedImplCopyWith<$Res> {
+  __$$UpdatedImplCopyWithImpl(
+      _$UpdatedImpl _value, $Res Function(_$UpdatedImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$RebuildImpl implements Rebuild {
-  const _$RebuildImpl();
+class _$UpdatedImpl implements Updated {
+  const _$UpdatedImpl();
 
   @override
   String toString() {
-    return 'MessState.rebuild()';
+    return 'MessState.updated()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$RebuildImpl);
+        (other.runtimeType == runtimeType && other is _$UpdatedImpl);
   }
 
   @override
@@ -363,29 +477,29 @@ class _$RebuildImpl implements Rebuild {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() rebuild,
+    required TResult Function() updated,
   }) {
-    return rebuild();
+    return updated();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? rebuild,
+    TResult? Function()? updated,
   }) {
-    return rebuild?.call();
+    return updated?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? rebuild,
+    TResult Function()? updated,
     required TResult orElse(),
   }) {
-    if (rebuild != null) {
-      return rebuild();
+    if (updated != null) {
+      return updated();
     }
     return orElse();
   }
@@ -394,34 +508,34 @@ class _$RebuildImpl implements Rebuild {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
-    required TResult Function(Rebuild value) rebuild,
+    required TResult Function(Updated value) updated,
   }) {
-    return rebuild(this);
+    return updated(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
-    TResult? Function(Rebuild value)? rebuild,
+    TResult? Function(Updated value)? updated,
   }) {
-    return rebuild?.call(this);
+    return updated?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
-    TResult Function(Rebuild value)? rebuild,
+    TResult Function(Updated value)? updated,
     required TResult orElse(),
   }) {
-    if (rebuild != null) {
-      return rebuild(this);
+    if (updated != null) {
+      return updated(this);
     }
     return orElse();
   }
 }
 
-abstract class Rebuild implements MessState {
-  const factory Rebuild() = _$RebuildImpl;
+abstract class Updated implements MessState {
+  const factory Updated() = _$UpdatedImpl;
 }
