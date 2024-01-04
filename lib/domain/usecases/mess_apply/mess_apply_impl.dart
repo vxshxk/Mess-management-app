@@ -14,6 +14,11 @@ class MessApplyImpl extends MessApply{
   @override
   Future<void> applyMessChange(String topUp) async {
     final CollectionReference userCollectionReference = FirebaseFirestore.instance.collection('Waitinglist');
-    await userCollectionReference.doc(mess?.name).set({user!.uid! : topUp});
+    await userCollectionReference.doc(mess?.name).set({
+      user!.uid! : {
+        "uid": user!.uid!,
+        "topUp": topUp,
+      }
+    });
   }
 }

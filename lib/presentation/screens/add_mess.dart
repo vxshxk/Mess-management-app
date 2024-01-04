@@ -160,7 +160,7 @@ class AddMessScreen extends StatelessWidget {
                         box.put(mess.name, mess);
                         final messData =  MessDataImpl(mess: mess);
                         await messData.setMessData();
-                        await getAllDocuments(list: users);
+                        //await getAllDocuments(list: users);
                         Navigator.of(context).pop();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

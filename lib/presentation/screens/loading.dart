@@ -52,6 +52,7 @@ class Loading extends StatelessWidget {
                    );
                  }
                }catch (e) {
+                 try{
                 final UserModel exUser = box.get(uid);
                 Navigator.pushReplacement(
                   context,
@@ -59,7 +60,10 @@ class Loading extends StatelessWidget {
                     builder: (context) => UserScreen(user: exUser),
                   ),
                 );
-        }
+              }catch(e){
+                   authBloc.add(ErrorEvent(error: e.toString()));
+                 }
+            }
           }
         }else if(state is UnAuthenticated){
           Navigator.popAndPushNamed(context, AppRoutes.signIn);
