@@ -25,10 +25,9 @@ class Loading extends StatelessWidget {
               var box = Hive.box('UserData');
               User? user = FirebaseAuth.instance.currentUser;
               String? uid = user?.uid;
-
-              print("Loading: ${Hive.box('UserData').get(uid).name}");
+              //print("Loading: ${Hive.box('UserData').get(uid).name}");
               bool isData = await NetworkInfoImpl().isConnected;
-               try {
+              try {
                  if (isData) {
                    final result = await FirebaseFirestore.instance
                        .collection('Users')
