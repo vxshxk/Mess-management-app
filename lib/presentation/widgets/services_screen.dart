@@ -84,7 +84,10 @@ class ApplicantList extends StatelessWidget {
       future: db.doc(doc).get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
+          return SpinKitRotatingCircle(
+            color: Colors.deepPurple[400],
+            size: 50.0,
+          );
         }
 
         if (!snapshot.hasData || snapshot.hasError) {
@@ -135,11 +138,21 @@ class ApplicantList extends StatelessWidget {
                 },
               ),
             ),
-            TextButton(
+            Container(
+            child: TextButton(
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
-                child: const Text("Close"))
+                child: const Text("Close")),
+                          ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white
+                ),
+              ),
+            )
+
           ],
         );
       },

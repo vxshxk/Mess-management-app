@@ -33,8 +33,10 @@ class Loading extends StatelessWidget {
                        .collection('Users')
                        .doc(uid)
                        .get();
+                   print(result);
                    final UserModel exUser =
                    UserModel.fromJson(result.data() as Map<String, dynamic>);
+                   print(exUser);
                    Navigator.pushReplacement(
                      context,
                      MaterialPageRoute(

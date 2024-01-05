@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../data/models/user_model.dart';
+
+final db2 = FirebaseFirestore.instance.collection('Users');
 
 class TabWidget1 extends StatelessWidget {
   final UserModel? user;
@@ -89,7 +93,24 @@ class TabWidget1 extends StatelessWidget {
                             ],
                           ),
                         ))),
-                user?.mess == " " ? const Expanded(flex: 9, child: GoToAddMess()): const MessDetails(),
+            StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              stream: db2.doc(user?.uid).snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SpinKitRotatingCircle(
+                    color: Colors.deepPurple[400],
+                    size: 50.0,
+                  ); // Show a loading indicator while waiting for data
+                }
+
+                if (!snapshot.hasData || snapshot.hasError) {
+                  return const Text("Error loading data"); // Handle error state
+                }
+
+                return user?.mess == " " ? const Expanded(flex: 9, child: GoToAddMess()): const MessDetails();
+              },
+            )
+
               ],
             )
         ),

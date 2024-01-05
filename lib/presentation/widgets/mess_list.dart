@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/domain/usecases/mess_apply/mess_apply_impl.dart';
 import 'package:mess_app/main.dart';
 import '../../data/models/mess_model.dart';
@@ -25,7 +26,10 @@ class _TabWidget2State extends State<TabWidget2> {
       stream: FirebaseFirestore.instance.collection('Mess').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator(); // Show a loading indicator while waiting for data
+          return SpinKitRotatingCircle(
+            color: Colors.deepPurple[400],
+            size: 50.0,
+          ); // Show a loading indicator while waiting for data
         }
 
         if (!snapshot.hasData || snapshot.hasError) {
