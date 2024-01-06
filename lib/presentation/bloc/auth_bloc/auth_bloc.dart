@@ -12,7 +12,7 @@ part 'auth_state.dart';
 part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc() : super(const UnAuthenticated()) {
+  AuthBloc() : super(const UnAuthenticated(e: 'g')) {
     final auth = FirebaseAuth.instance;
     final authServiceImpl = AuthServiceImpl(auth: auth);
 
@@ -20,7 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(const AuthLoading());
       final Option<String> result = await authServiceImpl.getSignedInUser();
       result.fold(
-            () => emit(const UnAuthenticated()),
+            () => emit(const UnAuthenticated(e: 'g')),
             (student) => emit(
           const Authenticated(role: 'o'),
         ),
@@ -28,15 +28,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<ErrorEvent>((event, emit) async{
-      emit(const UnAuthenticated());
-      MyApp().scaffoldKey?.currentState?.showBottomSheet((context) => Text(event.error.toString()));
+      emit(const UnAuthenticated(e: 'e'));
     });
 
     on<SignInEvent>((event, emit) async{
       emit(const AuthLoading());
       final result = await authServiceImpl.signInWithEmailAndPassword(email: event.email!, password: event.password!);
       result.fold(
-              (l) => emit(const UnAuthenticated()),
+              (l) => emit(const UnAuthenticated(e: 'e')),
               (r) => emit(const Authenticated(role: 'o'))
       );
     });
@@ -45,7 +44,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(const AuthLoading());
       final result = await authServiceImpl.registerWithEmailAndPassword(email: event.email!, password: event.password!);
       result.fold(
-              (l) => emit(const UnAuthenticated()),
+              (l) => emit(const UnAuthenticated(e: 'e')),
               (r) => emit(const Authenticated(role: 'n'))
       );
     });
@@ -53,7 +52,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignOutEvent>((event, emit) async {
       emit(const AuthLoading());
       await authServiceImpl.signOut();
-      emit(const UnAuthenticated());
+      emit(const UnAuthenticated(e: 'g'));
     });
 
   }

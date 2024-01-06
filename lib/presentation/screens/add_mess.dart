@@ -18,7 +18,12 @@ class AddMessScreen extends StatelessWidget {
     String current = "0";
     String email = "";
     String total = "0";
-    Map<String, dynamic> menu= {" " : " "};
+    Map<String, dynamic> menu= {
+      "Breakfast" : " ",
+      "Lunch" : " ",
+      "Snacks" : " ",
+      "Dinner" : " ",
+    };
     return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -31,44 +36,46 @@ class AddMessScreen extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           child: Column(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    "Name",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black87
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      "Name",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black87
+                      ),
+                
                     ),
-
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextField(
-                    obscureText: false,
-                    onChanged: (val) {
-                      name = val;
-                    },
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                            horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.grey[400]!
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    TextField(
+                      obscureText: false,
+                      onChanged: (val) {
+                        name = val;
+                      },
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                              horizontal: 10),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.grey[400]!
+                            ),
+                
                           ),
-
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[400]!)
-                        )
+                          border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[400]!)
+                          )
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10,)
-                ],
+                    const SizedBox(height: 10,)
+                  ],
+                ),
               ),
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -107,7 +114,7 @@ class AddMessScreen extends StatelessWidget {
                   const SizedBox(height: 10,)
                 ],
               ),
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -142,10 +149,171 @@ class AddMessScreen extends StatelessWidget {
                         )
                     ),
                   ),
-                  const SizedBox(height: 10,)
+                  const SizedBox(height: 10,),
+                  const Text(
+                    "Mess Menu",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87
+                    ),
+
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Breakfast",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Breakfast"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  // const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Lunch",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Lunch"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  //const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Snacks",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Snacks"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  //const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Dinner",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Dinner"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                 ],
               ),
-              const SizedBox(height: 20),
+              //const SizedBox(height: 20),
               Padding(padding:
               const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
@@ -156,7 +324,7 @@ class AddMessScreen extends StatelessWidget {
                     onPressed: () async {
                       if (1==1) {
                         var box = Hive.box('MessData');
-                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu);
+                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: [" "]);
                         box.put(mess.name, mess);
                         final messData =  MessDataImpl(mess: mess);
                         await messData.setMessData();

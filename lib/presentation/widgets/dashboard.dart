@@ -5,123 +5,135 @@ import '../../data/models/user_model.dart';
 
 final db2 = FirebaseFirestore.instance.collection('Users');
 
-class TabWidget1 extends StatelessWidget {
-  final UserModel? user;
-  const TabWidget1({super.key, required this.user});
+class TabWidget1 extends StatefulWidget {
+  UserModel? user;
+  TabWidget1({Key? key, required this.user}) : super(key: key);
 
   @override
+  State<TabWidget1> createState() => _TabWidget1State();
+}
+
+class _TabWidget1State extends State<TabWidget1> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-            flex: 20,
-            child: Column(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 11, 0, 0),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 18,
+    return StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      stream: db2.doc(widget.user?.uid).snapshots(),
+      builder: (context, snapshot) {
+        return Column(
+          children: [
+            Expanded(
+                flex: 20,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 11, 0, 0),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: 18,
+                            ),
+                            const Text(
+                              "Profile",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(
+                              width: 18,
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: ()  async{
+                                    final result = await FirebaseFirestore
+                                        .instance
+                                        .collection('Users')
+                                        .doc(widget.user?.uid)
+                                        .get();
+                                    widget.user = UserModel.fromJson(
+                                        result.data() as Map<String, dynamic>);
+                                    setState(() {
+
+                                    });
+                                },)
+                          ],
                         ),
-                        Text(
-                          "Profile",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Expanded(
-                    flex: 8,
-                    child: Padding(
-                        padding: const EdgeInsets.fromLTRB(15, 7, 15, 15),
-                        child: Container(
-                          decoration: BoxDecoration(color: Colors.grey[100]),
-                          child: Column(
-                            children: [
-                              const SizedBox(
-                                height: 15.0,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: [
-                                    const SizedBox(
-                                      width: 15.0,
-                                    ),
-                                    const Expanded(
-                                      flex: 2,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: CircleAvatar(
-                                          radius: 100.0,
+                    Expanded(
+                        flex: 8,
+                        child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 7, 15, 15),
+                            child: Container(
+                              decoration: BoxDecoration(color: Colors.grey[100]),
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 15.0,
                                         ),
-                                      ),
+                                        const Expanded(
+                                          flex: 2,
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: CircleAvatar(
+                                              radius: 100.0,
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 5,
+                                          child: Column(
+                                            children: [
+                                              Text("Name: ${widget.user?.name}"),
+                                              const SizedBox(),
+                                              Text("Roll No.: ${widget.user?.rollNumber}"),
+                                              const SizedBox(),
+                                              Text("email: ${widget.user?.email}"),
+                                              const SizedBox(),
+                                              Text("role: ${widget.user?.role}"),
+                                              const SizedBox(),
+                                            ],
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: Column(
-                                        children: [
-                                          Text("Name: ${user?.name}"),
-                                          const SizedBox(),
-                                          Text("Roll No.: ${user?.rollNumber}"),
-                                          const SizedBox(),
-                                          Text("email: ${user?.email}"),
-                                          const SizedBox(),
-                                          Text("role: ${user?.role}"),
-                                          const SizedBox(),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                            flex: 3, child: Text("Current mess: ${widget.user?.mess}")),
+                                        Expanded(
+                                            flex: 5, child: Text("Mess Balance: ${widget.user?.messBalance}"))
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
-                              const Expanded(
-                                flex: 1,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                        flex: 3, child: Text("Placeholder")),
-                                    Expanded(
-                                        flex: 5, child: Text("Placeholder"))
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ))),
-            StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-              stream: db2.doc(user?.uid).snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SpinKitRotatingCircle(
-                    color: Colors.deepPurple[400],
-                    size: 50.0,
-                  ); // Show a loading indicator while waiting for data
-                }
+                            ))),
+                   Expanded(flex: 8,child: MessDetails(user: widget.user))
 
-                if (!snapshot.hasData || snapshot.hasError) {
-                  return const Text("Error loading data"); // Handle error state
-                }
-
-                return user?.mess == " " ? const Expanded(flex: 9, child: GoToAddMess()): const MessDetails();
-              },
-            )
-
-              ],
-            )
-        ),
-      ],
+                  ],
+                )
+            ),
+          ],
+        );
+      }
     );
   }
 }
 
 class MessDetails extends StatelessWidget {
-  const MessDetails({
-    super.key,
+  final UserModel? user;
+  MessDetails({
+    super.key, required this.user,
   });
 
   @override
@@ -151,19 +163,19 @@ class MessDetails extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(15, 7, 15, 15),
                 child: Container(
                   decoration: BoxDecoration(color: Colors.grey[100]),
-                  child: const Column(
+                  child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 15.0,
                       ),
                       Expanded(
                         flex: 1,
                         child: Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 15.0,
                             ),
-                            Expanded(
+                            const Expanded(
                               flex: 2,
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -176,19 +188,19 @@ class MessDetails extends StatelessWidget {
                               flex: 5,
                               child: Column(
                                 children: [
-                                  Text("Name: "),
-                                  SizedBox(),
-                                  Text("Roll No.: "),
-                                  SizedBox(),
-                                  Text("Year: "),
-                                  SizedBox(),
+                                  Text("Name: ${user?.mess}"),
+                                  const SizedBox(),
+                                  const Text("Roll No.: "),
+                                  const SizedBox(),
+                                  const Text("Year: "),
+                                  const SizedBox(),
                                 ],
                               ),
                             )
                           ],
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         flex: 1,
                         child: Row(
                           children: [
@@ -222,6 +234,7 @@ class GoToAddMess extends StatelessWidget {
           flex: 1,
           child: TextButton(
               onPressed: () {
+
               },
               child: const Text("Register for a mess")
           ),

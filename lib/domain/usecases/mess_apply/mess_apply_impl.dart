@@ -13,7 +13,7 @@ class MessApplyImpl extends MessApply {
   }
 
   @override
-  Future<void> applyMessChange(String topUp) async {
+  Future<void> applyMessChange(int topUp) async {
     int? ref;
     final CollectionReference userCollectionReference = FirebaseFirestore
         .instance.collection('Waitinglist');

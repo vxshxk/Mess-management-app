@@ -23,7 +23,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       email: fields[3] as String?,
       role: fields[4] as String?,
       mess: fields[5] as String?,
-      messDetails: (fields[6] as Map?)?.cast<String, dynamic>(),
+      messBalance: fields[6] as int?,
     );
   }
 
@@ -44,7 +44,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(5)
       ..write(obj.mess)
       ..writeByte(6)
-      ..write(obj.messDetails);
+      ..write(obj.messBalance);
   }
 
   @override
@@ -75,7 +75,7 @@ class UserModelImplAdapter extends TypeAdapter<_$UserModelImpl> {
       email: fields[3] as String?,
       role: fields[4] as String?,
       mess: fields[5] as String?,
-      messDetails: (fields[6] as Map?)?.cast<String, dynamic>(),
+      messBalance: fields[6] as int?,
     );
   }
 
@@ -96,7 +96,7 @@ class UserModelImplAdapter extends TypeAdapter<_$UserModelImpl> {
       ..writeByte(5)
       ..write(obj.mess)
       ..writeByte(6)
-      ..write(obj.messDetails);
+      ..write(obj.messBalance);
   }
 
   @override
@@ -122,7 +122,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       role: json['role'] as String?,
       mess: json['mess'] as String?,
-      messDetails: json['messDetails'] as Map<String, dynamic>?,
+      messBalance: json['messBalance'] as int?,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -133,5 +133,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'email': instance.email,
       'role': instance.role,
       'mess': instance.mess,
-      'messDetails': instance.messDetails,
+      'messBalance': instance.messBalance,
     };

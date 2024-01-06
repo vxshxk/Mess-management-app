@@ -10,7 +10,6 @@ import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
-import 'add_mess.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key});
@@ -27,8 +26,10 @@ class Loading extends StatelessWidget {
               String? uid = user?.uid;
               //print("Loading: ${Hive.box('UserData').get(uid).name}");
               bool isData = await NetworkInfoImpl().isConnected;
+              print(isData);
               try {
-                 if (isData) {
+                 if (true) {
+                   print("no");
                    final result = await FirebaseFirestore.instance
                        .collection('Users')
                        .doc(uid)
@@ -53,7 +54,9 @@ class Loading extends StatelessWidget {
                    );
                  }
                }catch (e) {
+                print(e.toString());
                  try{
+                   print("sex");
                 final UserModel exUser = box.get(uid);
                 Navigator.pushReplacement(
                   context,
@@ -62,11 +65,13 @@ class Loading extends StatelessWidget {
                   ),
                 );
               }catch(e){
+                   print(e.toString());
                    authBloc.add(ErrorEvent(error: e.toString()));
                  }
             }
           }
         }else if(state is UnAuthenticated){
+
           Navigator.popAndPushNamed(context, AppRoutes.signIn);
         }else{
           Navigator.popAndPushNamed(context, AppRoutes.loading);
@@ -82,3 +87,5 @@ class Loading extends StatelessWidget {
     );
   }
 }
+
+

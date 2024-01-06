@@ -26,7 +26,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   MyApp({super.key});
 
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        key: scaffoldKey,
         theme: ThemeData(
           useMaterial3: true,
         ),

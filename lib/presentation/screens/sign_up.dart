@@ -40,7 +40,16 @@ class SignUp extends StatelessWidget {
             );
           }
         }else if(state is UnAuthenticated){
-          Navigator.popAndPushNamed(context, AppRoutes.signIn);
+          if(state.e == 'e'){
+            Navigator.popAndPushNamed(context, AppRoutes.signIn);
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Error! Retry login"),
+                )
+            );
+          }else {
+            Navigator.popAndPushNamed(context, AppRoutes.signIn);
+          }
         }else{
           Navigator.popAndPushNamed(context, AppRoutes.loading);
         }

@@ -1,11 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import '../../data/models/user_model.dart';
 
 final db = FirebaseFirestore.instance.collection('Waitinglist');
+final db1 = FirebaseFirestore.instance.collection('Mess');
 final db2 = FirebaseFirestore.instance.collection('Users');
 class TabWidget3 extends StatelessWidget {
-  const TabWidget3({Key? key});
+  final UserModel? user;
+  const TabWidget3({Key? key, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return user?.role == "admin" ? const AdminPanel() : MessPanel(user: user);
+  }
+}
+
+class AdminPanel extends StatelessWidget {
+  const AdminPanel({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -117,34 +131,93 @@ class ApplicantList extends StatelessWidget {
                           color: Colors.deepPurple[300]!,
                         ),
                       ),
-                      child: ListTile(
-                        title: Text(
-                          name,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          "Initial TopUp: ${resMap[idx]["topUp"]}",
-                        ),
-                        trailing: IconButton(
-                          onPressed: () {
-                            // Handle when cancel button is pressed
-                          },
-                          icon: const Icon(Icons.cancel_outlined),
-                          color: Colors.red,
-                        ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 25,
+                            child: ListTile(
+                              title: Text(
+                                name,
+                                style: const TextStyle(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                "Initial TopUp: ${resMap[idx]["topUp"]}",
+                              ),
+                              trailing: IconButton(
+                                onPressed: () async {
+                                  final result=  await FirebaseFirestore.instance
+                                      .collection('Users')
+                                      .doc(resMap[idx]["uid"])
+                                      .get();
+                                  Map<String, dynamic> res= result.data() as Map<String, dynamic>;
+                                  if(res["mess"]!=" "){
+                                    await ReplacePrevMess(res, resMap, idx);
+                                  }
+                                  await changeMess(resMap, idx);
+                                  await deleteRequest(idx);
+                                },
+                                icon: const Icon(Icons.done_outline_sharp),
+                                color: Colors.green,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: IconButton(
+                              onPressed: () async {
+                                await deleteRequest(idx);
+                              },
+                              icon: const Icon(Icons.cancel_outlined),
+                              color: Colors.red,
+                            ),
+                          ),
+                          const Expanded(
+                            flex: 1,
+                            child: SizedBox()
+                          )
+                        ],
                       ),
                     ),
                   );
                 },
               ),
             ),
-            Container(
-            child: TextButton(
-                onPressed: (){
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Close")),
-                          ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: const Text("   ")
+                  ),
+                ),
+                Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: MaterialButton(
+                    color: Colors.deepPurple[400],
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+
+                    ),
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Close", style: TextStyle(color: Colors.white),)),
+                ),
+                Expanded(
+                  child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: const Text("   ")
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
@@ -156,6 +229,50 @@ class ApplicantList extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Future<void> changeMess(Map<String, dynamic> resMap, String idx) async {
+    db2.doc(resMap[idx]["uid"]).update({"mess": doc, "messBalance" : resMap[idx]["topUp"]});
+    DocumentSnapshot snapshot = await db1.doc(doc).get();
+    List<String> members = List.from(((snapshot.data()) as Map<String, dynamic>)["members"] ?? []);
+    print(members);
+    int size = members.length;
+    print(size);
+    db1.doc(doc).update({"members": FieldValue.arrayUnion([resMap[idx]["uid"]]), "currentSize" : size.toString()});
+  }
+
+  Future<void> deleteRequest(String idx) async {
+    await db.doc(doc).update(<String, dynamic>{
+      idx : FieldValue.delete(),
+    });
+  }
+
+  Future<void> ReplacePrevMess(Map<String, dynamic> res, Map<String, dynamic> resMap, String idx) async {
+    print(res["mess"]!=" ");
+    print(doc);
+    DocumentSnapshot snapshot = await db1.doc(doc).get();
+    List<String> members = List.from(((snapshot.data()) as Map<String, dynamic>)["members"] ?? []);
+    int size = members.length - 1;
+    print(members);
+    members.remove(resMap[idx]["uid"]);
+    print(members);
+    await db1.doc(doc).update({"members": members, "currentSize" : size.toString()});
+  }
+}
+
+
+class MessPanel extends StatelessWidget {
+  final UserModel? user;
+  const MessPanel({super.key, required this.user});
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+      children: [
+        Text("Mess Balance: ${user!.messBalance}"),
+        //Spend for four diff meals
+      ],
     );
   }
 }

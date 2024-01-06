@@ -10,5 +10,5 @@ abstract class MessApply{
   MessApply({required this.user, required this.mess});
 
   Future<void> setMessToUser();
-  Future<void> applyMessChange(String topUp);
+  Future<void> applyMessChange(int topUp);
 }

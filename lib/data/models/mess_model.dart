@@ -26,7 +26,10 @@ class MessModel extends HiveObject with _$MessModel {
     required String? email,
 
     @HiveField(4)
-    Map<String, dynamic>? messMenu
+    Map<String, dynamic>? messMenu,
+
+    @HiveField(5)
+    List<String>? members
 
   }) = _MessModel;
 

@@ -26,7 +26,7 @@ class _UserScreenState extends State<UserScreen> {
         title: Text(
             currentIndex == 0 ? "Tab 1" : (currentIndex == 1 ? "Tab 2" : "Tab 3")),
         actions: [
-          widget.user?.role=="student"? IconButton(onPressed: () {
+          widget.user?.role=="admin"? IconButton(onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -44,9 +44,9 @@ class _UserScreenState extends State<UserScreen> {
         ],
       ),
       body: [
-        TabWidget1(user: widget.user), // Pass user to TabWidget1
+        TabWidget1(user: widget.user),
         TabWidget2(user: widget.user),
-        const TabWidget3(),
+        TabWidget3(user: widget.user),
       ][currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,

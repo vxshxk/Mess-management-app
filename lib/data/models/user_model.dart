@@ -32,7 +32,7 @@ class UserModel extends HiveObject with _$UserModel {
     String? mess,
 
     @HiveField(6)
-    Map<String, dynamic>? messDetails
+    int? messBalance,
 
   }) = _UserModel;
 

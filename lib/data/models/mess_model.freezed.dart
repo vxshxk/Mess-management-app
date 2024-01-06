@@ -30,6 +30,8 @@ mixin _$MessModel {
   String? get email => throw _privateConstructorUsedError;
   @HiveField(4)
   Map<String, dynamic>? get messMenu => throw _privateConstructorUsedError;
+  @HiveField(5)
+  List<String>? get members => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +49,8 @@ abstract class $MessModelCopyWith<$Res> {
       @HiveField(1) String? name,
       @HiveField(2) String? size,
       @HiveField(3) String? email,
-      @HiveField(4) Map<String, dynamic>? messMenu});
+      @HiveField(4) Map<String, dynamic>? messMenu,
+      @HiveField(5) List<String>? members});
 }
 
 /// @nodoc
@@ -68,6 +71,7 @@ class _$MessModelCopyWithImpl<$Res, $Val extends MessModel>
     Object? size = freezed,
     Object? email = freezed,
     Object? messMenu = freezed,
+    Object? members = freezed,
   }) {
     return _then(_value.copyWith(
       currentSize: freezed == currentSize
@@ -90,6 +94,10 @@ class _$MessModelCopyWithImpl<$Res, $Val extends MessModel>
           ? _value.messMenu
           : messMenu // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      members: freezed == members
+          ? _value.members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ) as $Val);
   }
 }
@@ -107,7 +115,8 @@ abstract class _$$MessModelImplCopyWith<$Res>
       @HiveField(1) String? name,
       @HiveField(2) String? size,
       @HiveField(3) String? email,
-      @HiveField(4) Map<String, dynamic>? messMenu});
+      @HiveField(4) Map<String, dynamic>? messMenu,
+      @HiveField(5) List<String>? members});
 }
 
 /// @nodoc
@@ -126,6 +135,7 @@ class __$$MessModelImplCopyWithImpl<$Res>
     Object? size = freezed,
     Object? email = freezed,
     Object? messMenu = freezed,
+    Object? members = freezed,
   }) {
     return _then(_$MessModelImpl(
       currentSize: freezed == currentSize
@@ -148,6 +158,10 @@ class __$$MessModelImplCopyWithImpl<$Res>
           ? _value._messMenu
           : messMenu // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
+      members: freezed == members
+          ? _value._members
+          : members // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -161,8 +175,10 @@ class _$MessModelImpl extends _MessModel {
       @HiveField(1) required this.name,
       @HiveField(2) required this.size,
       @HiveField(3) required this.email,
-      @HiveField(4) final Map<String, dynamic>? messMenu})
+      @HiveField(4) final Map<String, dynamic>? messMenu,
+      @HiveField(5) final List<String>? members})
       : _messMenu = messMenu,
+        _members = members,
         super._();
 
   factory _$MessModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -191,9 +207,20 @@ class _$MessModelImpl extends _MessModel {
     return EqualUnmodifiableMapView(value);
   }
 
+  final List<String>? _members;
+  @override
+  @HiveField(5)
+  List<String>? get members {
+    final value = _members;
+    if (value == null) return null;
+    if (_members is EqualUnmodifiableListView) return _members;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'MessModel(currentSize: $currentSize, name: $name, size: $size, email: $email, messMenu: $messMenu)';
+    return 'MessModel(currentSize: $currentSize, name: $name, size: $size, email: $email, messMenu: $messMenu, members: $members)';
   }
 
   @override
@@ -206,13 +233,20 @@ class _$MessModelImpl extends _MessModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.size, size) || other.size == size) &&
             (identical(other.email, email) || other.email == email) &&
-            const DeepCollectionEquality().equals(other._messMenu, _messMenu));
+            const DeepCollectionEquality().equals(other._messMenu, _messMenu) &&
+            const DeepCollectionEquality().equals(other._members, _members));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, currentSize, name, size, email,
-      const DeepCollectionEquality().hash(_messMenu));
+  int get hashCode => Object.hash(
+      runtimeType,
+      currentSize,
+      name,
+      size,
+      email,
+      const DeepCollectionEquality().hash(_messMenu),
+      const DeepCollectionEquality().hash(_members));
 
   @JsonKey(ignore: true)
   @override
@@ -234,7 +268,8 @@ abstract class _MessModel extends MessModel {
       @HiveField(1) required final String? name,
       @HiveField(2) required final String? size,
       @HiveField(3) required final String? email,
-      @HiveField(4) final Map<String, dynamic>? messMenu}) = _$MessModelImpl;
+      @HiveField(4) final Map<String, dynamic>? messMenu,
+      @HiveField(5) final List<String>? members}) = _$MessModelImpl;
   _MessModel._() : super._();
 
   factory _MessModel.fromJson(Map<String, dynamic> json) =
@@ -255,6 +290,9 @@ abstract class _MessModel extends MessModel {
   @override
   @HiveField(4)
   Map<String, dynamic>? get messMenu;
+  @override
+  @HiveField(5)
+  List<String>? get members;
   @override
   @JsonKey(ignore: true)
   _$$MessModelImplCopyWith<_$MessModelImpl> get copyWith =>

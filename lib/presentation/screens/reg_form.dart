@@ -21,7 +21,6 @@ class RegForm extends StatelessWidget {
     String email = "";
     String role = "student";
     String mess = " ";
-    Map<String, dynamic> det= {" " : " "};
       return BlocListener<AuthBloc,AuthState>(
       listener: (context, state) {
         // TODO: implement listener
@@ -158,7 +157,7 @@ class RegForm extends StatelessWidget {
                     onPressed: () async {
                       if (1==1) {
                         var box = Hive.box('UserData');
-                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: mess, messDetails: det);
+                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: mess, messBalance: 0);
                         box.put(user.uid, user);
                         IUserRepository iUserRepository = IUserRepository(user: user);
                         await iUserRepository.changeUserData();

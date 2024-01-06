@@ -22,13 +22,14 @@ class MessModelAdapter extends TypeAdapter<MessModel> {
       size: fields[2] as String?,
       email: fields[3] as String?,
       messMenu: (fields[4] as Map?)?.cast<String, dynamic>(),
+      members: (fields[5] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, MessModel obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.currentSize)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class MessModelAdapter extends TypeAdapter<MessModel> {
       ..writeByte(3)
       ..write(obj.email)
       ..writeByte(4)
-      ..write(obj.messMenu);
+      ..write(obj.messMenu)
+      ..writeByte(5)
+      ..write(obj.members);
   }
 
   @override
@@ -68,13 +71,14 @@ class MessModelImplAdapter extends TypeAdapter<_$MessModelImpl> {
       size: fields[2] as String?,
       email: fields[3] as String?,
       messMenu: (fields[4] as Map?)?.cast<String, dynamic>(),
+      members: (fields[5] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, _$MessModelImpl obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.currentSize)
       ..writeByte(1)
@@ -84,7 +88,9 @@ class MessModelImplAdapter extends TypeAdapter<_$MessModelImpl> {
       ..writeByte(3)
       ..write(obj.email)
       ..writeByte(4)
-      ..write(obj.messMenu);
+      ..write(obj.messMenu)
+      ..writeByte(5)
+      ..write(obj.members);
   }
 
   @override
@@ -109,6 +115,8 @@ _$MessModelImpl _$$MessModelImplFromJson(Map<String, dynamic> json) =>
       size: json['size'] as String?,
       email: json['email'] as String?,
       messMenu: json['messMenu'] as Map<String, dynamic>?,
+      members:
+          (json['members'] as List<dynamic>?)?.map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$MessModelImplToJson(_$MessModelImpl instance) =>
@@ -118,4 +126,5 @@ Map<String, dynamic> _$$MessModelImplToJson(_$MessModelImpl instance) =>
       'size': instance.size,
       'email': instance.email,
       'messMenu': instance.messMenu,
+      'members': instance.members,
     };

@@ -33,7 +33,7 @@ mixin _$UserModel {
   @HiveField(5)
   String? get mess => throw _privateConstructorUsedError;
   @HiveField(6)
-  Map<String, dynamic>? get messDetails => throw _privateConstructorUsedError;
+  int? get messBalance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +53,7 @@ abstract class $UserModelCopyWith<$Res> {
       @HiveField(3) String? email,
       @HiveField(4) String? role,
       @HiveField(5) String? mess,
-      @HiveField(6) Map<String, dynamic>? messDetails});
+      @HiveField(6) int? messBalance});
 }
 
 /// @nodoc
@@ -75,7 +75,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = freezed,
     Object? role = freezed,
     Object? mess = freezed,
-    Object? messDetails = freezed,
+    Object? messBalance = freezed,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -102,10 +102,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.mess
           : mess // ignore: cast_nullable_to_non_nullable
               as String?,
-      messDetails: freezed == messDetails
-          ? _value.messDetails
-          : messDetails // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+      messBalance: freezed == messBalance
+          ? _value.messBalance
+          : messBalance // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -125,7 +125,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @HiveField(3) String? email,
       @HiveField(4) String? role,
       @HiveField(5) String? mess,
-      @HiveField(6) Map<String, dynamic>? messDetails});
+      @HiveField(6) int? messBalance});
 }
 
 /// @nodoc
@@ -145,7 +145,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = freezed,
     Object? role = freezed,
     Object? mess = freezed,
-    Object? messDetails = freezed,
+    Object? messBalance = freezed,
   }) {
     return _then(_$UserModelImpl(
       uid: freezed == uid
@@ -172,10 +172,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.mess
           : mess // ignore: cast_nullable_to_non_nullable
               as String?,
-      messDetails: freezed == messDetails
-          ? _value._messDetails
-          : messDetails // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+      messBalance: freezed == messBalance
+          ? _value.messBalance
+          : messBalance // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -191,9 +191,8 @@ class _$UserModelImpl extends _UserModel {
       @HiveField(3) required this.email,
       @HiveField(4) required this.role,
       @HiveField(5) this.mess,
-      @HiveField(6) final Map<String, dynamic>? messDetails})
-      : _messDetails = messDetails,
-        super._();
+      @HiveField(6) this.messBalance})
+      : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -216,20 +215,13 @@ class _$UserModelImpl extends _UserModel {
   @override
   @HiveField(5)
   final String? mess;
-  final Map<String, dynamic>? _messDetails;
   @override
   @HiveField(6)
-  Map<String, dynamic>? get messDetails {
-    final value = _messDetails;
-    if (value == null) return null;
-    if (_messDetails is EqualUnmodifiableMapView) return _messDetails;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
+  final int? messBalance;
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, name: $name, rollNumber: $rollNumber, email: $email, role: $role, mess: $mess, messDetails: $messDetails)';
+    return 'UserModel(uid: $uid, name: $name, rollNumber: $rollNumber, email: $email, role: $role, mess: $mess, messBalance: $messBalance)';
   }
 
   @override
@@ -244,14 +236,14 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.role, role) || other.role == role) &&
             (identical(other.mess, mess) || other.mess == mess) &&
-            const DeepCollectionEquality()
-                .equals(other._messDetails, _messDetails));
+            (identical(other.messBalance, messBalance) ||
+                other.messBalance == messBalance));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, name, rollNumber, email,
-      role, mess, const DeepCollectionEquality().hash(_messDetails));
+  int get hashCode => Object.hash(
+      runtimeType, uid, name, rollNumber, email, role, mess, messBalance);
 
   @JsonKey(ignore: true)
   @override
@@ -275,7 +267,7 @@ abstract class _UserModel extends UserModel {
       @HiveField(3) required final String? email,
       @HiveField(4) required final String? role,
       @HiveField(5) final String? mess,
-      @HiveField(6) final Map<String, dynamic>? messDetails}) = _$UserModelImpl;
+      @HiveField(6) final int? messBalance}) = _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -301,7 +293,7 @@ abstract class _UserModel extends UserModel {
   String? get mess;
   @override
   @HiveField(6)
-  Map<String, dynamic>? get messDetails;
+  int? get messBalance;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

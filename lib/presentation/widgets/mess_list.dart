@@ -18,7 +18,7 @@ class TabWidget2 extends StatefulWidget {
 }
 
 class _TabWidget2State extends State<TabWidget2> {
-  String? topUp;
+  int? topUp;
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +36,17 @@ class _TabWidget2State extends State<TabWidget2> {
           return const Text("Error loading data"); // Handle error state
         }
 
+
         return SingleChildScrollView(
           child: Column(
             children: [
+              ListTile(
+                title: Text(
+                  widget.user!.mess!,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                ),
+              const Text("List of available messe",style: TextStyle(fontWeight: FontWeight.bold)),
               Row(
                 children: [
                   BlocBuilder<MessBloc, MessState>(
@@ -69,82 +77,86 @@ class _TabWidget2State extends State<TabWidget2> {
                         color: Colors.deepPurple[300]!,
                       ),
                     ),
-                    child: ListTile(
-                      onTap: () async {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  const Text(
-                                    "Apply for mess? Select an amount to TopUp",
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black87,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  TextField(
-                                    obscureText: false,
-                                    onChanged: (val) {
-                                      topUp = val;
-                                    },
-                                    decoration: InputDecoration(
-                                      contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 0,
-                                        horizontal: 10,
+                    child: Expanded(
+                      flex: 9,
+                      child: ListTile(
+                        title: Text(
+                          userone.name!,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          "Capacity: ${userone.currentSize!}/${userone.size}",
+                        ),
+                        trailing: BlocBuilder<MessBloc, MessState>(
+                          builder: (context, state) {
+                            return IconButton(
+                              onPressed: () async{
+                                widget.user?.role=="admin" ?  await FirebaseFirestore.instance.collection('Mess').doc(userone.name).delete() :
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          const Text(
+                                            "Apply for mess? Select an amount to TopUp",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black87,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          TextField(
+                                            obscureText: false,
+                                            onChanged: (val) {
+                                              topUp = int.parse(val);
+                                            },
+                                            decoration: InputDecoration(
+                                              contentPadding: const EdgeInsets.symmetric(
+                                                vertical: 0,
+                                                horizontal: 10,
+                                              ),
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey[400]!,
+                                                ),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  color: Colors.grey[400]!,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10),
+                                          TextButton(
+                                            onPressed: () async {
+                                              final messApply = MessApplyImpl(
+                                                  user: widget.user, mess: userone);
+                                              await messApply.applyMessChange(topUp!);
+                                              messBloc.add(const DataChanged());
+                                              Navigator.pop(context);
+                                              setState(() {
+
+                                              });
+                                            },
+                                            child: const Text("Submit"),
+                                          ),
+                                        ],
                                       ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.grey[400]!,
-                                        ),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Colors.grey[400]!,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  TextButton(
-                                    onPressed: () async {
-                                     final messApply = MessApplyImpl(
-                                      user: widget.user, mess: userone);
-                                      await messApply.applyMessChange(topUp!);
-                                      messBloc.add(const DataChanged());
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Submit"),
-                                  ),
-                                ],
-                              ),
+                                    );
+                                  },
+                                );
+                              },
+                              icon: widget.user?.role =="admin" ? const Icon(Icons.delete) : const Icon(Icons.add),
                             );
                           },
-                        );
-                      },
-                      title: Text(
-                        userone.name!,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      subtitle: Text(
-                        "Capacity: ${userone.currentSize!}/${userone.size}",
-                      ),
-                      trailing: BlocBuilder<MessBloc, MessState>(
-                        builder: (context, state) {
-                          return IconButton(
-                            onPressed: () async{
-                             await FirebaseFirestore.instance.collection('Mess').doc(userone.name).delete();
-                            },
-                            icon: const Icon(Icons.delete),
-                          );
-                        },
+                        ),
                       ),
                     ),
                   );
