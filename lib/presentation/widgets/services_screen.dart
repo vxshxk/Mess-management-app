@@ -410,6 +410,9 @@ class MessPanel extends StatelessWidget {
               child: IconButton(
                   onPressed: () async {
                     db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Payment Successful"))
+                    );
                   },
                   icon: const Icon(Icons.currency_rupee)
               ),
@@ -436,6 +439,9 @@ class MessPanel extends StatelessWidget {
               child: IconButton(
                   onPressed: () async {
                     db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Payment Successful"))
+                    );
                   },
                   icon: const Icon(Icons.currency_rupee)
               ),
@@ -462,6 +468,9 @@ class MessPanel extends StatelessWidget {
               child: IconButton(
                   onPressed: () async {
                     db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Payment Successful"))
+                    );
                   },
                   icon: const Icon(Icons.currency_rupee)
               ),
@@ -489,6 +498,9 @@ class MessPanel extends StatelessWidget {
               child: IconButton(
                   onPressed: () async {
                     db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Payment Successful"))
+                    );
                   },
                   icon: const Icon(Icons.currency_rupee)
               ),
