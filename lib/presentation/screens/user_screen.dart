@@ -9,7 +9,7 @@ import '../widgets/mess_list.dart';
 import '../widgets/services_screen.dart';
 
 class UserScreen extends StatefulWidget {
-  final UserModel? user;
+  final UserModel user;
   const UserScreen({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class _UserScreenState extends State<UserScreen> {
         title: Text(
             currentIndex == 0 ? "Tab 1" : (currentIndex == 1 ? "Tab 2" : "Tab 3")),
         actions: [
-          widget.user?.role=="admin"? IconButton(onPressed: () {
+          widget.user.role=="admin"? IconButton(onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -44,7 +44,7 @@ class _UserScreenState extends State<UserScreen> {
         ],
       ),
       body: [
-        TabWidget1(user: widget.user),
+        TabWidget1(),
         TabWidget2(user: widget.user),
         TabWidget3(user: widget.user),
       ][currentIndex],

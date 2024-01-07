@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:mess_app/domain/usecases/mess_apply/mess_apply_impl.dart';
-import 'package:mess_app/main.dart';
 import '../../data/models/mess_model.dart';
 import '../../data/models/user_model.dart';
+import '../../domain/usecases/mess_apply/mess_apply_impl.dart';
+import '../../main.dart';
 import '../bloc/mess_bloc/mess_bloc.dart';
+
+final db2 = FirebaseFirestore.instance.collection('Users');
 
 class TabWidget2 extends StatefulWidget {
   final UserModel? user;
@@ -40,13 +42,49 @@ class _TabWidget2State extends State<TabWidget2> {
         return SingleChildScrollView(
           child: Column(
             children: [
-              ListTile(
-                title: Text(
-                  widget.user!.mess!,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                ),
-              const Text("List of available messe",style: TextStyle(fontWeight: FontWeight.bold)),
+              StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+          stream: db2.doc(widget.user?.uid).snapshots(),
+          builder: (context, snapshot) {
+            return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              future: db2.doc(widget.user?.uid).get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return SpinKitRotatingCircle(
+                    color: Colors.deepPurple[400],
+                    size: 25.0,
+                  );
+                }
+
+                if (!snapshot.hasData || snapshot.hasError) {
+                  return const Text("Error loading data");
+                }
+
+                Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                return Container(
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.deepPurple[300]!,
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      "Current mess: ${resMap["mess"]}",
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              },
+            );
+          }
+          ),
+              const SizedBox(height: 10,),
+              const Text("List of available messes",style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 10,),
               Row(
                 children: [
                   BlocBuilder<MessBloc, MessState>(
@@ -54,7 +92,6 @@ class _TabWidget2State extends State<TabWidget2> {
                       if (state is Updated) {
                         return const Text(
                           "Applied! Pending Approval",
-                          style: TextStyle(fontWeight: FontWeight.bold),
                         );
                       }
                       return const SizedBox();
@@ -62,6 +99,7 @@ class _TabWidget2State extends State<TabWidget2> {
                   ),
                 ],
               ),
+              const SizedBox(height: 10,),
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

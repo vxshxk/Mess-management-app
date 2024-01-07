@@ -264,14 +264,239 @@ class ApplicantList extends StatelessWidget {
 
 class MessPanel extends StatelessWidget {
   final UserModel? user;
-  const MessPanel({super.key, required this.user});
+  MessPanel({super.key, required this.user});
+
+  int messBal =0 ;
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
-        Text("Mess Balance: ${user!.messBalance}"),
-        //Spend for four diff meals
+        StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            stream: db2.doc(user?.uid).snapshots(),
+            builder: (context, snapshot) {
+              return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                future: db2.doc(user?.uid).get(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return SpinKitRotatingCircle(
+                      color: Colors.deepPurple[400],
+                      size: 25.0,
+                    );
+                  }
+
+                  if (!snapshot.hasData || snapshot.hasError) {
+                    return const Text("Error loading data");
+                  }
+
+                  Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                  return Container(
+                    margin: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.deepPurple[300]!,
+                      ),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        "Current balance: ${resMap["messBalance"]}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        const Text(
+          "Recharge",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        const Text(
+          "Add amount to mess                                                       ",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontSize: 15,
+              color: Colors.black87
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
+          child: Row(
+            children: [
+              Expanded(
+                flex: 9,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    onChanged: (val) {
+                      messBal = int.parse(val);
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                            horizontal: 10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey[400]!
+                          ),
+
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[400]!)
+                        )
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: IconButton(
+                  onPressed: () {
+                    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-messBal)});
+                  },
+                  icon: const Icon(Icons.account_balance_wallet_outlined),
+                  color: Colors.deepPurple[400],
+                ),
+              )
+            ],
+          ),
+        ),
+        const SizedBox(
+          height: 30,
+        ),
+        const Text(
+          "Spend",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Row(
+          children: [
+            Text(
+              "Breakfast:  ₹20",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple[400],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  border: Border.all()
+              ),
+              child: IconButton(
+                  onPressed: () async {
+                    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
+                  },
+                  icon: const Icon(Icons.currency_rupee)
+              ),
+            )
+
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "Lunch:  ₹40",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple[400],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  border: Border.all()
+              ),
+              child: IconButton(
+                  onPressed: () async {
+                    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
+                  },
+                  icon: const Icon(Icons.currency_rupee)
+              ),
+            )
+
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "Snacks:  ₹30",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple[400],
+              ),
+            ),
+            Container(decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(30)),
+                border: Border.all()
+            ),
+
+              child: IconButton(
+                  onPressed: () async {
+                    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
+                  },
+                  icon: const Icon(Icons.currency_rupee)
+              ),
+            )
+
+
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "Dinner:  ₹50",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple[400],
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  border: Border.all()
+              ),
+              child: IconButton(
+                  onPressed: () async {
+                    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
+                  },
+                  icon: const Icon(Icons.currency_rupee)
+              ),
+            )
+
+
+          ],
+        )
       ],
     );
   }

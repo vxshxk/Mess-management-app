@@ -29,15 +29,12 @@ class Loading extends StatelessWidget {
               print(isData);
               try {
                  if (true) {
-                   print("no");
                    final result = await FirebaseFirestore.instance
                        .collection('Users')
                        .doc(uid)
                        .get();
-                   print(result);
                    final UserModel exUser =
                    UserModel.fromJson(result.data() as Map<String, dynamic>);
-                   print(exUser);
                    Navigator.pushReplacement(
                      context,
                      MaterialPageRoute(
@@ -56,7 +53,6 @@ class Loading extends StatelessWidget {
                }catch (e) {
                 print(e.toString());
                  try{
-                   print("sex");
                 final UserModel exUser = box.get(uid);
                 Navigator.pushReplacement(
                   context,
