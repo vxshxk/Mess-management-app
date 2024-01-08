@@ -110,7 +110,6 @@ class _TabWidget2State extends State<TabWidget2> {
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         MessModel userone = MessModel.fromJson(snapshot.data!.docs[index].data() as Map<String, dynamic>);
-
                         return Container(
                           margin: const EdgeInsets.all(5),
                           padding: const EdgeInsets.all(5),
@@ -123,12 +122,12 @@ class _TabWidget2State extends State<TabWidget2> {
                             flex: 9,
                             child: ListTile(
                               onTap: () {
-                                userone.currentSize! != "0" ? Navigator.push(
+                                widget.user?.rogit le != "admin"? {} : (userone.currentSize! != "0" ? Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => UserList(doc: userone.name)
                                   ),
-                                ): {};
+                                ): {});
                               },
                               title: Text(
                                 userone.name!,
