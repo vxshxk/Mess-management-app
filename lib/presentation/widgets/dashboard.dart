@@ -6,8 +6,6 @@ import 'package:mess_app/main.dart';
 import 'package:mess_app/presentation/bloc/nav_bloc/nav_bloc.dart';
 import '../../data/models/user_model.dart';
 
-final db2 = FirebaseFirestore.instance.collection('Users');
-
 class TabWidget1 extends StatefulWidget {
   TabWidget1({Key? key}) : super(key: key);
   User? user = FirebaseAuth.instance.currentUser;

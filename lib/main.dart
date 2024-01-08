@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,10 @@ import 'data/models/user_model.dart';
 final authBloc = AuthBloc();
 final messBloc = MessBloc();
 final navBloc = NavBloc();
+
+final db = FirebaseFirestore.instance.collection('Waitinglist');
+final db1 = FirebaseFirestore.instance.collection('Mess');
+final db2 = FirebaseFirestore.instance.collection('Users');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

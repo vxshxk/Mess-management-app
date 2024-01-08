@@ -6,9 +6,7 @@ import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
 
-final db = FirebaseFirestore.instance.collection('Waitinglist');
-final db1 = FirebaseFirestore.instance.collection('Mess');
-final db2 = FirebaseFirestore.instance.collection('Users');
+
 class TabWidget3 extends StatelessWidget {
   final UserModel? user;
   const TabWidget3({Key? key, required this.user});
@@ -19,7 +17,7 @@ class TabWidget3 extends StatelessWidget {
       children: [
         Expanded(
             flex: 20,
-            child: user?.role == "admin" ? const AdminPanel() : (user?.mess == " " ? const Center(child: GoToAddMess()) : MessPanel(user: user))
+            child: user?.role != "admin" ? const AdminPanel() : (user?.mess == " " ? const Center(child: GoToAddMess()) : MessPanel(user: user))
         ),
         Expanded(
           flex: 2,
@@ -294,15 +292,11 @@ class ApplicantList extends StatelessWidget {
   }
 
   Future<void> ReplacePrevMess(Map<String, dynamic> res, Map<String, dynamic> resMap, String idx) async {
-    print(res["mess"]!=" ");
-    print(doc);
     DocumentSnapshot snapshot = await db1.doc(doc).get();
     List<String> members = List.from(((snapshot.data()) as Map<String, dynamic>)["members"] ?? []);
     int size = members.length - 1;
-    print(members);
     members.remove(resMap[idx]["uid"]);
-    print(members);
-    await db1.doc(doc).update({"members": members, "currentSize" : size.toString()});
+    await db1.doc(doc).update({"members": FieldValue.arrayRemove([resMap[idx]["uid"]]), "currentSize" : size.toString()});
   }
 }
 

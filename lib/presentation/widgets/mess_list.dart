@@ -9,7 +9,6 @@ import '../../main.dart';
 import '../bloc/mess_bloc/mess_bloc.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
 
-final db2 = FirebaseFirestore.instance.collection('Users');
 
 class TabWidget2 extends StatefulWidget {
   final UserModel? user;
@@ -123,6 +122,14 @@ class _TabWidget2State extends State<TabWidget2> {
                           child: Expanded(
                             flex: 9,
                             child: ListTile(
+                              onTap: () {
+                                userone.currentSize! != "0" ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => UserList(doc: userone.name)
+                                  ),
+                                ): {};
+                              },
                               title: Text(
                                 userone.name!,
                                 style: const TextStyle(fontWeight: FontWeight.bold),
@@ -134,7 +141,18 @@ class _TabWidget2State extends State<TabWidget2> {
                                 builder: (context, state) {
                                   return IconButton(
                                     onPressed: () async{
-                                      widget.user?.role=="admin" ?  await FirebaseFirestore.instance.collection('Mess').doc(userone.name).delete() :
+                                      widget.user?.role=="admin" ? {
+                                              await FirebaseFirestore.instance
+                                                  .collection('Mess')
+                                                  .doc(userone.name)
+                                                  .delete(),
+                                        await FirebaseFirestore.instance
+                                            .collection('Waitinglist')
+                                            .doc(userone.name)
+                                            .delete(),
+
+                                            }
+                                          :
                                       showDialog(
                                         context: context,
                                         builder: (BuildContext context) {
@@ -248,6 +266,161 @@ class _TabWidget2State extends State<TabWidget2> {
           ),
         )
       ],
+    );
+  }
+}
+
+class UserList extends StatelessWidget {
+  final String? doc;
+
+  const UserList({Key? key, required this.doc}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+      future: db1.doc(doc).get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SpinKitRotatingCircle(
+            color: Colors.deepPurple[400],
+            size: 50.0,
+          );
+        }
+
+        if (!snapshot.hasData || snapshot.hasError) {
+          return const Text("Error loading data");
+        }
+
+        Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+        List<dynamic> users = resMap["members"] ;
+
+        if (users == null) {
+          // Handle the case where "members" is null, maybe show an error message or return an empty widget.
+          return const Text("No members data available");
+        }
+
+
+        return Column(
+          children: [
+            SingleChildScrollView(
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: users.length,
+                itemBuilder: (context, index) {
+                  return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                    future: db2.doc(users[index]).get(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SpinKitRotatingCircle(
+                          color: Colors.deepPurple[400],
+                          size: 50.0,
+                        );
+                      }
+
+                      if (!snapshot.hasData || snapshot.hasError) {
+                        return const Text("Error loading data");
+                      }
+
+                      Map<String, dynamic> resMap2 = snapshot.data!.data() as Map<String, dynamic>;
+
+                      return Material(
+                        color: Colors.white,
+                        child: Container(
+                          margin: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.deepPurple[300]!,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 25,
+                                child: ListTile(
+                                  title: Text(
+                                    resMap2["name"],
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  subtitle: Text(
+                                    "Mess Balance: ${resMap2["messBalance"]}", // Fixed typo here
+                                  ),
+                                  trailing: IconButton(
+                                    onPressed: () async {},
+                                    icon: const Icon(Icons.done_outline_sharp),
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: IconButton(
+                                  onPressed: () async {},
+                                  icon: const Icon(Icons.cancel_outlined),
+                                  color: Colors.red,
+                                ),
+                              ),
+                              const Expanded(
+                                flex: 1,
+                                child: SizedBox(),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: const Text("   "),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: MaterialButton(
+                    color: Colors.deepPurple[400],
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Close", style: TextStyle(color: Colors.white)),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: const Text("   "),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
