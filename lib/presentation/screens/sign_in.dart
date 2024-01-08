@@ -36,7 +36,7 @@ class SignIn extends StatelessWidget {
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => UserScreen(user: exUser),
+                builder: (context) => UserScreen(),
               ),
             );
           }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/bloc/mess_bloc/mess_bloc.dart';
+import 'package:mess_app/presentation/bloc/nav_bloc/nav_bloc.dart';
 import 'core/routes.dart';
 import 'core/firebase_options.dart';
 import 'data/models/mess_model.dart';
@@ -11,6 +12,7 @@ import 'data/models/user_model.dart';
 
 final authBloc = AuthBloc();
 final messBloc = MessBloc();
+final navBloc = NavBloc();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => messBloc,
+        ),
+        BlocProvider(
+          create: (context) => navBloc,
         ),
       ],
       child: MaterialApp(

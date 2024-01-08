@@ -1,75 +1,97 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/presentation/screens/add_mess.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
+import '../bloc/nav_bloc/nav_bloc.dart';
 import '../widgets/dashboard.dart';
 import '../widgets/mess_list.dart';
 import '../widgets/services_screen.dart';
 
-class UserScreen extends StatefulWidget {
-  final UserModel user;
-  const UserScreen({Key? key, required this.user}) : super(key: key);
+final db2 = FirebaseFirestore.instance.collection('Users');
 
-  @override
-  _UserScreenState createState() => _UserScreenState();
-}
+class UserScreen extends StatelessWidget {
+  UserScreen({super.key});
 
-class _UserScreenState extends State<UserScreen> {
   int currentIndex = 0;
+
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            currentIndex == 0 ? "Tab 1" : (currentIndex == 1 ? "Tab 2" : "Tab 3")),
-        actions: [
-          widget.user.role=="admin"? IconButton(onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AddMessScreen(),
-              ),
+    return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        future: db2.doc(user?.uid).get(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SpinKitRotatingCircle(
+              color: Colors.deepPurple[400],
+              size: 50.0,
             );
-          }, icon: const  Icon(Icons.add), tooltip: "Add Mess",) : const SizedBox(),
-          TextButton(
-            onPressed: () {
-              authBloc.add(const SignOutEvent());
-              Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
-            },
-            child: const Text("Sign Out"),
-          ),
-        ],
-      ),
-      body: [
-        TabWidget1(),
-        TabWidget2(user: widget.user),
-        TabWidget3(user: widget.user),
-      ][currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Tab 1',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Tab 2',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Tab 3',
-          ),
-        ],
-      ),
-    );
+          }
+
+          if (!snapshot.hasData || snapshot.hasError) {
+            return const Text("Error loading data");
+          }
+
+          Map<String, dynamic> resMap = snapshot.data!.data() as Map<
+              String,
+              dynamic>;
+          final UserModel exUser =
+          UserModel.fromJson(resMap);
+
+          return Scaffold(
+            appBar: AppBar(
+              title: BlocBuilder<NavBloc, NavState>(
+                builder: (context, state) {
+                  if(state is Second){
+                    return const Text("Tab 2");
+                  }else if(state is Third){
+                    return const Text("Tab 3");
+                  }
+                  return const Text("Tab 1");
+                },
+              ),
+              actions: [
+                exUser.role == "admin"
+                    ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddMessScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                  tooltip: "Add Mess",
+                )
+                    : const SizedBox(),
+                TextButton(
+                  onPressed: () {
+                    authBloc.add(const SignOutEvent());
+                    Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
+                  },
+                  child: const Text("Sign Out"),
+                ),
+              ],
+            ),
+            body: BlocBuilder<NavBloc, NavState>(
+              builder: (context, state) {
+                if (state is Second) {
+                  return TabWidget2(user: exUser);
+                } else if (state is Third) {
+                  return TabWidget3(user: exUser);
+                }
+                return TabWidget1();
+              },
+            ),
+
+          );
+        });
   }
 }

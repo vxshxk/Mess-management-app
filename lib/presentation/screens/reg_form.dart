@@ -164,7 +164,7 @@ class RegForm extends StatelessWidget {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => UserScreen(user: user),
+                            builder: (context) => UserScreen(),
                           ),
                         );
                       } else {
