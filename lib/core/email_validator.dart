@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../data/models/mess_model.dart';
+import '../main.dart';
 
 bool isEmailValid(String email) {
   // Define a regular expression for a simple email pattern
@@ -23,5 +24,36 @@ Future<void> getAllDocuments({required List<MessModel> list}) async {
     }
   } catch (e) {
     print("Error getting documents: $e");
+  }
+}
+
+
+Future<void> changeMess(Map<String, dynamic> resMap, String idx, String doc) async {
+  db2.doc(resMap[idx]["uid"]).update({"mess": doc, "messBalance" : resMap[idx]["topUp"]});
+  DocumentSnapshot snapshot = await db1.doc(doc).get();
+  List<String> members = List.from(((snapshot.data()) as Map<String, dynamic>)["members"] ?? []);
+  print(members);
+  int size = members.length;
+  print(size);
+  db1.doc(doc).update({"members": FieldValue.arrayUnion([resMap[idx]["uid"]]), "currentSize" : size.toString()});
+}
+
+Future<void> deleteRequest(String idx, String doc) async {
+  await db.doc(doc).update(<String, dynamic>{
+    idx : FieldValue.delete(),
+  });
+}
+
+Future<void> ReplacePrevMess(Map<String, dynamic> res, Map<String, dynamic> resMap, String idx, String doc) async {
+  if(res["mess"]!=" "){
+    DocumentSnapshot snapshot = await db1.doc(doc).get();
+    List<String> members = List.from(
+        ((snapshot.data()) as Map<String, dynamic>)["members"] ?? []);
+    int size = members.length - 1;
+    members.remove(resMap[idx]["uid"]);
+    await db1.doc(doc).update({
+      "members": FieldValue.arrayRemove([resMap[idx]["uid"]]),
+      "currentSize": size.toString()
+    });
   }
 }
