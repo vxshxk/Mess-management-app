@@ -112,7 +112,7 @@ class MessPanel extends StatelessWidget {
                   flex: 1,
                   child: IconButton(
                     onPressed: () {
-                      db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-messBal)});
+                      db2.doc(user?.uid).update({"messBalance": FieldValue.increment(messBal)});
                     },
                     icon: const Icon(Icons.account_balance_wallet_outlined),
                     color: Colors.deepPurple[400],
