@@ -17,7 +17,7 @@ class AppRoutes {
     '/signIn': (context) => SignIn(),
     '/loading': (context) => const Loading(),
     '/signUp': (context) => SignUp(),
-    '/userScreen': (context) => const RegForm(),
+    '/userScreen': (context) => RegForm(),
     '/logged': (context) => UserScreen(),
   };
 }

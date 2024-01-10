@@ -5,7 +5,8 @@ import 'package:mess_app/core/email_validator.dart';
 import 'package:mess_app/domain/usecases/add_mess/add_mess_impl.dart';
 import '../../data/models/mess_model.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
-import '../widgets/mess_list.dart';
+import '../bloc/edit_bloc/edit_bloc.dart';
+import 'mess_list.dart';
 
 
 class AddMessScreen extends StatelessWidget {
@@ -15,9 +16,9 @@ class AddMessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     String name = "";
-    String current = "0";
+    int current = 0;
     String email = "";
-    String total = "0";
+    int total = 0;
     Map<String, dynamic> menu= {
       "Breakfast" : " ",
       "Lunch" : " ",
@@ -47,7 +48,7 @@ class AddMessScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: Colors.black87
                       ),
-                
+
                     ),
                     const SizedBox(
                       height: 5,
@@ -64,7 +65,7 @@ class AddMessScreen extends StatelessWidget {
                             borderSide: BorderSide(
                                 color: Colors.grey[400]!
                             ),
-                
+
                           ),
                           border: OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.grey[400]!)
@@ -95,7 +96,7 @@ class AddMessScreen extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     obscureText: false,
                     onChanged: (val) {
-                      total = val;
+                      total = int.parse(val);
                     },
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.symmetric(vertical: 0,
@@ -318,13 +319,39 @@ class AddMessScreen extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 40),
                 child: Container(
                   padding: const EdgeInsets.only(top: 3, left: 3),
-                  child: MaterialButton(
+                  child: BlocBuilder<EditBloc, EditState>(
+                  builder: (context, state) {
+                    if(state is Edit){
+                      return MaterialButton(
+                        minWidth: double.infinity,
+                        height: 60,
+                        onPressed: () async {
+
+                        },
+                        color: Colors.deepPurple[400],
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+
+                        ),
+                        child: const Text(
+                          "Edit", style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.white,
+
+                        ),
+                        ),
+
+                      );
+                    }
+                    return MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () async {
                       if (1==1) {
                         var box = Hive.box('MessData');
-                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: [" "]);
+                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: []);
                         box.put(mess.name, mess);
                         final messData =  MessDataImpl(mess: mess);
                         await messData.setMessData();
@@ -353,7 +380,9 @@ class AddMessScreen extends StatelessWidget {
                     ),
                     ),
 
-                  ),
+                  );
+                  },
+                ),
                 ),
               ),
             ],

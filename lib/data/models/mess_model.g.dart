@@ -17,9 +17,9 @@ class MessModelAdapter extends TypeAdapter<MessModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return MessModel(
-      currentSize: fields[0] as String?,
+      currentSize: fields[0] as int?,
       name: fields[1] as String?,
-      size: fields[2] as String?,
+      size: fields[2] as int?,
       email: fields[3] as String?,
       messMenu: (fields[4] as Map?)?.cast<String, dynamic>(),
       members: (fields[5] as List?)?.cast<String>(),
@@ -66,9 +66,9 @@ class MessModelImplAdapter extends TypeAdapter<_$MessModelImpl> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$MessModelImpl(
-      currentSize: fields[0] as String?,
+      currentSize: fields[0] as int?,
       name: fields[1] as String?,
-      size: fields[2] as String?,
+      size: fields[2] as int?,
       email: fields[3] as String?,
       messMenu: (fields[4] as Map?)?.cast<String, dynamic>(),
       members: (fields[5] as List?)?.cast<String>(),
@@ -110,9 +110,9 @@ class MessModelImplAdapter extends TypeAdapter<_$MessModelImpl> {
 
 _$MessModelImpl _$$MessModelImplFromJson(Map<String, dynamic> json) =>
     _$MessModelImpl(
-      currentSize: json['currentSize'] as String?,
+      currentSize: json['currentSize'] as int?,
       name: json['name'] as String?,
-      size: json['size'] as String?,
+      size: json['size'] as int?,
       email: json['email'] as String?,
       messMenu: json['messMenu'] as Map<String, dynamic>?,
       members:

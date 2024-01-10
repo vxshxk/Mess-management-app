@@ -42,7 +42,6 @@ class SignIn extends StatelessWidget {
           }
         }else if(state is UnAuthenticated){
           if(state.e == 'e'){
-            Navigator.popAndPushNamed(context, AppRoutes.signIn);
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Error! Retry login"),

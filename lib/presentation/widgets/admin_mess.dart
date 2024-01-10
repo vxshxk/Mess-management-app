@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mess_app/data/models/user_model.dart';
 
 import '../../data/models/mess_model.dart';
+import '../../main.dart';
 
 class AdminMessList extends StatelessWidget {
+  final UserModel? user;
   const AdminMessList({
-    super.key,
+    super.key, required this.user,
   });
 
   @override
@@ -53,10 +56,12 @@ class AdminMessList extends StatelessWidget {
                             flex: 9,
                             child: ListTile(
                               onTap: () async {
-                                //await ReplacePrevMess(resMap2, resMa, idx, doc!);
-                                //await changeMess(resMa, idx,doc!);
-                                //await deleteRequest(idx,doc!);
-                              },
+                                await db1.doc(user?.mess).update({"members" : FieldValue.arrayRemove([user?.uid]), "currentSize" : FieldValue.increment(-1)});
+                                await db2.doc(user?.uid).update({
+                                  "mess" : userone.name,
+                                });
+                                await db1.doc(userone.name).update({"members" : FieldValue.arrayUnion([user?.uid]), "currentSize" : FieldValue.increment(1)});
+                                Navigator.of(context).pop();                              },
                               title: Text(
                                 userone.name!,
                                 style: const TextStyle(fontWeight: FontWeight.bold),

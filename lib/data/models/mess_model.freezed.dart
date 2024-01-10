@@ -21,11 +21,11 @@ MessModel _$MessModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MessModel {
   @HiveField(0)
-  String? get currentSize => throw _privateConstructorUsedError;
+  int? get currentSize => throw _privateConstructorUsedError;
   @HiveField(1)
   String? get name => throw _privateConstructorUsedError;
   @HiveField(2)
-  String? get size => throw _privateConstructorUsedError;
+  int? get size => throw _privateConstructorUsedError;
   @HiveField(3)
   String? get email => throw _privateConstructorUsedError;
   @HiveField(4)
@@ -45,9 +45,9 @@ abstract class $MessModelCopyWith<$Res> {
       _$MessModelCopyWithImpl<$Res, MessModel>;
   @useResult
   $Res call(
-      {@HiveField(0) String? currentSize,
+      {@HiveField(0) int? currentSize,
       @HiveField(1) String? name,
-      @HiveField(2) String? size,
+      @HiveField(2) int? size,
       @HiveField(3) String? email,
       @HiveField(4) Map<String, dynamic>? messMenu,
       @HiveField(5) List<String>? members});
@@ -77,7 +77,7 @@ class _$MessModelCopyWithImpl<$Res, $Val extends MessModel>
       currentSize: freezed == currentSize
           ? _value.currentSize
           : currentSize // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -85,7 +85,7 @@ class _$MessModelCopyWithImpl<$Res, $Val extends MessModel>
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -111,9 +111,9 @@ abstract class _$$MessModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@HiveField(0) String? currentSize,
+      {@HiveField(0) int? currentSize,
       @HiveField(1) String? name,
-      @HiveField(2) String? size,
+      @HiveField(2) int? size,
       @HiveField(3) String? email,
       @HiveField(4) Map<String, dynamic>? messMenu,
       @HiveField(5) List<String>? members});
@@ -141,7 +141,7 @@ class __$$MessModelImplCopyWithImpl<$Res>
       currentSize: freezed == currentSize
           ? _value.currentSize
           : currentSize // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -149,7 +149,7 @@ class __$$MessModelImplCopyWithImpl<$Res>
       size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as int?,
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -186,13 +186,13 @@ class _$MessModelImpl extends _MessModel {
 
   @override
   @HiveField(0)
-  final String? currentSize;
+  final int? currentSize;
   @override
   @HiveField(1)
   final String? name;
   @override
   @HiveField(2)
-  final String? size;
+  final int? size;
   @override
   @HiveField(3)
   final String? email;
@@ -264,9 +264,9 @@ class _$MessModelImpl extends _MessModel {
 
 abstract class _MessModel extends MessModel {
   factory _MessModel(
-      {@HiveField(0) required final String? currentSize,
+      {@HiveField(0) required final int? currentSize,
       @HiveField(1) required final String? name,
-      @HiveField(2) required final String? size,
+      @HiveField(2) required final int? size,
       @HiveField(3) required final String? email,
       @HiveField(4) final Map<String, dynamic>? messMenu,
       @HiveField(5) final List<String>? members}) = _$MessModelImpl;
@@ -277,13 +277,13 @@ abstract class _MessModel extends MessModel {
 
   @override
   @HiveField(0)
-  String? get currentSize;
+  int? get currentSize;
   @override
   @HiveField(1)
   String? get name;
   @override
   @HiveField(2)
-  String? get size;
+  int? get size;
   @override
   @HiveField(3)
   String? get email;

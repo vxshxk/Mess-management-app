@@ -9,11 +9,10 @@ import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
-import '../widgets/dashboard.dart';
-import '../widgets/mess_list.dart';
-import '../widgets/services_screen.dart';
+import 'dashboard.dart';
+import 'mess_list.dart';
+import 'services_screen.dart';
 
-final db2 = FirebaseFirestore.instance.collection('Users');
 
 class UserScreen extends StatelessWidget {
   UserScreen({super.key});

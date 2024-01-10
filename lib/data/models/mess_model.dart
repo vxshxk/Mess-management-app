@@ -14,13 +14,13 @@ class MessModel extends HiveObject with _$MessModel {
   @HiveType(typeId: 5)
   factory MessModel({
     @HiveField(0)
-    required String? currentSize,
+    required int? currentSize,
 
     @HiveField(1)
     required String? name,
 
     @HiveField(2)
-    required String? size,
+    required int? size,
 
     @HiveField(3)
     required String? email,

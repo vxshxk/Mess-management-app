@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:mess_app/presentation/bloc/edit_bloc/edit_bloc.dart';
 import 'package:mess_app/presentation/bloc/mess_bloc/mess_bloc.dart';
 import 'package:mess_app/presentation/bloc/nav_bloc/nav_bloc.dart';
 import 'core/routes.dart';
@@ -14,6 +15,7 @@ import 'data/models/user_model.dart';
 final authBloc = AuthBloc();
 final messBloc = MessBloc();
 final navBloc = NavBloc();
+final editBloc = EditBloc();
 
 final db = FirebaseFirestore.instance.collection('Waitinglist');
 final db1 = FirebaseFirestore.instance.collection('Mess');
@@ -48,6 +50,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => navBloc,
+        ),
+        BlocProvider(
+          create: (context) => editBloc,
         ),
       ],
       child: MaterialApp(

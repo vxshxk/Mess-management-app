@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/main.dart';
+import 'package:mess_app/presentation/bloc/edit_bloc/edit_bloc.dart';
+import 'package:mess_app/presentation/screens/reg_form.dart';
 import 'package:mess_app/presentation/widgets/go_to_add.dart';
 import 'package:mess_app/presentation/widgets/mess_details.dart';
+import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
-import 'nav_bar.dart';
+import '../widgets/nav_bar.dart';
 
 class TabWidget1 extends StatefulWidget {
   TabWidget1({Key? key}) : super(key: key);
@@ -20,6 +23,10 @@ class _TabWidget1State extends State<TabWidget1> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        IconButton(onPressed: (){
+          editBloc.add(const EditDetails());
+          Navigator.pushNamed(context, AppRoutes.user);
+        }, icon: const Icon(Icons.edit)),
         Expanded(
           flex: 10,
           child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -35,7 +42,7 @@ class _TabWidget1State extends State<TabWidget1> {
                       );
                     }
 
-                    if (!snapshot.hasData || snapshot.hasError) {
+                    if (!snapshot.hasData || snapshot.hasError || snapshot.connectionState == ConnectionState.none) {
                       return const Text("Error loading data");
                     }
 
@@ -101,7 +108,7 @@ class _TabWidget1State extends State<TabWidget1> {
                                                         children: [
                                                           Text("Name: ${resMap["name"]}"),
                                                           const SizedBox(),
-                                                          Text("Roll No.: ${resMap["rollNum"]}"),
+                                                          Text("Roll No.: ${resMap["rollNumber"]}"),
                                                           const SizedBox(),
                                                           Text("email: ${resMap["email"]}"),
                                                           const SizedBox(),

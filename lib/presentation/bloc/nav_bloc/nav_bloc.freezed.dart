@@ -407,7 +407,6 @@ abstract class ThirdPage implements NavEvent {
 mixin _$NavState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() first,
     required TResult Function() second,
     required TResult Function() third,
@@ -415,7 +414,6 @@ mixin _$NavState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? first,
     TResult? Function()? second,
     TResult? Function()? third,
@@ -423,7 +421,6 @@ mixin _$NavState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? first,
     TResult Function()? second,
     TResult Function()? third,
@@ -432,7 +429,6 @@ mixin _$NavState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(First value) first,
     required TResult Function(Second value) second,
     required TResult Function(Third value) third,
@@ -440,7 +436,6 @@ mixin _$NavState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(First value)? first,
     TResult? Function(Second value)? second,
     TResult? Function(Third value)? third,
@@ -448,7 +443,6 @@ mixin _$NavState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(First value)? first,
     TResult Function(Second value)? second,
     TResult Function(Third value)? third,
@@ -472,120 +466,6 @@ class _$NavStateCopyWithImpl<$Res, $Val extends NavState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$NavStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl();
-
-  @override
-  String toString() {
-    return 'NavState.initial()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() first,
-    required TResult Function() second,
-    required TResult Function() third,
-  }) {
-    return initial();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? first,
-    TResult? Function()? second,
-    TResult? Function()? third,
-  }) {
-    return initial?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? first,
-    TResult Function()? second,
-    TResult Function()? third,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(First value) first,
-    required TResult Function(Second value) second,
-    required TResult Function(Third value) third,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(First value)? first,
-    TResult? Function(Second value)? second,
-    TResult? Function(Third value)? third,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(First value)? first,
-    TResult Function(Second value)? second,
-    TResult Function(Third value)? third,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Initial implements NavState {
-  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
@@ -626,7 +506,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() first,
     required TResult Function() second,
     required TResult Function() third,
@@ -637,7 +516,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? first,
     TResult? Function()? second,
     TResult? Function()? third,
@@ -648,7 +526,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? first,
     TResult Function()? second,
     TResult Function()? third,
@@ -663,7 +540,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(First value) first,
     required TResult Function(Second value) second,
     required TResult Function(Third value) third,
@@ -674,7 +550,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(First value)? first,
     TResult? Function(Second value)? second,
     TResult? Function(Third value)? third,
@@ -685,7 +560,6 @@ class _$FirstImpl implements First {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(First value)? first,
     TResult Function(Second value)? second,
     TResult Function(Third value)? third,
@@ -740,7 +614,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() first,
     required TResult Function() second,
     required TResult Function() third,
@@ -751,7 +624,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? first,
     TResult? Function()? second,
     TResult? Function()? third,
@@ -762,7 +634,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? first,
     TResult Function()? second,
     TResult Function()? third,
@@ -777,7 +648,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(First value) first,
     required TResult Function(Second value) second,
     required TResult Function(Third value) third,
@@ -788,7 +658,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(First value)? first,
     TResult? Function(Second value)? second,
     TResult? Function(Third value)? third,
@@ -799,7 +668,6 @@ class _$SecondImpl implements Second {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(First value)? first,
     TResult Function(Second value)? second,
     TResult Function(Third value)? third,
@@ -854,7 +722,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
     required TResult Function() first,
     required TResult Function() second,
     required TResult Function() third,
@@ -865,7 +732,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
     TResult? Function()? first,
     TResult? Function()? second,
     TResult? Function()? third,
@@ -876,7 +742,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
     TResult Function()? first,
     TResult Function()? second,
     TResult Function()? third,
@@ -891,7 +756,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
     required TResult Function(First value) first,
     required TResult Function(Second value) second,
     required TResult Function(Third value) third,
@@ -902,7 +766,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
     TResult? Function(First value)? first,
     TResult? Function(Second value)? second,
     TResult? Function(Third value)? third,
@@ -913,7 +776,6 @@ class _$ThirdImpl implements Third {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
     TResult Function(First value)? first,
     TResult Function(Second value)? second,
     TResult Function(Third value)? third,

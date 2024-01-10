@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mess_app/presentation/widgets/admin_panel.dart';
 import 'package:mess_app/presentation/widgets/go_to_add.dart';
 import '../../data/models/user_model.dart';
-import 'mess_panel.dart';
-import 'nav_bar.dart';
+import '../widgets/mess_panel.dart';
+import '../widgets/nav_bar.dart';
 
 
 class TabWidget3 extends StatelessWidget {
