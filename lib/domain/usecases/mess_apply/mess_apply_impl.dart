@@ -29,6 +29,7 @@ class MessApplyImpl extends MessApply {
           "uid": user!.uid!,
           "name": user!.name!,
           "topUp": topUp,
+          "current" : user!.mess!,
         }
       });
     } else {
@@ -38,6 +39,7 @@ class MessApplyImpl extends MessApply {
           "uid": user!.uid!,
           "name": user!.name!,
           "topUp": topUp,
+          "current" : user!.mess!,
         }
       });
     }

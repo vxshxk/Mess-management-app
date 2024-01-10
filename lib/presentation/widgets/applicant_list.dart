@@ -62,14 +62,20 @@ class ApplicantList extends StatelessWidget {
                               ),
                               trailing: IconButton(
                                 onPressed: () async {
-                                  final result=  await FirebaseFirestore.instance
-                                      .collection('Users')
-                                      .doc(resMap[idx]["uid"])
-                                      .get();
-                                  Map<String, dynamic> res= result.data() as Map<String, dynamic>;
-                                  await ReplacePrevMess(res, resMap, idx, doc!);
-                                  await changeMess(resMap, idx,doc!);
-                                  await deleteRequest(idx,doc!);
+                                  await db1.doc(resMap[idx]["current"]).update({
+                                    "members" : FieldValue.arrayRemove([resMap[idx]["uid"]]),
+                                    "currentSize" : FieldValue.increment(-1)
+                                  });
+                                  await db2.doc(resMap[idx]["uid"]).update({
+                                    "mess" : doc,
+                                    "messBalance" : resMap[idx]["topUp"]
+                                  });
+                                  await db1.doc(doc).update({
+                                    "members" : FieldValue.arrayUnion([resMap[idx]["uid"]]),
+                                    "currentSize" : FieldValue.increment(1)
+                                  });
+                                  await deleteRequest(idx, doc!);
+                                  Navigator.of(context).pop();
                                 },
                                 icon: const Icon(Icons.done_outline_sharp),
                                 color: Colors.green,
