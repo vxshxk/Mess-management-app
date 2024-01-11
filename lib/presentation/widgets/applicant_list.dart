@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../core/email_validator.dart';
+import '../../data/models/mess_model.dart';
 import '../../main.dart';
 
 class ApplicantList extends StatelessWidget {
@@ -62,7 +63,9 @@ class ApplicantList extends StatelessWidget {
                               ),
                               trailing: IconButton(
                                 onPressed: () async {
-                                  if(resMap[idx]["current"]!= " "){
+                                  final res = await db1.doc(doc).get();
+                                  MessModel mess = MessModel.fromJson(res.data() as Map<String,dynamic>);
+                                  if(resMap[idx]["current"]!= " " &&  mess.currentSize!=mess.size){
                                     await db1
                                         .doc(resMap[idx]["current"])
                                         .update({

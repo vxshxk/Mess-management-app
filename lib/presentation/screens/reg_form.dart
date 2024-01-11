@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
+import '../../core/email_validator.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/user_repository_impl.dart';
 import '../../main.dart';
@@ -12,9 +13,9 @@ import '../bloc/edit_bloc/edit_bloc.dart';
 class RegForm extends StatelessWidget {
   RegForm({super.key});
   String? uid = FirebaseAuth.instance.currentUser?.uid;
-  String? name= " ";
-  String? roll= " ";
-  String? email= " ";
+  String? name;
+  String? roll;
+  String? email;
   String? role= "student";
   @override
   Widget build(BuildContext context) {
@@ -29,18 +30,15 @@ class RegForm extends StatelessWidget {
               name = curUser.name;
               roll = curUser.rollNumber;
               email = curUser.email;
-              role = curUser.role;
             } else {
               name = " ";
               roll = " ";
               email = " ";
-              role = "student";
             }
           }else{
             name = " ";
             roll = " ";
             email = " ";
-            role = "student";
           }
         },
         child: Scaffold(
@@ -67,6 +65,7 @@ class RegForm extends StatelessWidget {
                     height: 5,
                   ),
                   TextFormField(
+                    initialValue: name,
                     obscureText: false,
                     onChanged: (val) {
                       name = val;
@@ -106,6 +105,7 @@ class RegForm extends StatelessWidget {
                     height: 5,
                   ),
                   TextFormField(
+                    initialValue: roll,
                     obscureText: false,
                     onChanged: (val) {
                       roll = val;
@@ -145,6 +145,7 @@ class RegForm extends StatelessWidget {
                     height: 5,
                   ),
                   TextFormField(
+                    initialValue: email,
                     obscureText: false,
                     onChanged: (val) {
                       email = val;
@@ -179,15 +180,24 @@ class RegForm extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () async {
-                          var box = Hive.box('UserData');
-                          await db2.doc(uid).update({
-                            "Name" : name,
-                            "rollNumber" : roll,
-                            "email" : email,
-                          });
-                          editBloc.add(const UnEditDetails());
-                          Navigator.of(context).pop();
-                        },
+                          if (isEmailValid(email!) && roll?.length==6) {
+                              var box = Hive.box('UserData');
+                              await db2.doc(uid).update({
+                                "Name": name,
+                                "rollNumber": roll,
+                                "email": email,
+                              });
+                              //  box.put(uid, );
+                              editBloc.add(const UnEditDetails());
+                              Navigator.of(context).pop();
+                            }else{
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Invalid Credentials"),
+                                )
+                            );
+                          }
+                          },
                         color: Colors.deepPurple[400],
                         elevation: 0,
                         shape: RoundedRectangleBorder(
@@ -209,7 +219,7 @@ class RegForm extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () async {
-                      if (1==1) {
+                      if (isEmailValid(email!) && roll?.length==6) {
                         var box = Hive.box('UserData');
                         UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: " ", messBalance: 0);
                         box.put(user.uid, user);

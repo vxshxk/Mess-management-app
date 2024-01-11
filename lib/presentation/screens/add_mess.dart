@@ -319,7 +319,7 @@ class AddMessScreen extends StatelessWidget {
                   minWidth: double.infinity,
                   height: 60,
                   onPressed: () async {
-                    if (1==1) {
+                    if (isEmailValid(email!) || total is int) {
                       var box = Hive.box('MessData');
                       final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: []);
                       box.put(mess.name, mess);

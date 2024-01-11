@@ -245,7 +245,7 @@ class _TabWidget2State extends State<TabWidget2> {
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
                                                   const Text(
-                                                    "Mess Menu",
+                                                    "Enter an amount you'd want in your mess account",
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
@@ -257,6 +257,7 @@ class _TabWidget2State extends State<TabWidget2> {
                                                     height: 5,
                                                   ),
                                                   TextField(
+                                                    keyboardType: TextInputType.number,
                                                     obscureText: false,
                                                     onChanged: (val) {
                                                       topUp = int.parse(val);

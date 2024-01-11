@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../data/models/user_model.dart';
 import '../../main.dart';
+import '../bloc/validator_bloc/val_bloc.dart';
 
 class MessPanel extends StatelessWidget {
   final UserModel? user;
@@ -34,6 +36,12 @@ class MessPanel extends StatelessWidget {
                     }
 
                     Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                    if(resMap["messBalance"]<=0) {
+                      db1.doc(user?.uid).update({"messBalance": 0});
+                      valBloc.add(const No());
+                    } else {
+                      valBloc.add(const Yes());
+                    }
                     return Container(
                       margin: const EdgeInsets.all(5),
                       padding: const EdgeInsets.all(5),
@@ -43,13 +51,26 @@ class MessPanel extends StatelessWidget {
                         ),
                       ),
                       child: ListTile(
-                        title: Text(
+                        title: BlocBuilder<ValBloc, ValState>(
+                        builder: (context, state) {
+                          if(state is InSufficient){
+                            return const Text(
+                              "Insufficient balance, please recharge!",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            );
+                          }
+                          return Text(
                           "Current balance: ${resMap["messBalance"]}",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
-                        ),
+                        );
+                        },
+                      ),
                       ),
                     );
                   },
@@ -151,7 +172,12 @@ class MessPanel extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     border: Border.all()
                 ),
-                child: IconButton(
+                child: BlocBuilder<ValBloc, ValState>(
+                  builder: (context, state) {
+                    if(state is InSufficient){
+                      return const Icon(Icons.crisis_alert);
+                    }
+                    return IconButton(
                     onPressed: () async {
                       db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -159,7 +185,9 @@ class MessPanel extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.currency_rupee)
-                ),
+                );
+  },
+),
               )
 
             ],
@@ -180,14 +208,21 @@ class MessPanel extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     border: Border.all()
                 ),
-                child: IconButton(
-                    onPressed: () async {
+                child: BlocBuilder<ValBloc, ValState>(
+                   builder: (context, state) {
+                     if(state is InSufficient){
+                       return const Icon(Icons.crisis_alert);
+                     }
+                     return IconButton(
+                      onPressed: () async {
                       db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
                       ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text("Payment Successful"))
                       );
                     },
                     icon: const Icon(Icons.currency_rupee)
+                   );
+                  },
                 ),
               )
 
@@ -209,7 +244,12 @@ class MessPanel extends StatelessWidget {
                   border: Border.all()
               ),
 
-                child: IconButton(
+                child: BlocBuilder<ValBloc, ValState>(
+                  builder: (context, state) {
+                    if(state is InSufficient){
+                      return const Icon(Icons.crisis_alert);
+                    }
+                    return IconButton(
                     onPressed: () async {
                       db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -217,7 +257,9 @@ class MessPanel extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.currency_rupee)
-                ),
+                );
+  },
+),
               )
 
 
@@ -239,7 +281,12 @@ class MessPanel extends StatelessWidget {
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     border: Border.all()
                 ),
-                child: IconButton(
+                child: BlocBuilder<ValBloc, ValState>(
+                  builder: (context, state) {
+                    if(state is InSufficient){
+                      return const Icon(Icons.crisis_alert);
+                    }
+                    return IconButton(
                     onPressed: () async {
                       db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -247,7 +294,9 @@ class MessPanel extends StatelessWidget {
                       );
                     },
                     icon: const Icon(Icons.currency_rupee)
-                ),
+                );
+                },
+              ),
               )
             ],
           )

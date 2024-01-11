@@ -40,16 +40,17 @@ class UserScreen extends StatelessWidget {
           Map<String, dynamic> resMap = snapshot.data!.data() as Map<
               String,
               dynamic>;
-          final UserModel exUser =
-          UserModel.fromJson(resMap);
+          UserModel exUser =
+              UserModel.fromJson(resMap);
+
 
           return Scaffold(
             appBar: AppBar(
               title: BlocBuilder<NavBloc, NavState>(
                 builder: (context, state) {
-                  if(state is Second){
+                  if (state is Second) {
                     return const Text("Tab 2");
-                  }else if(state is Third){
+                  } else if (state is Third) {
                     return const Text("Tab 3");
                   }
                   return const Text("Tab 1");
