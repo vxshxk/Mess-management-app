@@ -62,10 +62,15 @@ class ApplicantList extends StatelessWidget {
                               ),
                               trailing: IconButton(
                                 onPressed: () async {
-                                  await db1.doc(resMap[idx]["current"]).update({
-                                    "members" : FieldValue.arrayRemove([resMap[idx]["uid"]]),
-                                    "currentSize" : FieldValue.increment(-1)
-                                  });
+                                  if(resMap[idx]["current"]!= " "){
+                                    await db1
+                                        .doc(resMap[idx]["current"])
+                                        .update({
+                                      "members": FieldValue.arrayRemove(
+                                          [resMap[idx]["uid"]]),
+                                      "currentSize": FieldValue.increment(-1)
+                                    });
+                                  }
                                   await db2.doc(resMap[idx]["uid"]).update({
                                     "mess" : doc,
                                     "messBalance" : resMap[idx]["topUp"]

@@ -74,7 +74,7 @@ class _TabWidget2State extends State<TabWidget2> {
                         ),
                         child: ListTile(
                           title: Text(
-                            "Current mess: ${resMap["mess"]}",
+                            widget.user?.role != "admin" ? "Current mess: ${resMap["mess"]}" : "You are an admin!",
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                             ),
@@ -91,7 +91,7 @@ class _TabWidget2State extends State<TabWidget2> {
                     const SizedBox(height: 10,),
                     Row(
                       children: [
-                        BlocBuilder<MessBloc, MessState>(
+                        widget.user?.role != "admin" ? BlocBuilder<MessBloc, MessState>(
                           builder: (context, state) {
                             if (state is Updated) {
                               return const Text(
@@ -100,7 +100,7 @@ class _TabWidget2State extends State<TabWidget2> {
                             }
                             return const SizedBox();
                           },
-                        ),
+                        ): const SizedBox(),
                       ],
                     ),
                     const SizedBox(height: 10,),
@@ -122,12 +122,98 @@ class _TabWidget2State extends State<TabWidget2> {
                             flex: 9,
                             child: ListTile(
                               onTap: () {
-                                widget.user?.role != "admin"? {} : (userone.currentSize! != "0" ? Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => UserList(doc: userone.name)
-                                  ),
-                                ): {});
+                                if(widget.user?.role != "admin") {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        content: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            const Text(
+                                              "Mess Menu",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("Breakfast : ${userone.messMenu?["Breakfast"]}"),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("Lunch : ${userone.messMenu?["Lunch"]}"),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("Snacks : ${userone.messMenu?["Snacks"]}"),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text("Dinner : ${userone.messMenu?["Dinner"]}"),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Close"),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                } else {
+                                  (userone.currentSize! != 0 ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                builder: (context) => UserList(doc: userone.name)
+                                ),
+                                ): {
+                                      showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      content: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            const Text(
+                                              "This mess is empty!",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight:
+                                                FontWeight.w400,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 5,
+                                            ),
+                                            TextButton(
+                                              onPressed: () async {
+                                                Navigator.pop(context);
+                                              },
+                                              child: const Text("Close"),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                )
+                                  });}
                               },
                               title: Text(
                                 userone.name!,
@@ -140,77 +226,87 @@ class _TabWidget2State extends State<TabWidget2> {
                                 builder: (context, state) {
                                   return IconButton(
                                     onPressed: () async{
-                                      widget.user?.role=="admin" ? {
-                                              await FirebaseFirestore.instance
-                                                  .collection('Mess')
+                                      if(widget.user?.role=="admin"){
+                                              await db
                                                   .doc(userone.name)
-                                                  .delete(),
-                                        await FirebaseFirestore.instance
-                                            .collection('Waitinglist')
+                                                  .delete();
+                                        await db1
                                             .doc(userone.name)
-                                            .delete(),
+                                            .delete();
 
-                                            }
-                                          :
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            content: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                const Text(
-                                                  "Apply for mess? Select an amount to TopUp",
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w400,
-                                                    color: Colors.black87,
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 5,
-                                                ),
-                                                TextField(
-                                                  obscureText: false,
-                                                  onChanged: (val) {
-                                                    topUp = int.parse(val);
-                                                  },
-                                                  decoration: InputDecoration(
-                                                    contentPadding: const EdgeInsets.symmetric(
-                                                      vertical: 0,
-                                                      horizontal: 10,
-                                                    ),
-                                                    enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: Colors.grey[400]!,
-                                                      ),
-                                                    ),
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color: Colors.grey[400]!,
-                                                      ),
+                                            }else{
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              content: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  const Text(
+                                                    "Mess Menu",
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.black87,
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(height: 10),
-                                                TextButton(
-                                                  onPressed: () async {
-                                                    final messApply = MessApplyImpl(
-                                                        user: widget.user, mess: userone);
-                                                    await messApply.applyMessChange(topUp!);
-                                                    messBloc.add(const DataChanged());
-                                                    Navigator.pop(context);
-                                                    setState(() {
-                                                    });
-                                                  },
-                                                  child: const Text("Submit"),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                      );
+                                                  const SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  TextField(
+                                                    obscureText: false,
+                                                    onChanged: (val) {
+                                                      topUp = int.parse(val);
+                                                    },
+                                                    decoration: InputDecoration(
+                                                      contentPadding:
+                                                          const EdgeInsets
+                                                              .symmetric(
+                                                        vertical: 0,
+                                                        horizontal: 10,
+                                                      ),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Colors.grey[400]!,
+                                                        ),
+                                                      ),
+                                                      border:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Colors.grey[400]!,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(height: 10),
+                                                  TextButton(
+                                                    onPressed: () async {
+                                                      final messApply =
+                                                          MessApplyImpl(
+                                                              user: widget.user,
+                                                              mess: userone);
+                                                      await messApply
+                                                          .applyMessChange(
+                                                              topUp!);
+                                                      messBloc.add(
+                                                          const DataChanged());
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                    },
+                                                    child: const Text("Submit"),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
                                     },
                                     icon: widget.user?.role =="admin" ? const Icon(Icons.delete) : const Icon(Icons.add),
                                   );

@@ -56,12 +56,32 @@ class AdminMessList extends StatelessWidget {
                             flex: 9,
                             child: ListTile(
                               onTap: () async {
-                                await db1.doc(user?.mess).update({"members" : FieldValue.arrayRemove([user?.uid]), "currentSize" : FieldValue.increment(-1)});
-                                await db2.doc(user?.uid).update({
-                                  "mess" : userone.name,
-                                });
-                                await db1.doc(userone.name).update({"members" : FieldValue.arrayUnion([user?.uid]), "currentSize" : FieldValue.increment(1)});
-                                Navigator.of(context).pop();                              },
+                                if(userone.name != user?.mess){
+                                  await db1.doc(user?.mess).update({
+                                    "members":
+                                        FieldValue.arrayRemove([user?.uid]),
+                                    "currentSize": FieldValue.increment(-1)
+                                  });
+                                  await db2.doc(user?.uid).update({
+                                    "mess": userone.name,
+                                  });
+                                  await db1.doc(userone.name).update({
+                                    "members":
+                                        FieldValue.arrayUnion([user?.uid]),
+                                    "currentSize": FieldValue.increment(1)
+                                  });
+                                  Navigator.of(context).pop();
+                                }else{
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const AlertDialog(
+                                        content: Text("Select a different mess!")
+                                      );
+                                    },
+                                  );
+                                }
+                              },
                               title: Text(
                                 userone.name!,
                                 style: const TextStyle(fontWeight: FontWeight.bold),
