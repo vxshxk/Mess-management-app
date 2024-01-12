@@ -7,7 +7,6 @@ import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/bloc/edit_bloc/edit_bloc.dart';
 import 'package:mess_app/presentation/bloc/mess_bloc/mess_bloc.dart';
 import 'package:mess_app/presentation/bloc/nav_bloc/nav_bloc.dart';
-import 'package:mess_app/presentation/bloc/network_bloc/net_bloc.dart';
 import 'package:mess_app/presentation/bloc/validator_bloc/val_bloc.dart';
 import 'core/routes.dart';
 import 'core/firebase_options.dart';
@@ -19,7 +18,6 @@ final messBloc = MessBloc();
 final navBloc = NavBloc();
 final editBloc = EditBloc();
 final valBloc = ValBloc();
-final netBloc = NetBloc();
 
 final db0 = FirebaseFirestore.instance;
 
@@ -37,7 +35,7 @@ void main() async {
   Hive.registerAdapter(MessModelAdapter());
   await Hive.openBox('UserData');
   await Hive.openBox('MessData');
-  db0.settings = const Settings(persistenceEnabled: true);
+  db0.settings = const Settings(persistenceEnabled: true,cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,);
   runApp(MyApp());
 }
 
@@ -63,9 +61,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => valBloc,
-        ),
-        BlocProvider(
-          create: (context) => netBloc,
         ),
       ],
       child: MaterialApp(

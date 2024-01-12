@@ -3,16 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hive/hive.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:mess_app/domain/features/network/network.dart';
 import 'package:mess_app/presentation/screens/add_mess.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
-import '../bloc/network_bloc/net_bloc.dart';
 import 'dashboard.dart';
 import 'mess_list.dart';
 import 'services_screen.dart';
@@ -41,68 +37,97 @@ class UserScreen extends StatelessWidget {
             return const Text("Error loading data");
           }
 
-          UserModel? exUser;
-          return BlocListener<NetBloc, NetState>(
-            listener: (context, state) async{
-              bool isData = await InternetConnectionChecker().hasConnection;
-              if(isData) {
-                Map<String, dynamic> resMap = snapshot.data!.data() as Map<
-                    String,
-                    dynamic>;
-                exUser =
-                UserModel.fromJson(resMap);
-              }else{
-                exUser = Hive.box('UserData').get(user?.uid);
-              }
-            },
-            child: Scaffold(
-              appBar: AppBar(
-                title: BlocBuilder<NavBloc, NavState>(
-                  builder: (context, state) {
-                    if (state is Second) {
-                      return const Text("Tab 2");
-                    } else if (state is Third) {
-                      return const Text("Tab 3");
-                    }
-                    return const Text("Tab 1");
-                  },
-                ),
-                actions: [
-                  exUser?.role == "admin"
-                      ? IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddMessScreen(),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.add),
-                    tooltip: "Add Mess",
-                  )
-                      : const SizedBox(),
-                  TextButton(
-                    onPressed: () {
-                      authBloc.add(const SignOutEvent());
-                      Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
-                    },
-                    child: const Text("Sign Out"),
-                  ),
-                ],
-              ),
-              body: BlocBuilder<NavBloc, NavState>(
+          Map<String, dynamic> resMap = snapshot.data!.data() as Map<
+              String,
+              dynamic>;
+          UserModel exUser =
+              UserModel.fromJson(resMap);
+
+
+          return Scaffold(
+            appBar: AppBar(
+              title: BlocBuilder<NavBloc, NavState>(
                 builder: (context, state) {
                   if (state is Second) {
-                    return TabWidget2(user: exUser);
+                    return const Text("Tab 2");
                   } else if (state is Third) {
-                    return TabWidget3(user: exUser);
+                    return const Text("Tab 3");
                   }
-                  return TabWidget1();
+                  return const Text("Tab 1");
                 },
               ),
-
+              actions: [
+                exUser.role == "admin"
+                    ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddMessScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.add),
+                  tooltip: "Add Mess",
+                )
+                    : IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          content: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                                stream: db2.doc(user?.uid).snapshots(),
+                                builder: (context, snapshot) {
+                                  Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                                    if(resMap["status"] == "a"){
+                                      return const Text("You haven't applied for any mess yet!");
+                                  }else if(resMap["status"] == "r"){
+                                      return const Text("Applied! Request pending");
+                                   }
+                                    else if(resMap["status"] == "d"){
+                                      return const Text("Sorry! Your request was deleted");
+                                    }
+                                    return const Text("Mess change request approved! Your mess has been changed");
+                                }
+                              ),
+                              TextButton(onPressed: () {
+                                Navigator.of(context).pop();
+                              }, child: const Text("Close"))
+                            ],
+                          )
+                        );
+                      },
+                    );
+                },
+                  icon: const Icon(Icons.notifications),
+                  tooltip: "Add Mess",
+                ),
+                TextButton(
+                  onPressed: () {
+                    authBloc.add(const SignOutEvent());
+                    Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
+                  },
+                  child: const Text("Sign Out"),
+                ),
+              ],
             ),
+            body: BlocBuilder<NavBloc, NavState>(
+              builder: (context, state) {
+                if (state is Second) {
+                  return TabWidget2(user: exUser);
+                } else if (state is Third) {
+                  return TabWidget3(user: exUser);
+                }
+                return TabWidget1();
+              },
+            ),
+
           );
         });
   }

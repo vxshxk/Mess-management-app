@@ -82,6 +82,7 @@ class ApplicantList extends StatelessWidget {
                                     "members" : FieldValue.arrayUnion([resMap[idx]["uid"]]),
                                     "currentSize" : FieldValue.increment(1)
                                   });
+                                  await db2.doc(resMap[idx]["uid"]).update({"status": "s"});
                                   await deleteRequest(idx, doc!);
                                   Navigator.of(context).pop();
                                 },
@@ -94,6 +95,7 @@ class ApplicantList extends StatelessWidget {
                             flex: 3,
                             child: IconButton(
                               onPressed: () async {
+                                await db2.doc(resMap[idx]["uid"]).update({"status": "d"});
                                 await deleteRequest(idx, doc!);
                               },
                               icon: const Icon(Icons.cancel_outlined),
