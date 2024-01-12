@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hive/hive.dart';
 import 'package:mess_app/presentation/widgets/nav_bar.dart';
 import 'package:mess_app/presentation/widgets/user_list.dart';
 import '../../data/models/mess_model.dart';
@@ -62,9 +63,15 @@ class _TabWidget2State extends State<TabWidget2> {
                       if (!snapshot.hasData || snapshot.hasError) {
                         return const Text("Error loading data");
                       }
-
-                      Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
-                      return Container(
+                      Map<String, dynamic> resMap;
+                      try{
+                                resMap = snapshot.data!
+                                    .data() as Map<String, dynamic>;
+                              }catch(e){
+                        UserModel use = Hive.box("UserData").get(widget.user?.uid);
+                        resMap = use.toJson();
+                      }
+                              return Container(
                         margin: const EdgeInsets.all(5),
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
