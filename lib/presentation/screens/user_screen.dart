@@ -111,6 +111,7 @@ class UserScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     authBloc.add(const SignOutEvent());
+
                     Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
                   },
                   child: const Text("Sign Out"),

@@ -138,7 +138,7 @@ class _TabWidget1State extends State<TabWidget1> {
                                             ],
                                           ),
                                         ))),
-                                Expanded(flex: 24,child: exUser.mess == " " ? const GoToAddMess() : MessDetails(user: exUser)),
+                                Expanded(flex: 24,child: exUser.role != "admin" ? (exUser.mess == " " ? const GoToAddMess() : MessDetails(user: exUser)) : const SizedBox()),
                               ],
                             )
                         ),
