@@ -11,7 +11,7 @@ class MessPanel extends StatelessWidget {
   final UserModel? user;
   MessPanel({super.key, required this.user});
 
-  int messBal =0 ;
+  int? messBal;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +133,14 @@ class MessPanel extends StatelessWidget {
                   flex: 1,
                   child: IconButton(
                     onPressed: () {
-                      db2.doc(user?.uid).update({"messBalance": FieldValue.increment(messBal)});
+                      if(messBal!=null){
+                        db2.doc(user?.uid).update(
+                            {"messBalance": FieldValue.increment(messBal!)});
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Please enter a valid amount!"))
+                        );
+                      }
                     },
                     icon: const Icon(Icons.account_balance_wallet_outlined),
                     color: Colors.deepPurple[400],
@@ -174,19 +181,19 @@ class MessPanel extends StatelessWidget {
                 child: BlocBuilder<ValBloc, ValState>(
                   builder: (context, state) {
                     if(state is InSufficient){
-                      return const Icon(Icons.crisis_alert);
+                      return const Icon(Icons.warning_amber);
                     }
                     return IconButton(
                     onPressed: () async {
                       db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
                       ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Payment Successful"))
+                          const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
                       );
                     },
                     icon: const Icon(Icons.currency_rupee)
                 );
-  },
-),
+                },
+                              ),
               )
 
           ),

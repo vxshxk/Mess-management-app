@@ -76,29 +76,35 @@ class UserScreen extends StatelessWidget {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          title: const Center(child: Text("Application Status", style: TextStyle(fontSize: 20),)),
                           content: Column(
                             crossAxisAlignment:
                             CrossAxisAlignment.start,
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-                                stream: db2.doc(user?.uid).snapshots(),
-                                builder: (context, snapshot) {
-                                  Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
-                                    if(resMap["status"] == "a"){
-                                      return const Text("You haven't applied for any mess yet!");
-                                  }else if(resMap["status"] == "r"){
-                                      return const Text("Applied! Request pending");
-                                   }
-                                    else if(resMap["status"] == "d"){
-                                      return const Text("Sorry! Your request was deleted");
-                                    }
-                                    return const Text("Mess change request approved! Your mess has been changed");
-                                }
+                              Center(
+                                child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                                  stream: db2.doc(user?.uid).snapshots(),
+                                  builder: (context, snapshot) {
+                                    Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                                      if(resMap["status"] == "a"){
+                                        return const Text("You haven't applied for any mess yet!");
+                                    }else if(resMap["status"] == "r"){
+                                        return const Text("Applied! Request pending");
+                                     }
+                                      else if(resMap["status"] == "d"){
+                                        return const Text("Sorry! Your request was deleted");
+                                      }
+                                      return const Text("Mess change request approved! Your mess has been changed");
+                                  }
+                                ),
                               ),
-                              TextButton(onPressed: () {
-                                Navigator.of(context).pop();
-                              }, child: const Text("Close"))
+                              SizedBox(height: 10,),
+                              Center(
+                                child: TextButton(onPressed: () {
+                                  Navigator.of(context).pop();
+                                }, child: const Text("Close")),
+                              )
                             ],
                           )
                         );

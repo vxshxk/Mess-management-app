@@ -64,27 +64,60 @@ class ApplicantList extends StatelessWidget {
                               trailing: IconButton(
                                 onPressed: () async {
                                   final res = await db1.doc(doc).get();
-                                  MessModel mess = MessModel.fromJson(res.data() as Map<String,dynamic>);
-                                  if(resMap[idx]["current"]!= " " &&  mess.currentSize!=mess.size){
-                                    await db1
-                                        .doc(resMap[idx]["current"])
-                                        .update({
-                                      "members": FieldValue.arrayRemove(
-                                          [resMap[idx]["uid"]]),
-                                      "currentSize": FieldValue.increment(-1)
+                                  MessModel mess = MessModel.fromJson(
+                                      res.data() as Map<String, dynamic>);
+                                  if(mess.currentSize!=mess.size ){
+                                    if (resMap[idx]["current"] != " ") {
+                                      await db1
+                                          .doc(resMap[idx]["current"])
+                                          .update({
+                                        "members": FieldValue.arrayRemove(
+                                            [resMap[idx]["uid"]]),
+                                        "currentSize": FieldValue.increment(-1)
+                                      });
+                                    }
+                                    await db2.doc(resMap[idx]["uid"]).update({
+                                      "mess": doc,
+                                      "messBalance": resMap[idx]["topUp"]
                                     });
+                                    await db1.doc(doc).update({
+                                      "members": FieldValue.arrayUnion(
+                                          [resMap[idx]["uid"]]),
+                                      "currentSize": FieldValue.increment(1)
+                                    });
+                                    await db2
+                                        .doc(resMap[idx]["uid"])
+                                        .update({"status": "s"});
+                                    await deleteRequest(idx, doc!);
+                                    Navigator.of(context).pop();
+                                  }else{
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return const AlertDialog(
+                                            title: Center(
+                                              child: Text(
+                                                "Alert",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight:
+                                                  FontWeight.bold,
+                                                  color: Colors.black87,
+                                                ),
+                                              ),
+                                            ),
+                                            content: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Text("This mess is already full!"),
+                                              ],
+                                            )
+                                        );
+                                      },
+                                    );
                                   }
-                                  await db2.doc(resMap[idx]["uid"]).update({
-                                    "mess" : doc,
-                                    "messBalance" : resMap[idx]["topUp"]
-                                  });
-                                  await db1.doc(doc).update({
-                                    "members" : FieldValue.arrayUnion([resMap[idx]["uid"]]),
-                                    "currentSize" : FieldValue.increment(1)
-                                  });
-                                  await db2.doc(resMap[idx]["uid"]).update({"status": "s"});
-                                  await deleteRequest(idx, doc!);
-                                  Navigator.of(context).pop();
                                 },
                                 icon: const Icon(Icons.done_outline_sharp),
                                 color: Colors.green,
@@ -97,6 +130,7 @@ class ApplicantList extends StatelessWidget {
                               onPressed: () async {
                                 await db2.doc(resMap[idx]["uid"]).update({"status": "d"});
                                 await deleteRequest(idx, doc!);
+                                Navigator.of(context).pop();
                               },
                               icon: const Icon(Icons.cancel_outlined),
                               color: Colors.red,

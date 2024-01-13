@@ -33,44 +33,42 @@ class AddMessScreen extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    "Name",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black87
-                    ),
-
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Text(
+                  "Name",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black87
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  TextField(
-                    obscureText: false,
-                    onChanged: (val) {
-                      name = val;
-                    },
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                            horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Colors.grey[400]!
-                          ),
 
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                TextField(
+                  obscureText: false,
+                  onChanged: (val) {
+                    name = val;
+                  },
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                          horizontal: 10),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.grey[400]!
                         ),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[400]!)
-                        )
-                    ),
+
+                      ),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.grey[400]!)
+                      )
                   ),
-                  const SizedBox(height: 10,)
-                ],
-              ),
+                ),
+                const SizedBox(height: 10,)
+              ],
             ),
             //const SizedBox(height: 20),
             Column(
@@ -146,7 +144,7 @@ class AddMessScreen extends StatelessWidget {
                       )
                   ),
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(height: 25,),
                 const Text(
                   "Mess Menu",
                   style: TextStyle(
@@ -156,6 +154,7 @@ class AddMessScreen extends StatelessWidget {
                   ),
 
                 ),
+                const SizedBox(height: 15,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -319,7 +318,7 @@ class AddMessScreen extends StatelessWidget {
                   minWidth: double.infinity,
                   height: 60,
                   onPressed: () async {
-                    if (isEmailValid(email!) || total is int) {
+                    if (isEmailValid(email!) && total is int && total>0) {
                       var box = Hive.box('MessData');
                       final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: []);
                       box.put(mess.name, mess);

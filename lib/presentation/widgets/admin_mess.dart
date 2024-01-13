@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:mess_app/core/routes.dart';
 import 'package:mess_app/data/models/user_model.dart';
+import 'package:mess_app/presentation/screens/user_screen.dart';
 
 import '../../data/models/mess_model.dart';
 import '../../main.dart';
@@ -56,7 +58,7 @@ class AdminMessList extends StatelessWidget {
                             flex: 9,
                             child: ListTile(
                               onTap: () async {
-                                if(userone.name != user?.mess){
+                                if(userone.name != user?.mess && userone.currentSize != userone.size){
                                   await db1.doc(user?.mess).update({
                                     "members":
                                         FieldValue.arrayRemove([user?.uid]),
@@ -70,13 +72,32 @@ class AdminMessList extends StatelessWidget {
                                         FieldValue.arrayUnion([user?.uid]),
                                     "currentSize": FieldValue.increment(1)
                                   });
-                                  Navigator.of(context).pop();
+                                  Navigator.of(context).popUntil((route) => false);
+                                  Navigator.of(context).pushNamed(AppRoutes.logged);
                                 }else{
                                   showDialog(
                                     context: context,
                                     builder: (BuildContext context) {
                                       return const AlertDialog(
-                                        content: Text("Select a different mess!")
+                                        title: Center(
+                                      child: Text(
+                                      "Alert",
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight:
+                                          FontWeight.bold,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                      ),
+                                        content: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text("Select a different mess!",textAlign: TextAlign.center,),
+                                          ],
+                                        )
                                       );
                                     },
                                   );

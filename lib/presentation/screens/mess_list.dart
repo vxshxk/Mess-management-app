@@ -127,23 +127,19 @@ class _TabWidget2State extends State<TabWidget2> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
+                                        title: const Center(
+                                          child: Text(
+                                            "Mess Menu",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                        ),
                                         content: Column(
                                           crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                           mainAxisSize: MainAxisSize.min,
                                           children: <Widget>[
-                                            const Text(
-                                              "Mess Menu",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
                                             Text("Breakfast : ${userone.messMenu?["Breakfast"]}"),
                                             const SizedBox(
                                               height: 5,
@@ -182,33 +178,42 @@ class _TabWidget2State extends State<TabWidget2> {
                                       context: context,
                                       builder: (BuildContext context) {
                                     return AlertDialog(
-                                      content: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            const Text(
+                                      title: const Center(
+                                        child: Text(
+                                          "Alert!",
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight:
+                                            FontWeight.bold,
+                                            color: Colors.black87,
+                                          ),
+                                        ),
+                                      ),
+                                      content: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          const Center(
+                                            child: Text(
                                               "This mess is empty!",
                                               style: TextStyle(
                                                 fontSize: 15,
-                                                fontWeight:
-                                                FontWeight.w400,
-                                                color: Colors.black87,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            TextButton(
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          Center(
+                                            child: TextButton(
                                               onPressed: () async {
                                                 Navigator.pop(context);
                                               },
                                               child: const Text("Close"),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     );
                                   },
@@ -224,7 +229,7 @@ class _TabWidget2State extends State<TabWidget2> {
                               ),
                               trailing: BlocBuilder<MessBloc, MessState>(
                                 builder: (context, state) {
-                                  return IconButton(
+                                  return widget.user?.mess != userone.name ? IconButton(
                                     onPressed: () async{
                                       if(widget.user?.role=="admin"){
                                               await db
@@ -239,6 +244,18 @@ class _TabWidget2State extends State<TabWidget2> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
+                                              title: const Center(
+                                              child: Text(
+                                              "Apply for mess",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight:
+                                                FontWeight.bold,
+                                                color: Colors.black87,
+                                              ),
+                                            ),
+                                            ),
+
                                               content: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -288,18 +305,30 @@ class _TabWidget2State extends State<TabWidget2> {
                                                   const SizedBox(height: 10),
                                                   TextButton(
                                                     onPressed: () async {
-                                                      final messApply =
-                                                          MessApplyImpl(
-                                                              user: widget.user,
-                                                              mess: userone);
-                                                      await messApply
-                                                          .applyMessChange(
-                                                              topUp!);
-                                                      await db2.doc(widget.user?.uid).update({"status": "r"});
-                                                      messBloc.add(
-                                                          const DataChanged());
-                                                      Navigator.pop(context);
-                                                      setState(() {});
+                                                      if(topUp != null){
+                                                        final messApply =
+                                                            MessApplyImpl(
+                                                                user:
+                                                                    widget.user,
+                                                                mess: userone);
+                                                        await messApply
+                                                            .applyMessChange(
+                                                                topUp!);
+                                                        await db2
+                                                            .doc(widget
+                                                                .user?.uid)
+                                                            .update({
+                                                          "status": "r"
+                                                        });
+                                                        messBloc.add(
+                                                            const DataChanged());
+                                                        Navigator.pop(context);
+                                                        setState(() {});
+                                                      }else{
+                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                          const SnackBar(content: Text("Please enter a valid amount!"))
+                                                        );
+                                                      }
                                                     },
                                                     child: const Text("Submit"),
                                                   ),
@@ -311,7 +340,7 @@ class _TabWidget2State extends State<TabWidget2> {
                                       }
                                     },
                                     icon: widget.user?.role =="admin" ? const Icon(Icons.delete) : const Icon(Icons.add),
-                                  );
+                                  ) : const SizedBox();
                                 },
                               ),
                             ),
