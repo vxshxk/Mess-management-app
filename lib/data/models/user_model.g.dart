@@ -24,13 +24,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       role: fields[4] as String?,
       mess: fields[5] as String?,
       messBalance: fields[6] as int?,
+      status: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(5)
       ..write(obj.mess)
       ..writeByte(6)
-      ..write(obj.messBalance);
+      ..write(obj.messBalance)
+      ..writeByte(7)
+      ..write(obj.status);
   }
 
   @override
@@ -76,13 +79,14 @@ class UserModelImplAdapter extends TypeAdapter<_$UserModelImpl> {
       role: fields[4] as String?,
       mess: fields[5] as String?,
       messBalance: fields[6] as int?,
+      status: fields[7] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$UserModelImpl obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -96,7 +100,9 @@ class UserModelImplAdapter extends TypeAdapter<_$UserModelImpl> {
       ..writeByte(5)
       ..write(obj.mess)
       ..writeByte(6)
-      ..write(obj.messBalance);
+      ..write(obj.messBalance)
+      ..writeByte(7)
+      ..write(obj.status);
   }
 
   @override
@@ -123,6 +129,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       role: json['role'] as String?,
       mess: json['mess'] as String?,
       messBalance: json['messBalance'] as int?,
+      status: json['status'] as String?,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -134,4 +141,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'role': instance.role,
       'mess': instance.mess,
       'messBalance': instance.messBalance,
+      'status': instance.status,
     };

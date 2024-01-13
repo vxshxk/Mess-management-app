@@ -180,10 +180,10 @@ class RegForm extends StatelessWidget {
                         minWidth: double.infinity,
                         height: 60,
                         onPressed: () async {
-                          if (isEmailValid(email!) && roll?.length==6) {
+                          if (true) {
                               var box = Hive.box('UserData');
                               await db2.doc(uid).update({
-                                "Name": name,
+                                "name": name,
                                 "rollNumber": roll,
                                 "email": email,
                               });
@@ -219,9 +219,9 @@ class RegForm extends StatelessWidget {
                     minWidth: double.infinity,
                     height: 60,
                     onPressed: () async {
-                      if (isEmailValid(email!) && roll?.length==6) {
+                      if (isEmailValid(email!) && roll?.length==8) {
                         var box = Hive.box('UserData');
-                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: " ", messBalance: 0);
+                        UserModel user = UserModel(uid: uid, name: name, rollNumber: roll, email: email, role: role, mess: " ", messBalance: 0,status: "a");
                         box.put(user.uid, user);
                         IUserRepository iUserRepository = IUserRepository(user: user);
                         await iUserRepository.changeUserData();
@@ -250,10 +250,8 @@ class RegForm extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
                       color: Colors.white,
-
                     ),
                     ),
-
                   );
                   },
                 ),

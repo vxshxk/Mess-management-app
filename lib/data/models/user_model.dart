@@ -34,6 +34,9 @@ class UserModel extends HiveObject with _$UserModel {
     @HiveField(6)
     int? messBalance,
 
+    @HiveField(7)
+    String? status
+
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
