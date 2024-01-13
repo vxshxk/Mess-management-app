@@ -18,7 +18,7 @@ class NavigatorBar extends StatelessWidget {
                 onPressed: () {
                   navBloc.add(const FirstPage());
                 },
-                icon: const Icon(Icons.home),
+                icon: const Icon(Icons.home_outlined),
                 color: Colors.deepPurple[400],
               )
           ),
@@ -27,7 +27,7 @@ class NavigatorBar extends StatelessWidget {
                 onPressed: () {
                   navBloc.add(const SecondPage());
                 },
-                icon: const Icon(Icons.home),
+                icon: const Icon(Icons.search),
                 color: Colors.deepPurple[400],
               )
           ),
@@ -36,7 +36,7 @@ class NavigatorBar extends StatelessWidget {
                 onPressed: () {
                   navBloc.add(const ThirdPage());
                 },
-                icon: const Icon(Icons.home),
+                icon: const Icon(Icons.info_outline),
                 color: Colors.deepPurple[400],
               )
           ),

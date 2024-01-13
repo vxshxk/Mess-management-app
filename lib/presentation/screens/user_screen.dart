@@ -49,11 +49,11 @@ class UserScreen extends StatelessWidget {
               title: BlocBuilder<NavBloc, NavState>(
                 builder: (context, state) {
                   if (state is Second) {
-                    return const Text("Tab 2");
+                    return const Text("Apply");
                   } else if (state is Third) {
-                    return const Text("Tab 3");
+                    return const Text("Your Mess");
                   }
-                  return const Text("Tab 1");
+                  return const Text("Home");
                 },
               ),
               actions: [

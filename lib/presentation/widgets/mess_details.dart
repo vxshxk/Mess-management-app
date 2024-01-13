@@ -13,76 +13,67 @@ class MessDetails extends StatelessWidget {
     return Column(
       children: [
         const Expanded(
-          flex: 1,
+          flex: 3,
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, 11, 0, 0),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 18,
-                ),
-                Text(
-                  "Mess Details",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+            child: Text(
+              "Mess Details",
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ),
+        const Expanded(flex: 1, child: SizedBox()),
         Expanded(
-            flex: 8,
+            flex: 24,
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(15, 7, 15, 15),
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.grey[100]),
-                  child: Column(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 15.0,
-                            ),
-                            const Expanded(
-                              flex: 2,
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: CircleAvatar(
-                                  radius: 100.0,
-                                ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Expanded(
+                            flex: 1,
+                            child: Text("MESS"),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              "${user?.mess!}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.deepPurple[400]
                               ),
                             ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: [
-                                  Text("Name: ${user?.mess}"),
-                                  const SizedBox(),
-                                  const Text("Roll No.: "),
-                                  const SizedBox(),
-                                  const Text("Year: "),
-                                  const SizedBox(),
-                                ],
+                          ),
+                          const Expanded(
+                            flex: 1,
+                            child: Text("MESS BALANCE"),
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Text(
+                              "${user?.messBalance!}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                  color: Colors.deepPurple[400]
                               ),
-                            )
-                          ],
-                        ),
+                            ),
+                          ),
+                          const Expanded(
+                            flex: 1,
+                            child: SizedBox()
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: SizedBox()
+                          ),
+                        ],
                       ),
-                      const Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: [
-                            Expanded(
-                                flex: 3, child: Text("Placeholder")),
-                            Expanded(
-                                flex: 5, child: Text("Placeholder"))
-                          ],
-                        ),
-                      )
                     ],
                   ),
                 ))),

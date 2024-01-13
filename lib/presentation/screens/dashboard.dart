@@ -23,10 +23,6 @@ class _TabWidget1State extends State<TabWidget1> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        IconButton(onPressed: (){
-          editBloc.add(const EditDetails());
-          Navigator.pushNamed(context, AppRoutes.user);
-        }, icon: const Icon(Icons.edit)),
         Expanded(
           flex: 10,
           child: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -56,85 +52,93 @@ class _TabWidget1State extends State<TabWidget1> {
                             child: Column(
                               children: [
                                 const Expanded(
-                                  flex: 1,
+                                  flex: 3,
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(0, 11, 0, 0),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 18,
-                                        ),
-                                        Text(
-                                          "Profile",
-                                          style: TextStyle(fontWeight: FontWeight.bold),
-                                        ),
-                                        SizedBox(
-                                          width: 18,
-                                        ),
-                                      ],
+                                    child: Text(
+                                      "Profile",
+                                      style: TextStyle(fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                 ),
+                                const Expanded(flex: 1, child: SizedBox()),
                                 Expanded(
-                                    flex: 8,
+                                    flex: 24,
                                     child: Padding(
                                         padding: const EdgeInsets.fromLTRB(15, 7, 15, 15),
                                         child: Container(
-                                          decoration: BoxDecoration(color: Colors.grey[100]),
-                                          child: Column(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.start,
                                             children: [
-                                              const SizedBox(
-                                                height: 15.0,
-                                              ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Row(
-                                                  children: [
-                                                    const SizedBox(
-                                                      width: 15.0,
-                                                    ),
-                                                    const Expanded(
-                                                      flex: 2,
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(8.0),
-                                                        child: CircleAvatar(
-                                                          radius: 100.0,
-                                                        ),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Text("NAME"),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      "${exUser.name!}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30,
+                                                        color: Colors.deepPurple[400]
                                                       ),
                                                     ),
-                                                    Expanded(
-                                                      flex: 5,
-                                                      child: Column(
-                                                        children: [
-                                                          Text("Name: ${resMap["name"]}"),
-                                                          const SizedBox(),
-                                                          Text("Roll No.: ${resMap["rollNumber"]}"),
-                                                          const SizedBox(),
-                                                          Text("email: ${resMap["email"]}"),
-                                                          const SizedBox(),
-                                                          Text("role: ${resMap["role"]}"),
-                                                          const SizedBox(),
-                                                        ],
+                                                  ),
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Text("ROLL NUMBER"),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      "${exUser.rollNumber!}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30,
+                                                          color: Colors.deepPurple[400]
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
+                                                    ),
+                                                  ),
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Text("EMAIL"),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      "${exUser.email!}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30,
+                                                          color: Colors.deepPurple[400]
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  const Expanded(
+                                                    flex: 1,
+                                                    child: Text("ROLE"),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Text(
+                                                      "${exUser.role!}",
+                                                      style: TextStyle(
+                                                        fontWeight: FontWeight.bold,
+                                                        fontSize: 30,
+                                                          color: Colors.deepPurple[400]
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                              Expanded(
-                                                flex: 1,
-                                                child: Row(
-                                                  children: [
-                                                    Expanded(
-                                                        flex: 3, child: Text("Current mess: ${resMap["mess"]}")),
-                                                    Expanded(
-                                                        flex: 5, child: Text("Mess Balance: ${resMap["messBalance"]}"))
-                                                  ],
-                                                ),
-                                              )
                                             ],
                                           ),
                                         ))),
-                                Expanded(flex: 8,child: exUser.mess == " " ? const GoToAddMess() : MessDetails(user: exUser)),
+                                Expanded(flex: 24,child: exUser.mess == " " ? const GoToAddMess() : MessDetails(user: exUser)),
                               ],
                             )
                         ),
