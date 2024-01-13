@@ -173,27 +173,27 @@ class MessPanel extends StatelessWidget {
                   color: Colors.deepPurple[400],
                 ),
               ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    border: Border.all()
-                ),
-                child: BlocBuilder<ValBloc, ValState>(
-                  builder: (context, state) {
-                    if(state is InSufficient){
-                      return const Icon(Icons.warning_amber);
-                    }
-                    return IconButton(
-                    onPressed: () async {
-                      db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
-                      );
-                    },
-                    icon: const Icon(Icons.currency_rupee)
-                );
+              trailing: BlocBuilder<ValBloc, ValState>(
+                builder: (context, state) {
+                  if(state is InSufficient){
+                    return const Icon(Icons.warning_amber);
+                  }
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        border: Border.all()
+                    ),
+                    child: IconButton(
+                        onPressed: () async {
+                          db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
+                          );
+                        },
+                        icon: const Icon(Icons.currency_rupee)
+                    ),
+                  );
                 },
-                              ),
               )
 
           ),
@@ -207,27 +207,27 @@ class MessPanel extends StatelessWidget {
                   color: Colors.deepPurple[400],
                 ),
               ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    border: Border.all()
-                ),
-                child: BlocBuilder<ValBloc, ValState>(
-                  builder: (context, state) {
-                    if(state is InSufficient){
-                      return const Icon(Icons.crisis_alert);
-                    }
-                    return IconButton(
+              trailing: BlocBuilder<ValBloc, ValState>(
+                builder: (context, state) {
+                  if(state is InSufficient){
+                    return const Icon(Icons.warning_amber);
+                  }
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        border: Border.all()
+                    ),
+                    child: IconButton(
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"))
+                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               )
 
           ),
@@ -241,29 +241,28 @@ class MessPanel extends StatelessWidget {
                   color: Colors.deepPurple[400],
                 ),
               ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    border: Border.all()
-                ),
-                child: BlocBuilder<ValBloc, ValState>(
-                  builder: (context, state) {
-                    if(state is InSufficient){
-                      return const Icon(Icons.crisis_alert);
-                    }
-                    return IconButton(
+              trailing: BlocBuilder<ValBloc, ValState>(
+                builder: (context, state) {
+                  if(state is InSufficient){
+                    return const Icon(Icons.warning_amber);
+                  }
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        border: Border.all()
+                    ),
+                    child: IconButton(
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"))
+                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               )
-
           ),
           ListTile(
               leading: Text(
@@ -275,27 +274,27 @@ class MessPanel extends StatelessWidget {
                   color: Colors.deepPurple[400],
                 ),
               ),
-              trailing: Container(
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(30)),
-                    border: Border.all()
-                ),
-                child: BlocBuilder<ValBloc, ValState>(
-                  builder: (context, state) {
-                    if(state is InSufficient){
-                      return const Icon(Icons.crisis_alert);
-                    }
-                    return IconButton(
+              trailing: BlocBuilder<ValBloc, ValState>(
+                builder: (context, state) {
+                  if(state is InSufficient){
+                    return const Icon(Icons.warning_amber);
+                  }
+                  return Container(
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(Radius.circular(30)),
+                        border: Border.all()
+                    ),
+                    child: IconButton(
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"))
+                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               )
 
           ),

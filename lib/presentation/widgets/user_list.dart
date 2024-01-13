@@ -78,7 +78,7 @@ class UserList extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Expanded(
-                                    flex: 25,
+                                    flex: 50,
                                     child: ListTile(
                                       title: Text(
                                         resMap2["name"],
@@ -87,10 +87,20 @@ class UserList extends StatelessWidget {
                                       subtitle: Text(
                                         "Mess Balance: ${resMap2["messBalance"]}", // Fixed typo here
                                       ),
+                                      trailing: IconButton(
+                                        onPressed: () async {
+                                          db2.doc(exUser.uid).update({"mess": " ","status": "a"});
+                                          db1.doc(exUser.mess).update({
+                                            "currentSize" : FieldValue.increment(-1),
+                                            "members" : FieldValue.arrayRemove([exUser.uid])
+                                          });
+                                        },
+                                        icon: const Icon(Icons.remove_circle, color: Colors.red,),
+                                      ),
                                     ),
                                   ),
                                   Expanded(
-                                    flex: 3,
+                                    flex: 7,
                                     child: IconButton(
                                       onPressed: () async {
                                         Navigator.push(
@@ -100,8 +110,8 @@ class UserList extends StatelessWidget {
                                           ),
                                         );
                                       },
-                                      icon: const Icon(Icons.change_circle_outlined),
-                                      color: Colors.red,
+                                      icon: const Icon(Icons.publish_sharp),
+                                      color: Colors.deepPurple[400],
                                     ),
                                   ),
                                   const Expanded(

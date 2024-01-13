@@ -19,38 +19,38 @@ mixin _$MessEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() dataChanged,
-    required TResult Function() updatedOrNot,
+    required TResult Function() back,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? dataChanged,
-    TResult? Function()? updatedOrNot,
+    TResult? Function()? back,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? dataChanged,
-    TResult Function()? updatedOrNot,
+    TResult Function()? back,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DataChanged value) dataChanged,
-    required TResult Function(updatedOrNot value) updatedOrNot,
+    required TResult Function(Back value) back,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DataChanged value)? dataChanged,
-    TResult? Function(updatedOrNot value)? updatedOrNot,
+    TResult? Function(Back value)? back,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataChanged value)? dataChanged,
-    TResult Function(updatedOrNot value)? updatedOrNot,
+    TResult Function(Back value)? back,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -112,7 +112,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() dataChanged,
-    required TResult Function() updatedOrNot,
+    required TResult Function() back,
   }) {
     return dataChanged();
   }
@@ -121,7 +121,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? dataChanged,
-    TResult? Function()? updatedOrNot,
+    TResult? Function()? back,
   }) {
     return dataChanged?.call();
   }
@@ -130,7 +130,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? dataChanged,
-    TResult Function()? updatedOrNot,
+    TResult Function()? back,
     required TResult orElse(),
   }) {
     if (dataChanged != null) {
@@ -143,7 +143,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DataChanged value) dataChanged,
-    required TResult Function(updatedOrNot value) updatedOrNot,
+    required TResult Function(Back value) back,
   }) {
     return dataChanged(this);
   }
@@ -152,7 +152,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DataChanged value)? dataChanged,
-    TResult? Function(updatedOrNot value)? updatedOrNot,
+    TResult? Function(Back value)? back,
   }) {
     return dataChanged?.call(this);
   }
@@ -161,7 +161,7 @@ class _$DataChangedImpl implements DataChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataChanged value)? dataChanged,
-    TResult Function(updatedOrNot value)? updatedOrNot,
+    TResult Function(Back value)? back,
     required TResult orElse(),
   }) {
     if (dataChanged != null) {
@@ -176,35 +176,34 @@ abstract class DataChanged implements MessEvent {
 }
 
 /// @nodoc
-abstract class _$$updatedOrNotImplCopyWith<$Res> {
-  factory _$$updatedOrNotImplCopyWith(
-          _$updatedOrNotImpl value, $Res Function(_$updatedOrNotImpl) then) =
-      __$$updatedOrNotImplCopyWithImpl<$Res>;
+abstract class _$$BackImplCopyWith<$Res> {
+  factory _$$BackImplCopyWith(
+          _$BackImpl value, $Res Function(_$BackImpl) then) =
+      __$$BackImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$updatedOrNotImplCopyWithImpl<$Res>
-    extends _$MessEventCopyWithImpl<$Res, _$updatedOrNotImpl>
-    implements _$$updatedOrNotImplCopyWith<$Res> {
-  __$$updatedOrNotImplCopyWithImpl(
-      _$updatedOrNotImpl _value, $Res Function(_$updatedOrNotImpl) _then)
+class __$$BackImplCopyWithImpl<$Res>
+    extends _$MessEventCopyWithImpl<$Res, _$BackImpl>
+    implements _$$BackImplCopyWith<$Res> {
+  __$$BackImplCopyWithImpl(_$BackImpl _value, $Res Function(_$BackImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$updatedOrNotImpl implements updatedOrNot {
-  const _$updatedOrNotImpl();
+class _$BackImpl implements Back {
+  const _$BackImpl();
 
   @override
   String toString() {
-    return 'MessEvent.updatedOrNot()';
+    return 'MessEvent.back()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$updatedOrNotImpl);
+        (other.runtimeType == runtimeType && other is _$BackImpl);
   }
 
   @override
@@ -214,29 +213,29 @@ class _$updatedOrNotImpl implements updatedOrNot {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() dataChanged,
-    required TResult Function() updatedOrNot,
+    required TResult Function() back,
   }) {
-    return updatedOrNot();
+    return back();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? dataChanged,
-    TResult? Function()? updatedOrNot,
+    TResult? Function()? back,
   }) {
-    return updatedOrNot?.call();
+    return back?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? dataChanged,
-    TResult Function()? updatedOrNot,
+    TResult Function()? back,
     required TResult orElse(),
   }) {
-    if (updatedOrNot != null) {
-      return updatedOrNot();
+    if (back != null) {
+      return back();
     }
     return orElse();
   }
@@ -245,36 +244,36 @@ class _$updatedOrNotImpl implements updatedOrNot {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(DataChanged value) dataChanged,
-    required TResult Function(updatedOrNot value) updatedOrNot,
+    required TResult Function(Back value) back,
   }) {
-    return updatedOrNot(this);
+    return back(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(DataChanged value)? dataChanged,
-    TResult? Function(updatedOrNot value)? updatedOrNot,
+    TResult? Function(Back value)? back,
   }) {
-    return updatedOrNot?.call(this);
+    return back?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(DataChanged value)? dataChanged,
-    TResult Function(updatedOrNot value)? updatedOrNot,
+    TResult Function(Back value)? back,
     required TResult orElse(),
   }) {
-    if (updatedOrNot != null) {
-      return updatedOrNot(this);
+    if (back != null) {
+      return back(this);
     }
     return orElse();
   }
 }
 
-abstract class updatedOrNot implements MessEvent {
-  const factory updatedOrNot() = _$updatedOrNotImpl;
+abstract class Back implements MessEvent {
+  const factory Back() = _$BackImpl;
 }
 
 /// @nodoc

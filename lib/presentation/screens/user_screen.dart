@@ -8,6 +8,7 @@ import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
+import '../bloc/mess_bloc/mess_bloc.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
 import 'dashboard.dart';
 import 'mess_list.dart';
@@ -93,13 +94,15 @@ class UserScreen extends StatelessWidget {
                                         return const Text("Applied! Request pending");
                                      }
                                       else if(resMap["status"] == "d"){
+                                        messBloc.add(const Back());
                                         return const Text("Sorry! Your request was deleted");
                                       }
+                                      messBloc.add(const Back());
                                       return const Text("Mess change request approved! Your mess has been changed");
                                   }
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Center(
                                 child: TextButton(onPressed: () {
                                   Navigator.of(context).pop();
@@ -117,8 +120,9 @@ class UserScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     authBloc.add(const SignOutEvent());
-
+                    navBloc.add(const FirstPage());
                     Navigator.of(context).popAndPushNamed(AppRoutes.signIn);
+                    messBloc.add(const Back());
                   },
                   child: const Text("Sign Out"),
                 ),
