@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import '../../data/models/mess_model.dart';
+import '../../data/models/user_model.dart';
 import '../../main.dart';
 
 class ApplicantList extends StatelessWidget {
@@ -64,8 +65,40 @@ class ApplicantList extends StatelessWidget {
                                   final res = await db1.doc(doc).get();
                                   MessModel mess = MessModel.fromJson(
                                       res.data() as Map<String, dynamic>);
-                                  if(mess.currentSize!=mess.size ){
-                                    await acceptRequest(resMap, idx);
+                                  final res2 = await db2.doc(resMap[idx]["uid"]).get();
+                                  UserModel userr = UserModel.fromJson(
+                                      res2.data() as Map<String, dynamic>);
+                                  if(mess.currentSize!=mess.size){
+                                    if(userr.status == 'r'){
+                                      await acceptRequest(resMap, idx);
+                                    }else{
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const AlertDialog(
+                                              title: Center(
+                                                child: Text(
+                                                  "Alert",
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                    FontWeight.bold,
+                                                    color: Colors.black87,
+                                                  ),
+                                                ),
+                                              ),
+                                              content: Column(
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text("You have already reallocated this person once, in this session!"),
+                                                ],
+                                              )
+                                          );
+                                        },
+                                      );
+                                    }
                                     Navigator.of(context).pop();
                                   }else{
                                     showDialog(

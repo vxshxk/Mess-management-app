@@ -26,10 +26,10 @@ class AddMessScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
-        child: Column(
-          children: [
-            SingleChildScrollView(
-              child: Column(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text(
@@ -66,289 +66,289 @@ class AddMessScreen extends StatelessWidget {
                   const SizedBox(height: 10,)
                 ],
               ),
-            ),
-            //const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  "Total seats",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black87
+              //const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    "Total seats",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87
+                    ),
+          
                   ),
-
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  obscureText: false,
-                  onChanged: (val) {
-                    total = int.parse(val);
-                  },
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                          horizontal: 10),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey[400]!
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    onChanged: (val) {
+                      total = int.parse(val);
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                            horizontal: 10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey[400]!
+                          ),
+          
                         ),
-
-                      ),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]!)
-                      )
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[400]!)
+                        )
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10,)
-              ],
-            ),
-            //const SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  "Contact email",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black87
-                  ),
-
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextField(
-                  obscureText: false,
-                  onChanged: (val) {
-                    email = val;
-                  },
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                          horizontal: 10),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey[400]!
-                        ),
-
-                      ),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]!)
-                      )
-                  ),
-                ),
-                const SizedBox(height: 25,),
-                const Text(
-                  "Mess Menu",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87
-                  ),
-
-                ),
-                const SizedBox(height: 15,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      "Breakfast",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black87
-                      ),
-
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextField(
-                      obscureText: false,
-                      onChanged: (val) {
-                        menu["Breakfast"] = val;
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                              horizontal: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[400]!
-                            ),
-
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[400]!)
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
-                ),
-                // const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      "Lunch",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black87
-                      ),
-
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextField(
-                      obscureText: false,
-                      onChanged: (val) {
-                        menu["Lunch"] = val;
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                              horizontal: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[400]!
-                            ),
-
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[400]!)
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
-                ),
-                //const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      "Snacks",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black87
-                      ),
-
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextField(
-                      obscureText: false,
-                      onChanged: (val) {
-                        menu["Snacks"] = val;
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                              horizontal: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[400]!
-                            ),
-
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[400]!)
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
-                ),
-                //const SizedBox(height: 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    const Text(
-                      "Dinner",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black87
-                      ),
-
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextField(
-                      obscureText: false,
-                      onChanged: (val) {
-                        menu["Dinner"] = val;
-                      },
-                      decoration: InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                              horizontal: 10),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[400]!
-                            ),
-
-                          ),
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey[400]!)
-                          )
-                      ),
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
-                ),
-                const SizedBox(height: 20),
-              ],
-            ),
-            //const SizedBox(height: 20),
-            Padding(padding:
-            const EdgeInsets.symmetric(horizontal: 40),
-              child: Container(
-                padding: const EdgeInsets.only(top: 3, left: 3),
-                child: MaterialButton(
-                  minWidth: double.infinity,
-                  height: 60,
-                  onPressed: () async {
-                    if (isEmailValid(email!) && total is int && total>0) {
-                      var box = Hive.box('MessData');
-                      final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: []);
-                      box.put(mess.name, mess);
-                      final messData =  MessDataImpl(mess: mess);
-                      await messData.setMessData();
-                      Navigator.of(context).pop();
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text("Invalid Credentials"),
-                          )
-                      );
-                    }
-                  },
-                  color: Colors.deepPurple[400],
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-
-                  ),
-                  child: const Text(
-                    "Submit", style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Colors.white,
-
-                  ),
-                  ),
-
-                )
+                  const SizedBox(height: 10,)
+                ],
               ),
-            ),
-          ],
+              //const SizedBox(height: 20),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    "Contact email",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87
+                    ),
+          
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextField(
+                    obscureText: false,
+                    onChanged: (val) {
+                      email = val;
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                            horizontal: 10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey[400]!
+                          ),
+          
+                        ),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[400]!)
+                        )
+                    ),
+                  ),
+                  const SizedBox(height: 25,),
+                  const Text(
+                    "Mess Menu",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87
+                    ),
+          
+                  ),
+                  const SizedBox(height: 15,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Breakfast",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+          
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Breakfast"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+          
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  // const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Lunch",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+          
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Lunch"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+          
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  //const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Snacks",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+          
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Snacks"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+          
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  //const SizedBox(height: 20),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Text(
+                        "Dinner",
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87
+                        ),
+          
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextField(
+                        obscureText: false,
+                        onChanged: (val) {
+                          menu["Dinner"] = val;
+                        },
+                        decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                                horizontal: 10),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!
+                              ),
+          
+                            ),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey[400]!)
+                            )
+                        ),
+                      ),
+                      const SizedBox(height: 10,)
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+              //const SizedBox(height: 20),
+              Padding(padding:
+              const EdgeInsets.symmetric(horizontal: 40),
+                child: Container(
+                  padding: const EdgeInsets.only(top: 3, left: 3),
+                  child: MaterialButton(
+                    minWidth: double.infinity,
+                    height: 60,
+                    onPressed: () async {
+                      if (isEmailValid(email!) && total is int && total>0) {
+                        var box = Hive.box('MessData');
+                        final MessModel mess = MessModel(currentSize: current, name: name, size: total, email: email, messMenu: menu, members: []);
+                        box.put(mess.name, mess);
+                        final messData =  MessDataImpl(mess: mess);
+                        await messData.setMessData();
+                        Navigator.of(context).pop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Invalid Credentials"),
+                            )
+                        );
+                      }
+                    },
+                    color: Colors.deepPurple[400],
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+          
+                    ),
+                    child: const Text(
+                      "Submit", style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: Colors.white,
+          
+                    ),
+                    ),
+          
+                  )
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -232,7 +232,54 @@ class _TabWidget2State extends State<TabWidget2> {
                                   return widget.user?.mess != userone.name ? IconButton(
                                     onPressed: () async{
                                       if(widget.user?.role=="admin"){
-                                              await deleteMess(userone);
+                                        if(userone.currentSize == 0){
+                                          await deleteMess(userone);
+                                              }else{
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Center(
+                                                  child: Text(
+                                                    "Alert!",
+                                                    style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                      FontWeight.bold,
+                                                      color: Colors.black87,
+                                                    ),
+                                                  ),
+                                                ),
+                                                content: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    const Center(
+                                                      child: Text(
+                                                        "Re-allocate everyone in the mess to some other mess before you delete the mess!",
+                                                        style: TextStyle(
+                                                          fontSize: 15,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 15,
+                                                    ),
+                                                    Center(
+                                                      child: TextButton(
+                                                        onPressed: () async {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child: const Text("Close"),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
                                             }else{
                                         if(widget.user?.status != 'r') {
                                                 showDialog(
