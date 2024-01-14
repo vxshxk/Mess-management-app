@@ -98,6 +98,8 @@ class ApplicantList extends StatelessWidget {
                                           );
                                         },
                                       );
+                                      await deleteRequest(idx, doc!);
+                                      Navigator.of(context).pop();
                                     }
                                     Navigator.of(context).pop();
                                   }else{
