@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/presentation/screens/add_mess.dart';
 import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
+import '../../domain/features/notifications/local_notifs.dart';
 import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/mess_bloc/mess_bloc.dart';
@@ -93,16 +94,16 @@ class UserScreen extends StatelessWidget {
                                         notifBloc.add(const A());
                                         return const Text("You haven't applied for any mess yet!");
                                     }else if(resMap["status"] == "r"){
-                                        notifBloc.add(const A());
+                                        notifBloc.add(const R());
                                         return const Text("Applied! Request pending");
                                      }
                                       else if(resMap["status"] == "d"){
                                         messBloc.add(const Back());
-                                        notifBloc.add(const A());
+                                        notifBloc.add(const D());
                                         return const Text("Sorry! Your request was deleted");
                                       }
                                       messBloc.add(const Back());
-                                    notifBloc.add(const A());
+                                    notifBloc.add(const S());
                                       return const Text("Mess change request approved! Your mess has been changed");
                                   }
                                 ),
@@ -134,7 +135,12 @@ class UserScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: BlocBuilder<NavBloc, NavState>(
+            body: BlocListener<NotifBloc, NotifState>(
+            listener: (context, state) {
+              NotificationService()
+                  .showNotification(title: 'Sample title', body: 'It works!');
+            },
+            child: BlocBuilder<NavBloc, NavState>(
               builder: (context, state) {
                 if (state is Second) {
                   return TabWidget2(user: exUser);
@@ -144,6 +150,7 @@ class UserScreen extends StatelessWidget {
                 return TabWidget1();
               },
             ),
+),
 
           );
         });

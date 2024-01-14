@@ -15,6 +15,7 @@ import 'core/routes.dart';
 import 'core/firebase_options.dart';
 import 'data/models/mess_model.dart';
 import 'data/models/user_model.dart';
+import 'domain/features/notifications/local_notifs.dart';
 
 final authBloc = AuthBloc();
 final messBloc = MessBloc();
@@ -40,6 +41,7 @@ void main() async {
   await Hive.openBox('UserData');
   await Hive.openBox('MessData');
   await FireNotif().initNotifs();
+  NotificationService().initNotification();
   db0.settings = const Settings(persistenceEnabled: true,cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED,);
   runApp(MyApp());
 }
