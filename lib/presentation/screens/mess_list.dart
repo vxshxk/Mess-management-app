@@ -232,112 +232,158 @@ class _TabWidget2State extends State<TabWidget2> {
                                   return widget.user?.mess != userone.name ? IconButton(
                                     onPressed: () async{
                                       if(widget.user?.role=="admin"){
-                                              await db
-                                                  .doc(userone.name)
-                                                  .delete();
-                                        await db1
-                                            .doc(userone.name)
-                                            .delete();
-
+                                              await deleteMess(userone);
                                             }else{
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: const Center(
-                                              child: Text(
-                                              "Apply for mess",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight:
-                                                FontWeight.bold,
-                                                color: Colors.black87,
-                                              ),
-                                            ),
-                                            ),
-
-                                              content: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: <Widget>[
-                                                  const Text(
-                                                    "Enter an amount you'd want in your mess account",
+                                        if(widget.user?.status != 'r') {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: const Center(
+                                                        child: Text(
+                                                          "Apply for mess",
+                                                          style: TextStyle(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.black87,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      content: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: <Widget>[
+                                                          const Text(
+                                                            "Enter an amount you'd want in your mess account",
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              color: Colors
+                                                                  .black87,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          TextField(
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            obscureText: false,
+                                                            onChanged: (val) {
+                                                              topUp = int.parse(
+                                                                  val);
+                                                            },
+                                                            decoration:
+                                                                InputDecoration(
+                                                              contentPadding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                vertical: 0,
+                                                                horizontal: 10,
+                                                              ),
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      400]!,
+                                                                ),
+                                                              ),
+                                                              border:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      400]!,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                              height: 10),
+                                                          TextButton(
+                                                            onPressed:
+                                                                () async {
+                                                              if (topUp !=
+                                                                  null) {
+                                                                await sendRequest(
+                                                                    userone);
+                                                                Navigator.pop(
+                                                                    context);
+                                                                setState(() {});
+                                                              } else {
+                                                                ScaffoldMessenger.of(
+                                                                        context)
+                                                                    .showSnackBar(const SnackBar(
+                                                                        content:
+                                                                            Text("Please enter a valid amount!")));
+                                                              }
+                                                            },
+                                                            child: const Text(
+                                                                "Submit"),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              }else{
+                                          showDialog(
+                                            context: context,
+                                            builder:
+                                                (BuildContext context) {
+                                              return const AlertDialog(
+                                                title: Center(
+                                                  child: Text(
+                                                    "Alert!",
                                                     style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
-                                                          FontWeight.w400,
-                                                      color: Colors.black87,
+                                                      FontWeight.bold,
+                                                      color:
+                                                      Colors.black87,
                                                     ),
                                                   ),
-                                                  const SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  TextField(
-                                                    keyboardType: TextInputType.number,
-                                                    obscureText: false,
-                                                    onChanged: (val) {
-                                                      topUp = int.parse(val);
-                                                    },
-                                                    decoration: InputDecoration(
-                                                      contentPadding:
-                                                          const EdgeInsets
-                                                              .symmetric(
-                                                        vertical: 0,
-                                                        horizontal: 10,
-                                                      ),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Colors.grey[400]!,
-                                                        ),
-                                                      ),
-                                                      border:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                          color:
-                                                              Colors.grey[400]!,
+                                                ),
+                                                content: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  mainAxisSize:
+                                                  MainAxisSize.min,
+                                                  children: <Widget>[
+                                                    Center(
+                                                      child: Text(
+                                                        "You've already put up an application! Wait until the admin responds and try again.",
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w400,
+                                                          color: Colors
+                                                              .black87,
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  const SizedBox(height: 10),
-                                                  TextButton(
-                                                    onPressed: () async {
-                                                      if(topUp != null){
-                                                        final messApply =
-                                                            MessApplyImpl(
-                                                                user:
-                                                                    widget.user,
-                                                                mess: userone);
-                                                        await messApply
-                                                            .applyMessChange(
-                                                                topUp!);
-                                                        await db2
-                                                            .doc(widget
-                                                                .user?.uid)
-                                                            .update({
-                                                          "status": "r"
-                                                        });
-                                                        messBloc.add(
-                                                            const DataChanged());
-                                                        Navigator.pop(context);
-                                                        setState(() {});
-                                                      }else{
-                                                        ScaffoldMessenger.of(context).showSnackBar(
-                                                          const SnackBar(content: Text("Please enter a valid amount!"))
-                                                        );
-                                                      }
-                                                    },
-                                                    child: const Text("Submit"),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      }
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                            }
                                     },
                                     icon: widget.user?.role =="admin" ? const Icon(Icons.delete) : const Icon(Icons.add),
                                   ) : const SizedBox();
@@ -357,6 +403,30 @@ class _TabWidget2State extends State<TabWidget2> {
         const NavigatorBar()
       ],
     );
+  }
+
+  Future<void> sendRequest(MessModel userone) async {
+    final messApply =
+        MessApplyImpl(
+            user:
+                widget.user,
+            mess: userone);
+    await messApply
+        .applyMessChange(
+            topUp!);
+    await db2
+        .doc(widget
+            .user?.uid)
+        .update({
+      "status": "r"
+    });
+    messBloc.add(
+        const DataChanged());
+  }
+
+  Future<void> deleteMess(MessModel userone) async {
+    await db.doc(userone.name).delete();
+    await db1.doc(userone.name).delete();
   }
 }
 

@@ -30,7 +30,6 @@ class MessCollectionFacade {
             documentSnapshot.data() as Map<String, dynamic>);
         return right(mess);
       } else {
-        // Handle the case when the document does not exist
         return left(TypeFailure());
       }
     } catch (e) {

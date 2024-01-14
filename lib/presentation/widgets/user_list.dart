@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/presentation/widgets/admin_mess.dart';
-
 import '../../data/models/user_model.dart';
 import '../../main.dart';
 
@@ -89,11 +88,8 @@ class UserList extends StatelessWidget {
                                       ),
                                       trailing: IconButton(
                                         onPressed: () async {
-                                          db2.doc(exUser.uid).update({"mess": " ","status": "a"});
-                                          db1.doc(exUser.mess).update({
-                                            "currentSize" : FieldValue.increment(-1),
-                                            "members" : FieldValue.arrayRemove([exUser.uid])
-                                          });
+                                          removeFromMess(exUser);
+                                          Navigator.of(context).pop();
                                         },
                                         icon: const Icon(Icons.remove_circle, color: Colors.red,),
                                       ),
@@ -176,5 +172,13 @@ class UserList extends StatelessWidget {
         );
       },
     );
+  }
+
+  void removeFromMess(UserModel exUser) {
+    db2.doc(exUser.uid).update({"mess": " ","status": "a"});
+    db1.doc(exUser.mess).update({
+      "currentSize" : FieldValue.increment(-1),
+      "members" : FieldValue.arrayRemove([exUser.uid])
+    });
   }
 }

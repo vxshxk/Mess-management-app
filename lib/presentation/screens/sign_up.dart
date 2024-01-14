@@ -8,7 +8,6 @@ import 'package:mess_app/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mess_app/presentation/screens/sign_in.dart';
 import 'package:mess_app/presentation/screens/user_screen.dart';
 import '../../data/models/user_model.dart';
-import 'add_mess.dart';
 
 class SignUp extends StatelessWidget {
   SignUp({super.key});

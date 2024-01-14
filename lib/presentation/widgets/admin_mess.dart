@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/core/routes.dart';
 import 'package:mess_app/data/models/user_model.dart';
-import 'package:mess_app/presentation/screens/user_screen.dart';
-
 import '../../data/models/mess_model.dart';
 import '../../main.dart';
 
@@ -59,19 +57,7 @@ class AdminMessList extends StatelessWidget {
                             child: ListTile(
                               onTap: () async {
                                 if(userone.name != user?.mess && userone.currentSize != userone.size){
-                                  await db1.doc(user?.mess).update({
-                                    "members":
-                                        FieldValue.arrayRemove([user?.uid]),
-                                    "currentSize": FieldValue.increment(-1)
-                                  });
-                                  await db2.doc(user?.uid).update({
-                                    "mess": userone.name,
-                                  });
-                                  await db1.doc(userone.name).update({
-                                    "members":
-                                        FieldValue.arrayUnion([user?.uid]),
-                                    "currentSize": FieldValue.increment(1)
-                                  });
+                                  await shiftMess(userone);
                                   Navigator.of(context).popUntil((route) => false);
                                   Navigator.of(context).pushNamed(AppRoutes.logged);
                                 }else{
@@ -140,6 +126,22 @@ class AdminMessList extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> shiftMess(MessModel userone) async {
+    await db1.doc(user?.mess).update({
+      "members":
+          FieldValue.arrayRemove([user?.uid]),
+      "currentSize": FieldValue.increment(-1)
+    });
+    await db2.doc(user?.uid).update({
+      "mess": userone.name,
+    });
+    await db1.doc(userone.name).update({
+      "members":
+          FieldValue.arrayUnion([user?.uid]),
+      "currentSize": FieldValue.increment(1)
+    });
   }
 }
 

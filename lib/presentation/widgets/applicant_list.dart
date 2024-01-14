@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
-import '../../core/email_validator.dart';
 import '../../data/models/mess_model.dart';
 import '../../main.dart';
 
@@ -67,28 +65,7 @@ class ApplicantList extends StatelessWidget {
                                   MessModel mess = MessModel.fromJson(
                                       res.data() as Map<String, dynamic>);
                                   if(mess.currentSize!=mess.size ){
-                                    if (resMap[idx]["current"] != " ") {
-                                      await db1
-                                          .doc(resMap[idx]["current"])
-                                          .update({
-                                        "members": FieldValue.arrayRemove(
-                                            [resMap[idx]["uid"]]),
-                                        "currentSize": FieldValue.increment(-1)
-                                      });
-                                    }
-                                    await db2.doc(resMap[idx]["uid"]).update({
-                                      "mess": doc,
-                                      "messBalance": resMap[idx]["topUp"]
-                                    });
-                                    await db1.doc(doc).update({
-                                      "members": FieldValue.arrayUnion(
-                                          [resMap[idx]["uid"]]),
-                                      "currentSize": FieldValue.increment(1)
-                                    });
-                                    await db2
-                                        .doc(resMap[idx]["uid"])
-                                        .update({"status": "s"});
-                                    await deleteRequest(idx, doc!);
+                                    await acceptRequest(resMap, idx);
                                     Navigator.of(context).pop();
                                   }else{
                                     showDialog(
@@ -197,6 +174,35 @@ class ApplicantList extends StatelessWidget {
     );
   }
 
+  Future<void> acceptRequest(Map<String, dynamic> resMap, String idx) async {
+    if (resMap[idx]["current"] != " ") {
+      await db1
+          .doc(resMap[idx]["current"])
+          .update({
+        "members": FieldValue.arrayRemove(
+            [resMap[idx]["uid"]]),
+        "currentSize": FieldValue.increment(-1)
+      });
+    }
+    await db2.doc(resMap[idx]["uid"]).update({
+      "mess": doc,
+      "messBalance": FieldValue.increment(resMap[idx]["topUp"])
+    });
+    await db1.doc(doc).update({
+      "members": FieldValue.arrayUnion(
+          [resMap[idx]["uid"]]),
+      "currentSize": FieldValue.increment(1)
+    });
+    await db2
+        .doc(resMap[idx]["uid"])
+        .update({"status": "s"});
+    await deleteRequest(idx, doc!);
+  }
 
+  Future<void> deleteRequest(String idx, String doc) async {
+    await db.doc(doc).update(<String, dynamic>{
+      idx : FieldValue.delete(),
+    });
+  }
 }
 

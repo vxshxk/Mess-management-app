@@ -29,10 +29,4 @@ class MessDataImpl extends MessData{
     final messCollectionFacade= MessCollectionFacade(mess: mess);
     await messCollectionFacade.setMess();
   }
-
-
-
-
-
-
 }

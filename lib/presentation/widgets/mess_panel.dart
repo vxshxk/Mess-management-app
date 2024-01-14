@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import '../../data/models/user_model.dart';
 import '../../main.dart';
 import '../bloc/validator_bloc/val_bloc.dart';
@@ -196,10 +195,7 @@ class MessPanel extends StatelessWidget {
                     ),
                     child: IconButton(
                         onPressed: () async {
-                          db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
-                          );
+                          spendAmount(context,20);
                         },
                         icon: const Icon(Icons.currency_rupee)
                     ),
@@ -230,10 +226,7 @@ class MessPanel extends StatelessWidget {
                     ),
                     child: IconButton(
                         onPressed: () async {
-                          db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
-                          );
+                          spendAmount(context,40);
                         },
                         icon: const Icon(Icons.currency_rupee)
                     ),
@@ -264,10 +257,7 @@ class MessPanel extends StatelessWidget {
                     ),
                     child: IconButton(
                         onPressed: () async {
-                          db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
-                          );
+                          spendAmount(context,30);
                         },
                         icon: const Icon(Icons.currency_rupee)
                     ),
@@ -297,10 +287,7 @@ class MessPanel extends StatelessWidget {
                     ),
                     child: IconButton(
                         onPressed: () async {
-                          db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
-                          );
+                          spendAmount(context,50);
                         },
                         icon: const Icon(Icons.currency_rupee)
                     ),
@@ -311,6 +298,13 @@ class MessPanel extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  void spendAmount(BuildContext context, int amount) {
+    db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-amount)});
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
     );
   }
 }

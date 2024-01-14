@@ -115,7 +115,8 @@ class UserScreen extends StatelessWidget {
                     );
                 },
                   icon: const Icon(Icons.notifications),
-                  tooltip: "Add Mess",
+                  color: Colors.deepPurple[400],
+                  tooltip: "Request Status",
                 ),
                 TextButton(
                   onPressed: () {

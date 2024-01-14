@@ -3,11 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mess_app/main.dart';
-import 'package:mess_app/presentation/bloc/edit_bloc/edit_bloc.dart';
-import 'package:mess_app/presentation/screens/reg_form.dart';
 import 'package:mess_app/presentation/widgets/go_to_add.dart';
 import 'package:mess_app/presentation/widgets/mess_details.dart';
-import '../../core/routes.dart';
 import '../../data/models/user_model.dart';
 import '../widgets/nav_bar.dart';
 

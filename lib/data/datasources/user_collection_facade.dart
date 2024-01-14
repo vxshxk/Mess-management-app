@@ -14,7 +14,7 @@ class UserCollectionFacade {
     try{
       await userCollectionReference.doc(user?.uid).set(user?.toJson());
       print("yah");
-      return right(user!); //returns the updated User
+      return right(user!);
     }catch(error) {
       return left(ServerFailure());
     }
@@ -28,7 +28,6 @@ class UserCollectionFacade {
       final UserModel user = UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
       return right(user);
     } else {
-      // Handle the case when the document does not exist
       return left(TypeFailure());
     }
   } catch (e) {
