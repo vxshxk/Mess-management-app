@@ -91,19 +91,15 @@ class UserScreen extends StatelessWidget {
                                   builder: (context, snapshot) {
                                     Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
                                       if(resMap["status"] == "a"){
-                                        notifBloc.add(A());
                                         return const Text("You haven't applied for any mess yet!");
                                     }else if(resMap["status"] == "r"){
-                                        notifBloc.add(R());
                                         return const Text("Applied! Request pending");
                                      }
                                       else if(resMap["status"] == "d"){
                                         messBloc.add(const Back());
-                                        notifBloc.add(D());
                                         return const Text("Sorry! Your request was deleted");
                                       }
                                       messBloc.add(const Back());
-                                    notifBloc.add( S());
                                       return const Text("Mess change request approved! Your mess has been changed");
                                   }
                                 ),
@@ -135,7 +131,16 @@ class UserScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+            body: resMap["role"] == "admin" ? BlocBuilder<NavBloc, NavState>(
+              builder: (context, state) {
+                if(state is Second) {
+                  return TabWidget2(user: exUser);
+                } else if (state is Third) {
+                  return TabWidget3(user: exUser);
+                }
+                return TabWidget1();
+              },
+            ): StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               stream: db2.doc(user?.uid).snapshots(),
               builder: (context, snapshot) {
           Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
