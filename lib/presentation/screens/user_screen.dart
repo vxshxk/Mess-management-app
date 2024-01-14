@@ -10,6 +10,7 @@ import '../../main.dart';
 import '../bloc/auth_bloc/auth_bloc.dart';
 import '../bloc/mess_bloc/mess_bloc.dart';
 import '../bloc/nav_bloc/nav_bloc.dart';
+import '../bloc/notif_bloc/notif_bloc.dart';
 import 'dashboard.dart';
 import 'mess_list.dart';
 import 'services_screen.dart';
@@ -89,15 +90,19 @@ class UserScreen extends StatelessWidget {
                                   builder: (context, snapshot) {
                                     Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
                                       if(resMap["status"] == "a"){
+                                        notifBloc.add(const A());
                                         return const Text("You haven't applied for any mess yet!");
                                     }else if(resMap["status"] == "r"){
+                                        notifBloc.add(const A());
                                         return const Text("Applied! Request pending");
                                      }
                                       else if(resMap["status"] == "d"){
                                         messBloc.add(const Back());
+                                        notifBloc.add(const A());
                                         return const Text("Sorry! Your request was deleted");
                                       }
                                       messBloc.add(const Back());
+                                    notifBloc.add(const A());
                                       return const Text("Mess change request approved! Your mess has been changed");
                                   }
                                 ),
