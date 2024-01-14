@@ -46,3 +46,6 @@ Though I don't use any software for UI/UX, I like to keep my UI clean and minima
 5. Previous experience with projects
 
 # Usecase Screen Recording Video
+
+https://github.com/vxshxk/IRIS_2024_VISHAK_KAMATH_221EC226/assets/115456558/bec5a7c4-75e4-4567-8ebc-2d26faefb90a
+
