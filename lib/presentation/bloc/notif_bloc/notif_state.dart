@@ -1,11 +1,25 @@
 part of 'notif_bloc.dart';
 
-@freezed
-class NotifState with _$NotifState {
-  const factory NotifState.initial() = _Initial;
-  const factory NotifState.aS() = AS;
-  const factory NotifState.sS() = SS;
-  const factory NotifState.rS() = RS;
-  const factory NotifState.dS() = DS;
+@immutable
+abstract class NotifState {}
+class NotifInitial extends NotifState {}
 
+class AS extends NotifState {
+  String? message;
+  AS({required this.message});
 }
+
+class RS extends NotifState {
+  String? message;
+  RS({required this.message});
+}
+
+class SS extends NotifState {
+  String? message;
+  SS({required this.message});
+}
+class DS extends NotifState {
+  String? message;
+  DS({required this.message});
+}
+

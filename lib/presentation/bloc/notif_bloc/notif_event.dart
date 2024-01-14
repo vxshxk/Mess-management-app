@@ -1,10 +1,12 @@
 part of 'notif_bloc.dart';
 
-@freezed
-class NotifEvent with _$NotifEvent {
-  const factory NotifEvent.a() = A;
-  const factory NotifEvent.r() = R;
-  const factory NotifEvent.s() = S;
-  const factory NotifEvent.d() = D;
+@immutable
+abstract class NotifEvent {}
 
-}
+class A extends NotifEvent{}
+
+class R extends NotifEvent{}
+
+class S extends NotifEvent{}
+
+class D extends NotifEvent{}
