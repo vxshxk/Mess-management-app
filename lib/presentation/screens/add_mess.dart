@@ -33,42 +33,44 @@ class AddMessScreen extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  "Name",
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black87
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    "Name",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black87
+                    ),
+              
                   ),
-
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextField(
-                  obscureText: false,
-                  onChanged: (val) {
-                    name = val;
-                  },
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0,
-                          horizontal: 10),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Colors.grey[400]!
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  TextField(
+                    obscureText: false,
+                    onChanged: (val) {
+                      name = val;
+                    },
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0,
+                            horizontal: 10),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Colors.grey[400]!
+                          ),
+              
                         ),
-
-                      ),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]!)
-                      )
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey[400]!)
+                        )
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10,)
-              ],
+                  const SizedBox(height: 10,)
+                ],
+              ),
             ),
             //const SizedBox(height: 20),
             Column(

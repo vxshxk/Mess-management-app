@@ -14,5 +14,9 @@ class ValBloc extends Bloc<ValEvent, ValState> {
     on<No>((event, emit) {
       emit(const InSufficient());
     });
+
+    on<Soon>((event, emit) {
+      emit(const SlightlySufficient());
+    });
   }
 }

@@ -21,7 +21,15 @@ class MessPanel extends StatelessWidget {
           StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
               stream: db2.doc(user?.uid).snapshots(),
               builder: (context, snapshot) {
-                return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                return BlocListener<ValBloc, ValState>(
+                 listener: (context, state) {
+                   if(state is SlightlySufficient){
+                     ScaffoldMessenger.of(context).showSnackBar(
+                       const SnackBar(content: Text("Low balance! Please recharge as soon as possible", style: TextStyle(color: Colors.deepPurple),), backgroundColor: Colors.white,)
+                     );
+                   }
+                 },
+                  child: FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                   future: db2.doc(user?.uid).get(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -39,7 +47,9 @@ class MessPanel extends StatelessWidget {
                     if(resMap["messBalance"]<=0) {
                       db2.doc(user?.uid).update({"messBalance": 0});
                       valBloc.add(const No());
-                    } else {
+                    } else if(resMap["messBalance"]<=100 && resMap["messBalance"]<=100) {
+                      valBloc.add(const Soon());
+                    }else{
                       valBloc.add(const Yes());
                     }
                     return Container(
@@ -74,7 +84,8 @@ class MessPanel extends StatelessWidget {
                       ),
                     );
                   },
-                );
+                ),
+);
               }
           ),
           const SizedBox(
@@ -187,7 +198,7 @@ class MessPanel extends StatelessWidget {
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-20)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
+                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
@@ -221,7 +232,7 @@ class MessPanel extends StatelessWidget {
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-40)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
+                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
@@ -255,7 +266,7 @@ class MessPanel extends StatelessWidget {
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-30)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
+                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)
@@ -288,7 +299,7 @@ class MessPanel extends StatelessWidget {
                         onPressed: () async {
                           db2.doc(user?.uid).update({"messBalance": FieldValue.increment(-50)});
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text("Payment Successful"),duration: Duration(milliseconds: 10),)
+                              const SnackBar(content: Text("Payment Successful", style: TextStyle(color: Colors.deepPurple),),duration: Duration(milliseconds: 10), backgroundColor: Colors.white,)
                           );
                         },
                         icon: const Icon(Icons.currency_rupee)

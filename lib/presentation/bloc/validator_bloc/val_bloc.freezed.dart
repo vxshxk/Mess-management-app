@@ -20,18 +20,21 @@ mixin _$ValEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() yes,
     required TResult Function() no,
+    required TResult Function() soon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? yes,
     TResult? Function()? no,
+    TResult? Function()? soon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? yes,
     TResult Function()? no,
+    TResult Function()? soon,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ValEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(Yes value) yes,
     required TResult Function(No value) no,
+    required TResult Function(Soon value) soon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Yes value)? yes,
     TResult? Function(No value)? no,
+    TResult? Function(Soon value)? soon,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Yes value)? yes,
     TResult Function(No value)? no,
+    TResult Function(Soon value)? soon,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -111,6 +117,7 @@ class _$YesImpl implements Yes {
   TResult when<TResult extends Object?>({
     required TResult Function() yes,
     required TResult Function() no,
+    required TResult Function() soon,
   }) {
     return yes();
   }
@@ -120,6 +127,7 @@ class _$YesImpl implements Yes {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? yes,
     TResult? Function()? no,
+    TResult? Function()? soon,
   }) {
     return yes?.call();
   }
@@ -129,6 +137,7 @@ class _$YesImpl implements Yes {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? yes,
     TResult Function()? no,
+    TResult Function()? soon,
     required TResult orElse(),
   }) {
     if (yes != null) {
@@ -142,6 +151,7 @@ class _$YesImpl implements Yes {
   TResult map<TResult extends Object?>({
     required TResult Function(Yes value) yes,
     required TResult Function(No value) no,
+    required TResult Function(Soon value) soon,
   }) {
     return yes(this);
   }
@@ -151,6 +161,7 @@ class _$YesImpl implements Yes {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Yes value)? yes,
     TResult? Function(No value)? no,
+    TResult? Function(Soon value)? soon,
   }) {
     return yes?.call(this);
   }
@@ -160,6 +171,7 @@ class _$YesImpl implements Yes {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Yes value)? yes,
     TResult Function(No value)? no,
+    TResult Function(Soon value)? soon,
     required TResult orElse(),
   }) {
     if (yes != null) {
@@ -211,6 +223,7 @@ class _$NoImpl implements No {
   TResult when<TResult extends Object?>({
     required TResult Function() yes,
     required TResult Function() no,
+    required TResult Function() soon,
   }) {
     return no();
   }
@@ -220,6 +233,7 @@ class _$NoImpl implements No {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? yes,
     TResult? Function()? no,
+    TResult? Function()? soon,
   }) {
     return no?.call();
   }
@@ -229,6 +243,7 @@ class _$NoImpl implements No {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? yes,
     TResult Function()? no,
+    TResult Function()? soon,
     required TResult orElse(),
   }) {
     if (no != null) {
@@ -242,6 +257,7 @@ class _$NoImpl implements No {
   TResult map<TResult extends Object?>({
     required TResult Function(Yes value) yes,
     required TResult Function(No value) no,
+    required TResult Function(Soon value) soon,
   }) {
     return no(this);
   }
@@ -251,6 +267,7 @@ class _$NoImpl implements No {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Yes value)? yes,
     TResult? Function(No value)? no,
+    TResult? Function(Soon value)? soon,
   }) {
     return no?.call(this);
   }
@@ -260,6 +277,7 @@ class _$NoImpl implements No {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Yes value)? yes,
     TResult Function(No value)? no,
+    TResult Function(Soon value)? soon,
     required TResult orElse(),
   }) {
     if (no != null) {
@@ -274,23 +292,133 @@ abstract class No implements ValEvent {
 }
 
 /// @nodoc
+abstract class _$$SoonImplCopyWith<$Res> {
+  factory _$$SoonImplCopyWith(
+          _$SoonImpl value, $Res Function(_$SoonImpl) then) =
+      __$$SoonImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SoonImplCopyWithImpl<$Res>
+    extends _$ValEventCopyWithImpl<$Res, _$SoonImpl>
+    implements _$$SoonImplCopyWith<$Res> {
+  __$$SoonImplCopyWithImpl(_$SoonImpl _value, $Res Function(_$SoonImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SoonImpl implements Soon {
+  const _$SoonImpl();
+
+  @override
+  String toString() {
+    return 'ValEvent.soon()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SoonImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() yes,
+    required TResult Function() no,
+    required TResult Function() soon,
+  }) {
+    return soon();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? yes,
+    TResult? Function()? no,
+    TResult? Function()? soon,
+  }) {
+    return soon?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? yes,
+    TResult Function()? no,
+    TResult Function()? soon,
+    required TResult orElse(),
+  }) {
+    if (soon != null) {
+      return soon();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Yes value) yes,
+    required TResult Function(No value) no,
+    required TResult Function(Soon value) soon,
+  }) {
+    return soon(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Yes value)? yes,
+    TResult? Function(No value)? no,
+    TResult? Function(Soon value)? soon,
+  }) {
+    return soon?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Yes value)? yes,
+    TResult Function(No value)? no,
+    TResult Function(Soon value)? soon,
+    required TResult orElse(),
+  }) {
+    if (soon != null) {
+      return soon(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Soon implements ValEvent {
+  const factory Soon() = _$SoonImpl;
+}
+
+/// @nodoc
 mixin _$ValState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() sufficient,
     required TResult Function() inSufficient,
+    required TResult Function() slightlySufficient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sufficient,
     TResult? Function()? inSufficient,
+    TResult? Function()? slightlySufficient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sufficient,
     TResult Function()? inSufficient,
+    TResult Function()? slightlySufficient,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -298,18 +426,21 @@ mixin _$ValState {
   TResult map<TResult extends Object?>({
     required TResult Function(Sufficient value) sufficient,
     required TResult Function(InSufficient value) inSufficient,
+    required TResult Function(SlightlySufficient value) slightlySufficient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Sufficient value)? sufficient,
     TResult? Function(InSufficient value)? inSufficient,
+    TResult? Function(SlightlySufficient value)? slightlySufficient,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Sufficient value)? sufficient,
     TResult Function(InSufficient value)? inSufficient,
+    TResult Function(SlightlySufficient value)? slightlySufficient,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -372,6 +503,7 @@ class _$SufficientImpl implements Sufficient {
   TResult when<TResult extends Object?>({
     required TResult Function() sufficient,
     required TResult Function() inSufficient,
+    required TResult Function() slightlySufficient,
   }) {
     return sufficient();
   }
@@ -381,6 +513,7 @@ class _$SufficientImpl implements Sufficient {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sufficient,
     TResult? Function()? inSufficient,
+    TResult? Function()? slightlySufficient,
   }) {
     return sufficient?.call();
   }
@@ -390,6 +523,7 @@ class _$SufficientImpl implements Sufficient {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sufficient,
     TResult Function()? inSufficient,
+    TResult Function()? slightlySufficient,
     required TResult orElse(),
   }) {
     if (sufficient != null) {
@@ -403,6 +537,7 @@ class _$SufficientImpl implements Sufficient {
   TResult map<TResult extends Object?>({
     required TResult Function(Sufficient value) sufficient,
     required TResult Function(InSufficient value) inSufficient,
+    required TResult Function(SlightlySufficient value) slightlySufficient,
   }) {
     return sufficient(this);
   }
@@ -412,6 +547,7 @@ class _$SufficientImpl implements Sufficient {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Sufficient value)? sufficient,
     TResult? Function(InSufficient value)? inSufficient,
+    TResult? Function(SlightlySufficient value)? slightlySufficient,
   }) {
     return sufficient?.call(this);
   }
@@ -421,6 +557,7 @@ class _$SufficientImpl implements Sufficient {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Sufficient value)? sufficient,
     TResult Function(InSufficient value)? inSufficient,
+    TResult Function(SlightlySufficient value)? slightlySufficient,
     required TResult orElse(),
   }) {
     if (sufficient != null) {
@@ -474,6 +611,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult when<TResult extends Object?>({
     required TResult Function() sufficient,
     required TResult Function() inSufficient,
+    required TResult Function() slightlySufficient,
   }) {
     return inSufficient();
   }
@@ -483,6 +621,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? sufficient,
     TResult? Function()? inSufficient,
+    TResult? Function()? slightlySufficient,
   }) {
     return inSufficient?.call();
   }
@@ -492,6 +631,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? sufficient,
     TResult Function()? inSufficient,
+    TResult Function()? slightlySufficient,
     required TResult orElse(),
   }) {
     if (inSufficient != null) {
@@ -505,6 +645,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult map<TResult extends Object?>({
     required TResult Function(Sufficient value) sufficient,
     required TResult Function(InSufficient value) inSufficient,
+    required TResult Function(SlightlySufficient value) slightlySufficient,
   }) {
     return inSufficient(this);
   }
@@ -514,6 +655,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Sufficient value)? sufficient,
     TResult? Function(InSufficient value)? inSufficient,
+    TResult? Function(SlightlySufficient value)? slightlySufficient,
   }) {
     return inSufficient?.call(this);
   }
@@ -523,6 +665,7 @@ class _$InSufficientImpl implements InSufficient {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Sufficient value)? sufficient,
     TResult Function(InSufficient value)? inSufficient,
+    TResult Function(SlightlySufficient value)? slightlySufficient,
     required TResult orElse(),
   }) {
     if (inSufficient != null) {
@@ -534,4 +677,112 @@ class _$InSufficientImpl implements InSufficient {
 
 abstract class InSufficient implements ValState {
   const factory InSufficient() = _$InSufficientImpl;
+}
+
+/// @nodoc
+abstract class _$$SlightlySufficientImplCopyWith<$Res> {
+  factory _$$SlightlySufficientImplCopyWith(_$SlightlySufficientImpl value,
+          $Res Function(_$SlightlySufficientImpl) then) =
+      __$$SlightlySufficientImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SlightlySufficientImplCopyWithImpl<$Res>
+    extends _$ValStateCopyWithImpl<$Res, _$SlightlySufficientImpl>
+    implements _$$SlightlySufficientImplCopyWith<$Res> {
+  __$$SlightlySufficientImplCopyWithImpl(_$SlightlySufficientImpl _value,
+      $Res Function(_$SlightlySufficientImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$SlightlySufficientImpl implements SlightlySufficient {
+  const _$SlightlySufficientImpl();
+
+  @override
+  String toString() {
+    return 'ValState.slightlySufficient()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SlightlySufficientImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() sufficient,
+    required TResult Function() inSufficient,
+    required TResult Function() slightlySufficient,
+  }) {
+    return slightlySufficient();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? sufficient,
+    TResult? Function()? inSufficient,
+    TResult? Function()? slightlySufficient,
+  }) {
+    return slightlySufficient?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? sufficient,
+    TResult Function()? inSufficient,
+    TResult Function()? slightlySufficient,
+    required TResult orElse(),
+  }) {
+    if (slightlySufficient != null) {
+      return slightlySufficient();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Sufficient value) sufficient,
+    required TResult Function(InSufficient value) inSufficient,
+    required TResult Function(SlightlySufficient value) slightlySufficient,
+  }) {
+    return slightlySufficient(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Sufficient value)? sufficient,
+    TResult? Function(InSufficient value)? inSufficient,
+    TResult? Function(SlightlySufficient value)? slightlySufficient,
+  }) {
+    return slightlySufficient?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Sufficient value)? sufficient,
+    TResult Function(InSufficient value)? inSufficient,
+    TResult Function(SlightlySufficient value)? slightlySufficient,
+    required TResult orElse(),
+  }) {
+    if (slightlySufficient != null) {
+      return slightlySufficient(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SlightlySufficient implements ValState {
+  const factory SlightlySufficient() = _$SlightlySufficientImpl;
 }
