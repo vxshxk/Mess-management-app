@@ -131,7 +131,7 @@ class UserScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: resMap["role"] == "admin" ? BlocBuilder<NavBloc, NavState>(
+            body: BlocBuilder<NavBloc, NavState>(
               builder: (context, state) {
                 if(state is Second) {
                   return TabWidget2(user: exUser);
@@ -140,38 +140,6 @@ class UserScreen extends StatelessWidget {
                 }
                 return TabWidget1();
               },
-            ): StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-              stream: db2.doc(user?.uid).snapshots(),
-              builder: (context, snapshot) {
-          Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
-          if(resMap["status"] == "a"){
-          notifBloc.add(A());
-          }else if(resMap["status"] == "r"){
-          notifBloc.add(R());
-          }
-          else if(resMap["status"] == "d"){
-          messBloc.add(const Back());
-          notifBloc.add(D());
-          }
-          messBloc.add(const Back());
-          notifBloc.add( S());
-              return BlocListener<NotifBloc, NotifState>(
-                listener: (context, state) {
-                  NotificationService()
-                      .showNotification(title: 'Attention', body: 'Admin responded');
-                },
-                child: BlocBuilder<NavBloc, NavState>(
-                builder: (context, state) {
-                  if(state is Second) {
-                    return TabWidget2(user: exUser);
-                  } else if (state is Third) {
-                    return TabWidget3(user: exUser);
-                  }
-                  return TabWidget1();
-                },
-              ),
-);
-    }
             ),
 
           );
