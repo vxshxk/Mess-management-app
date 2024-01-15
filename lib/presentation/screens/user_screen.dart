@@ -131,16 +131,40 @@ class UserScreen extends StatelessWidget {
                 ),
               ],
             ),
-            body: BlocBuilder<NavBloc, NavState>(
-              builder: (context, state) {
-                if(state is Second) {
-                  return TabWidget2(user: exUser);
-                } else if (state is Third) {
-                  return TabWidget3(user: exUser);
+            body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                stream: db2.doc(user?.uid).snapshots(),
+                builder: (context, snapshot) {
+                  Map<String, dynamic> resMap = snapshot.data!.data() as Map<String, dynamic>;
+                  if(resMap["status"] == "a"){
+                  }else if(resMap["status"] == "r"){
+                    notifBloc.add(R());
+                  }
+                  else if(resMap["status"] == "d"){
+                    messBloc.add(const Back());
+                    notifBloc.add(D());
+                  }
+                  messBloc.add(const Back());
+                  notifBloc.add(S());
+                  return BlocListener<NotifBloc, NotifState>(
+                   listener: (context, state) {
+                     NotificationService().showNotification(
+                       title: "Attention!",
+                       body: "The admin has  responded"
+                     );
+                   },
+                   child: BlocBuilder<NavBloc, NavState>(
+                    builder: (context, state) {
+                      if(state is Second) {
+                        return TabWidget2(user: exUser);
+                      } else if (state is Third) {
+                        return TabWidget3(user: exUser);
+                      }
+                      return TabWidget1();
+                    },
+                  ),
+);
                 }
-                return TabWidget1();
-              },
-            ),
+            )
 
           );
         });
