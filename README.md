@@ -24,19 +24,27 @@
 21. Users will be alerted if they're short on balance, and if they run out of balance their spend button will be disabled.
 22. Most of the corner caes are taken care of.
 
- # List of Implemented features
+ # List of UnImplemented features
 
-1. FCM notifications
-2. Editing user's personal details.
+
+1. Editing user's personal details.
+2. Partially implemented notifications
+3. Editing mess menu
 
 Note: Leaves wouldn't be required in this case as money is deducted only if user spends in the mess.
 
 # List of known bugs
 
 1. The mess tile in applications list still stays even if all the applications are taken care of (Though it will say the number of applicants from this mess is zero).
+2. Followed the old DDD architecture by resocoder.
+3. On any login error, it just redirects you to a new login page without mentioning what the error was.
+4. FCM notifications (Although I implemented notifications they were causing certain errors in other features that's why had to remove them. The code is still available on the 'notifications' branch.
 
-# Operating System used - Windows
-Though I don't use any software for UI/UX, I like to keep my UI clean and minimal.
+# Operating System used 
+Windows, Flutter version - 3.16.5
+
+# Interests in UI/UX
+I don't use any software for UI, but I like designing UI and try to keep it clean and minimal.
 
 # References used
 1. ResoCoder
@@ -49,12 +57,9 @@ Though I don't use any software for UI/UX, I like to keep my UI clean and minima
 Here's the main video:
 https://github.com/vxshxk/IRIS_2024_VISHAK_KAMATH_221EC226/assets/115456558/bec5a7c4-75e4-4567-8ebc-2d26faefb90a
 
-here's the screen recording for the next version containing notifications:
-
-
-
-
+Here's the screen recording for the next version containing notifications:
 https://github.com/vxshxk/IRIS_2024_VISHAK_KAMATH_221EC226/assets/115456558/5d5ba6f5-7bf7-4dd0-9dab-e236aaf939c2
+
 
 
 
