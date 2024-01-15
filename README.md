@@ -24,6 +24,10 @@
 21. Users will be alerted if they're short on balance, and if they run out of balance their spend button will be disabled.
 22. Most of the corner caes are taken care of.
 
+ # Admin Credentials
+email: master@admin.com
+password: 123456
+
  # List of UnImplemented features
 
 
