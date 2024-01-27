@@ -25,8 +25,6 @@
 22. Most of the corner caes are taken care of.
 
  # Admin Credentials
-email: master@admin.com
-password: 123456
 
  # List of UnImplemented features
 
